@@ -244,8 +244,13 @@
 
 <div class="proto-note">★ これはデザイン確認用モックアップです（写真・文言・価格はすべて仮）</div>
 
-<!-- Instagram公式アイコン（再利用） -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.35" fill="currentColor"/></symbol></svg>
+<!-- SNS公式アイコン（再利用：Instagram / LINE / X / YouTube） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.35" fill="currentColor"/></symbol>
+  <symbol id="line" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.48 3 2 6.59 2 11c0 3.95 3.5 7.27 8.27 7.9.32.07.76.21.87.49.1.25.07.64.03.9l-.14.84c-.04.25-.2.98.86.53 1.06-.45 5.7-3.36 7.78-5.75C20.86 14.4 22 12.83 22 11c0-4.41-4.48-8-10-8z"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path fill="currentColor" d="M18.24 2.25h3.31l-7.23 8.26L22.82 21.75h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25H8.08l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></symbol>
+  <symbol id="yt" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></symbol>
+</svg>
 
 <!-- Header -->
 <header>
@@ -502,11 +507,7 @@
       </div>
       <div>
         <h5>SNS・お問い合わせ</h5>
-        <div class="foot-sns">
-          <a href="https://www.instagram.com/maruwameat_fukuoka" target="_blank" rel="noopener" title="Instagram（店舗）"><svg class="ig-ic" width="19" height="19" aria-hidden="true"><use href="#ig"/></svg></a>
-          <a href="https://www.instagram.com/maruwa_meat_shacho" target="_blank" rel="noopener" title="Instagram（社長）"><svg class="ig-ic" width="19" height="19" aria-hidden="true"><use href="#ig"/></svg></a>
-          <a href="#" title="LINE公式（開設後にリンク）">📱</a>
-        </div>
+        <div class="foot-sns" id="footSns"><!-- SNS設定から自動表示（URLが入っているものだけ） --></div>
         <div class="foot-links" style="margin-top:14px">
           <a href="#">プライバシーポリシー</a>
           <a href="#">特定商取引法に基づく表記</a>
@@ -577,6 +578,26 @@
       b.textContent = open ? b.dataset.open : b.dataset.closed;
     });
   });
+
+  /* ===== SNS設定（差し替え）=====
+     URLを入れたものだけフッターに表示されます（空 "" のものは非表示）。
+     LINE・X・YouTube は、開設したらここに公式URLを貼るだけでアイコンが出ます。 */
+  const SNS = [
+    { label:"Instagram（店舗）", url:"https://www.instagram.com/maruwameat_fukuoka", icon:"ig" },
+    { label:"Instagram（社長）", url:"https://www.instagram.com/maruwa_meat_shacho", icon:"ig" },
+    { label:"LINE公式",          url:"",  icon:"line" },   // 例: "https://lin.ee/xxxxxxx"
+    { label:"X（旧Twitter）",     url:"",  icon:"x" },      // 例: "https://x.com/xxxxxxx"
+    { label:"YouTube",           url:"",  icon:"yt" },     // 例: "https://www.youtube.com/@xxxxxxx"
+  ];
+  const footSns = document.getElementById("footSns");
+  if(footSns){
+    SNS.filter(s => s.url && s.url.trim()).forEach(s=>{
+      const a=document.createElement("a");
+      a.href=s.url; a.target="_blank"; a.rel="noopener"; a.title=s.label;
+      a.innerHTML='<svg class="ig-ic" width="19" height="19" aria-hidden="true"><use href="#'+s.icon+'"/></svg>';
+      footSns.appendChild(a);
+    });
+  }
 </script>
 
 </body>

@@ -600,6 +600,15 @@
   SNS_FIELDS.forEach(m=>{ const i=document.getElementById(m.id); if(i) i.addEventListener("input",renderFootSns); });
   renderFootSns();
 
+  /* LINEのURLを入れたら「LINEで友だち追加」ボタン(一番下)も連動 */
+  const _snsLine=document.getElementById("snsLine");
+  if(_snsLine){
+    _snsLine.addEventListener("input",()=>{
+      const v=_snsLine.value.trim();
+      document.querySelectorAll('[data-link="line"]').forEach(a=>{ a.href=v||"#"; if(v){ a.target="_blank"; a.rel="noopener"; } });
+    });
+  }
+
   /* ===== 文字をクリックして直接編集（キャッチコピー・一言・お知らせ・見出しなど）===== */
   ["#newsText",".hero .eyebrow",".hero h1",".hero p.lead",".sec-head h2",
    ".feat .f h3",".feat .f p",".about h3",".about p",".cta h2",".cta p"]

@@ -264,7 +264,7 @@
 <!-- Header -->
 <header>
   <div class="wrap nav">
-    <a href="#" class="logo"><img class="mark" src="assets/images/brand/maruwa-icon.png" alt="マル和ミート">マル和ミート</a>
+    <a href="#" class="logo"><img class="mark" data-img="logo" src="assets/images/brand/maruwa-icon.png" alt="マル和ミート">マル和ミート</a>
     <nav class="gnav">
       <a href="#kodawari">こだわり</a>
       <a href="#products">商品</a>
@@ -493,7 +493,7 @@
       <p>特売・新商品・クーポンをいち早く。ブランド肉 半額セールの案内も！</p>
       <div style="margin-top:16px"><a href="https://lin.ee/ywN2Yu6" target="_blank" rel="noopener" class="btn btn-line"><svg class="ig-ic" width="18" height="18" aria-hidden="true"><use href="#line"/></svg> 友だち追加する</a></div>
     </div>
-    <a href="https://lin.ee/ywN2Yu6" target="_blank" rel="noopener" class="qr"><img src="assets/images/sns/line-qr.png" alt="LINE友だち追加QRコード" style="width:100%;height:100%;object-fit:contain;padding:5px;border-radius:10px"></a>
+    <a href="https://lin.ee/ywN2Yu6" target="_blank" rel="noopener" class="qr"><img data-img="line_qr" src="assets/images/sns/line-qr.png" alt="LINE友だち追加QRコード" style="width:100%;height:100%;object-fit:contain;padding:5px;border-radius:10px"></a>
   </div>
 </section>
 
@@ -544,6 +544,8 @@
      ===================================================================== -->
 <script>
   const IMAGES = {
+    // ヘッダーのロゴアイコン
+    logo:           "assets/images/brand/maruwa-icon.png",
     // ヒーロー（一番上の大きな写真）
     hero:           "assets/images/products/wagyu-shabu-rosette.jpg", // 看板商品の和牛しゃぶしゃぶ
     // こだわりセクションの写真
@@ -566,6 +568,8 @@
     store_tsukikuma:"assets/images/store/tsukikuma-placeholder.png", // ←月隈店の写真が入手できたらここを差し替え
     // Instagram QR
     ig_qr:          "assets/images/sns/instagram-qr.jpg",
+    // LINE 友だち追加QR
+    line_qr:        "assets/images/sns/line-qr.png",
     // Instagram グリッド（6枚）
     ig1:            "assets/images/products/sirloin-steak-2p.jpg",
     ig2:            "assets/images/products/wagyu-sukiyaki-slice-tray-2.jpg",

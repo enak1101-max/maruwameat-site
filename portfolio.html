@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web制作サービス｜お店のホームページ・ネット通販をまるごと制作</title>
+<meta name="description" content="中小店舗のホームページ・ネット通販・LINE/SNS連動・集客まで一気通貫で制作。福岡の精肉店の制作実績あり。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230D9488'/%3E%3Ctext x='50' y='70' font-size='52' text-anchor='middle' fill='%23fff' font-family='sans-serif' font-weight='900'%3EW%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Web制作サービス｜お店のホームページ・通販をまるごと制作">
+<meta property="og:description" content="ホームページ・通販・LINE・集客まで一気通貫。制作実績：マル和ミート様。">
+<meta property="og:image" content="https://enak1101-max.github.io/maruwameat-site/assets/images/preview/home-preview.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --soft:#F1F5F6; --ink:#1F2933; --gray:#67737D; --line:#E3E9EB;
+    --accent:#0D9488; --accent-d:#0B6E66; --navy:#16242E; --gold:#C9A24B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .serif{font-family:"Noto Serif JP",serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:8px;font-weight:700;font-size:15px;transition:.2s;cursor:pointer;border:2px solid transparent}
+  .btn-main{background:var(--accent);color:#fff}
+  .btn-main:hover{background:var(--accent-d)}
+  .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+  .btn-ghost:hover{background:#fff;color:var(--accent-d)}
+  .btn-line{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:8px;font-weight:700;font-size:14px;border:2px solid var(--accent);color:var(--accent-d)}
+  .btn-line:hover{background:var(--accent);color:#fff}
+  .sec{padding:74px 0}
+  .sec-head{text-align:center;margin-bottom:44px}
+  .sec-head .en{color:var(--accent);letter-spacing:3px;font-size:12px;font-weight:700}
+  .sec-head h2{font-size:29px;font-weight:700;margin-top:8px;font-family:"Noto Serif JP",serif}
+  .sec-head p{color:var(--gray);font-size:14px;margin-top:12px}
+  .ph-edit{color:#b06a1f;font-weight:700}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:19px;color:var(--navy)}
+  .logo .mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900}
+  .gnav{display:flex;gap:22px;font-size:14px;font-weight:500}
+  .gnav a:hover{color:var(--accent)}
+  .nav .btn{padding:9px 18px;font-size:13px}
+  .burger{display:none;font-size:25px;background:none;border:none;cursor:pointer}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,var(--navy),var(--accent-d));color:#fff;position:relative;overflow:hidden}
+  .hero:before{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.06)}
+  .hero-in{position:relative;z-index:2;padding:74px 0 80px}
+  .hero .eyebrow{letter-spacing:3px;font-size:12.5px;font-weight:700;color:#a9e3dc;margin-bottom:16px}
+  .hero h1{font-size:clamp(28px,4.6vw,46px);line-height:1.5;font-family:"Noto Serif JP",serif}
+  .hero p{margin-top:18px;font-size:16px;color:#dcefec;max-width:560px}
+  .hero-btns{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+  .hero-stats{margin-top:34px;display:flex;gap:30px;flex-wrap:wrap}
+  .hero-stats div b{font-size:24px;display:block;font-family:"Noto Serif JP",serif}
+  .hero-stats div span{font-size:12px;color:#b9ddd8}
+
+  /* Pain */
+  .pain{background:var(--soft)}
+  .pain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .pain .p{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 18px;text-align:center}
+  .pain .p .ic{font-size:26px}
+  .pain .p p{font-size:13px;margin-top:8px}
+
+  /* Services */
+  .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .serv .s{border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s}
+  .serv .s:hover{box-shadow:0 16px 34px -20px rgba(0,0,0,.3);transform:translateY(-3px)}
+  .serv .s .ic{width:48px;height:48px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:24px;color:var(--accent)}
+  .serv .s h3{font-size:17px;margin:14px 0 6px}
+  .serv .s p{font-size:13px;color:var(--gray)}
+
+  /* Works (制作実績) */
+  .works{background:var(--soft)}
+  .work-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 16px 40px -22px rgba(0,0,0,.35);display:grid;grid-template-columns:1.15fr 1fr}
+  .work-card .ph{position:relative;overflow:hidden;background:#222}
+  .work-card .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .work-card .case{position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:30px}
+  .work-card .body{padding:30px 32px}
+  .work-card .tag{display:inline-block;background:var(--soft);color:var(--accent-d);font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+  .work-card h3{font-size:22px;font-family:"Noto Serif JP",serif;margin-bottom:10px}
+  .work-card .meta{font-size:13.5px;color:var(--gray);margin-bottom:6px}
+  .work-card ul{margin:12px 0 16px 18px;font-size:13.5px}
+  .work-card ul li{margin:3px 0}
+  .work-card .links{display:flex;gap:10px;flex-wrap:wrap}
+
+  /* Pricing */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .plan{border:1px solid var(--line);border-radius:16px;padding:26px 24px;text-align:center;position:relative}
+  .plan.reco{border:2px solid var(--accent);box-shadow:0 16px 36px -22px rgba(13,148,136,.5)}
+  .plan .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:3px 16px;border-radius:20px}
+  .plan h3{font-size:18px;font-family:"Noto Serif JP",serif}
+  .plan .amt{font-size:28px;font-weight:900;color:var(--accent-d);margin:8px 0}
+  .plan .amt small{font-size:13px;color:var(--gray);font-weight:400}
+  .plan ul{list-style:none;font-size:13px;text-align:left;margin-top:14px}
+  .plan ul li{padding:6px 0;border-bottom:1px dashed var(--line)}
+  .plan ul li:before{content:"✓ ";color:var(--accent);font-weight:700}
+
+  /* Flow */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .flow .step{text-align:center}
+  .flow .num{width:46px;height:46px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;margin:0 auto 10px;font-weight:700;font-family:"Noto Serif JP",serif}
+  .flow .step b{font-size:14px;display:block}
+  .flow .step span{font-size:12px;color:var(--gray)}
+
+  /* Why */
+  .why{background:var(--navy);color:#fff}
+  .why .sec-head h2{color:#fff}
+  .why .sec-head .en{color:#7fd8cf}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .why .w{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px}
+  .why .w .ic{font-size:26px}
+  .why .w h3{font-size:16px;margin:10px 0 6px}
+  .why .w p{font-size:13px;color:#c4d4d2}
+
+  /* CTA / Contact */
+  .contact{background:linear-gradient(135deg,var(--accent-d),var(--accent));color:#fff;text-align:center}
+  .contact h2{font-size:28px;font-family:"Noto Serif JP",serif;margin-bottom:10px}
+  .contact p{color:#dcefec;margin-bottom:24px}
+  .contact .ways{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .contact .btn-w{background:#fff;color:var(--accent-d)}
+
+  footer{background:#0e1a1f;color:#aebbc0;padding:34px 0;font-size:13px;text-align:center}
+  footer b{color:#fff}
+
+  @media(max-width:860px){
+    .pain-grid{grid-template-columns:1fr 1fr}
+    .serv-grid,.price-grid,.why-grid{grid-template-columns:1fr}
+    .work-card{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:560px){ .gnav{display:none} }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header><div class="wrap nav">
+  <a href="#" class="logo"><span class="mark">W</span><span class="ph-edit">〈屋号〉</span></a>
+  <nav class="gnav"><a href="#services">サービス</a><a href="#works">制作実績</a><a href="#price">料金</a><a href="#flow">制作の流れ</a></nav>
+  <a href="#contact" class="btn btn-main">お問い合わせ</a>
+  <button class="burger">☰</button>
+</div></header>
+
+<!-- Hero -->
+<section class="hero"><div class="wrap hero-in">
+  <div class="eyebrow">中小店舗・個人店専門のWeb制作</div>
+  <h1>お店の魅力を、Webで<br>“まるごと”形にします。</h1>
+  <p>ホームページ・ネット通販・LINE/SNS連動・地図・集客対策まで、バラバラに頼まず<b>一気通貫で制作</b>。専門知識がなくても、お店のことに集中できます。</p>
+  <div class="hero-btns">
+    <a href="#works" class="btn btn-main">制作実績を見る</a>
+    <a href="#contact" class="btn btn-ghost">無料で相談する</a>
+  </div>
+  <div class="hero-stats">
+    <div><b>HP＋通販</b><span>一括対応</span></div>
+    <div><b>最短3週間</b><span>スピード制作</span></div>
+    <div><b>0円〜</b><span>月額（無料枠活用）</span></div>
+  </div>
+</div></section>
+
+<!-- Pain -->
+<section class="sec pain"><div class="wrap">
+  <div class="sec-head"><span class="en">CHECK</span><h2>こんなお悩み、ありませんか？</h2></div>
+  <div class="pain-grid">
+    <div class="p"><div class="ic">😟</div><p>ホームページが無い／古い</p></div>
+    <div class="p"><div class="ic">🛒</div><p>ネット通販を始めたい</p></div>
+    <div class="p"><div class="ic">📱</div><p>SNSを活かせていない</p></div>
+    <div class="p"><div class="ic">🤷</div><p>何から始めればいいか不明</p></div>
+  </div>
+  <p style="text-align:center;margin-top:24px;font-size:15px;font-weight:700;color:var(--accent-d)">→ 全部まとめて、おまかせください。</p>
+</div></section>
+
+<!-- Services -->
+<section class="sec" id="services"><div class="wrap">
+  <div class="sec-head"><span class="en">SERVICES</span><h2>提供サービス</h2><p>お店に必要なものを、ワンストップで。</p></div>
+  <div class="serv-grid">
+    <div class="s"><div class="ic">🏠</div><h3>ホームページ制作</h3><p>お店の魅力・こだわり・商品を伝える、スマホ最優先のサイト。</p></div>
+    <div class="s"><div class="ic">🛒</div><h3>ネット通販（EC）</h3><p>BASE/STORES/Shopify連携。冷凍クール便・ギフト対応も。</p></div>
+    <div class="s"><div class="ic">💬</div><h3>LINE公式・SNS連動</h3><p>LINE開設・リッチメニュー、Instagram連動で再来店を促進。</p></div>
+    <div class="s"><div class="ic">🗺️</div><h3>Googleマップ・MEO</h3><p>店舗の地図埋め込み・検索対策で「近くのお店」に見つかる。</p></div>
+    <div class="s"><div class="ic">📋</div><h3>規約・特商法対応</h3><p>プライバシー・特商法・キャンセル規定まで、公開に必要な体裁を整備。</p></div>
+    <div class="s"><div class="ic">🚀</div><h3>公開・運用サポート</h3><p>ドメイン取得・公開・更新マニュアルまで。引き渡し後も安心。</p></div>
+  </div>
+</div></section>
+
+<!-- Works -->
+<section class="sec works" id="works"><div class="wrap">
+  <div class="sec-head"><span class="en">WORKS</span><h2>制作実績</h2></div>
+  <div class="work-card">
+    <div class="ph"><span class="case">CASE 01</span><img src="assets/images/preview/home-preview.jpg" alt="マル和ミート様 ホームページ"></div>
+    <div class="body">
+      <span class="tag">精肉店 ／ 福岡市</span>
+      <h3>マル和ミート 様</h3>
+      <p class="meta">公式ホームページ ＋ ネット通販 ＋ LINE / Instagram 連動</p>
+      <ul>
+        <li>ブランドカラー（オレンジ）でデザイン</li>
+        <li>看板商品・ギフト・お客様の声を掲載</li>
+        <li>2店舗の地図・電話・営業時間を連動</li>
+        <li>通販ページ・お問い合わせ・取材実績まで一括</li>
+      </ul>
+      <div class="links">
+        <a href="index.html" target="_blank" class="btn-line">🔗 サイトを見る</a>
+        <a href="proposal.html" target="_blank" class="btn-line">📄 ご提案書を見る</a>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:26px;color:var(--gray);font-size:13.5px"><span class="ph-edit">〈次の制作事例はここに追加〉</span></p>
+</div></section>
+
+<!-- Pricing -->
+<section class="sec" id="price"><div class="wrap">
+  <div class="sec-head"><span class="en">PRICE</span><h2>料金プラン</h2><p>ご予算に合わせて選べる、わかりやすい3プラン（税別）</p></div>
+  <div class="price-grid">
+    <div class="plan"><h3>梅 ｜ お手軽</h3><div class="amt">25〜40<small>万円</small></div>
+      <ul><li>主要ページ制作</li><li>通販はASP連携</li><li>SNS・地図連動</li><li>最短3〜4週間</li></ul></div>
+    <div class="plan reco"><span class="badge">おすすめ</span><h3>竹 ｜ 標準</h3><div class="amt">50〜80<small>万円</small></div>
+      <ul><li>全ページ＋更新機能</li><li>通販＋商品登録代行</li><li>LINE開設＋連動</li><li>SEO・構造化対応</li></ul></div>
+    <div class="plan"><h3>松 ｜ 本格</h3><div class="amt">100〜180<small>万円</small></div>
+      <ul><li>完全オリジナル</li><li>Shopify本格EC</li><li>ロゴ整備・撮影込</li><li>MEO・運用サポート</li></ul></div>
+  </div>
+  <p style="text-align:center;margin-top:18px;font-size:12px;color:var(--gray)">※毎月のランニングは「ドメイン代＋売れた分の手数料」だけで始められます（無料枠活用時）。</p>
+</div></section>
+
+<!-- Flow -->
+<section class="sec pain" id="flow"><div class="wrap">
+  <div class="sec-head"><span class="en">FLOW</span><h2>制作の流れ</h2></div>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><b>ヒアリング</b><span>目的・内容の確認</span></div>
+    <div class="step"><div class="num">2</div><b>設計・デザイン</b><span>構成・デザイン案</span></div>
+    <div class="step"><div class="num">3</div><b>制作</b><span>サイト・通販構築</span></div>
+    <div class="step"><div class="num">4</div><b>公開</b><span>検証→公開</span></div>
+    <div class="step"><div class="num">5</div><b>運用サポート</b><span>更新・改善</span></div>
+  </div>
+</div></section>
+
+<!-- Why -->
+<section class="sec why"><div class="wrap">
+  <div class="sec-head"><span class="en">WHY US</span><h2>選ばれる理由</h2></div>
+  <div class="why-grid">
+    <div class="w"><div class="ic">🎯</div><h3>“まるごと”一括</h3><p>HP・通販・LINE・地図・規約まで、別々に頼む手間なし。窓口ひとつで完結。</p></div>
+    <div class="w"><div class="ic">⚡</div><h3>スピード＆高品質</h3><p>自社の制作ノウハウ・ツールで、短納期でもクオリティを確保。</p></div>
+    <div class="w"><div class="ic">🤝</div><h3>引き渡しまで安心</h3><p>公開・ドメイン・更新方法までサポート。納品後も困りません。</p></div>
+  </div>
+</div></section>
+
+<!-- Contact -->
+<section class="sec contact" id="contact"><div class="wrap">
+  <h2>まずは無料でご相談ください</h2>
+  <p>「何から始めればいいか分からない」段階でも大歓迎です。お気軽にどうぞ。</p>
+  <div class="ways">
+    <a href="mailto:〈メールアドレス〉" class="btn btn-w">✉️ メールで相談</a>
+    <a href="#" class="btn btn-ghost">💬 LINEで相談</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <b class="ph-edit">〈屋号〉</b>　｜　Web制作サービス<br>
+  <span style="font-size:12px;color:#8aa">お問い合わせ：<span class="ph-edit">〈メール／電話〉</span>　© <span class="ph-edit">〈屋号〉</span></span>
+</div></footer>
+
+</body>
+</html>

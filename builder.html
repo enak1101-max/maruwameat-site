@@ -113,6 +113,10 @@
   .map-note{font-size:11px;color:var(--gray);margin-top:7px;line-height:1.5}
   .addr-in{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
   .addr-in:focus{outline:none;border-color:var(--accent)}
+  .video-ph{aspect-ratio:16/9;background:var(--bg);border:2px dashed color-mix(in srgb,var(--main) 45%,#fff);border-radius:var(--radius);display:grid;place-items:center;text-align:center;color:var(--main);font-size:30px}
+  .video-ph small{display:block;font-size:12px;color:var(--gray);margin-top:6px;font-weight:700;line-height:1.55}
+  .video-ph small b{color:var(--accent)}
+  .video-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);display:block}
 
   /* CTA（薄いトーン） */
   .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) calc(var(--tone)*0.72%),#fff),color-mix(in srgb,var(--main) calc(var(--tone)*0.5%),#fff));color:var(--ink);text-align:center}
@@ -199,6 +203,16 @@
   <div class="sec-head"><span class="en">PRODUCTS</span><h2 class="serif">〈商品・メニュー〉</h2></div>
   <div class="cards" id="prodGrid"><!-- 商品データから自動生成（空ならセクション非表示） --></div>
   <div class="center"><a href="#" class="btn btn-main" data-link="products">商品一覧・通販を見る</a></div>
+</div></section>
+
+<!-- Video -->
+<section class="sec" id="video" data-sec="video" style="background:var(--soft)"><div class="wrap">
+  <div class="sec-head"><span class="en">VIDEO</span><h2 class="serif">〈動画で紹介〉</h2></div>
+  <div style="max-width:720px;margin:0 auto">
+    <div style="margin-bottom:12px"><input id="videoInput" class="addr-in" placeholder="YouTubeのリンクを貼る（例：https://youtu.be/xxxxxxxxxxx）"></div>
+    <div id="videoWrap"><div class="video-ph">🎬<small>YouTubeのリンクを貼ると<br><b>ここに動画が表示されます</b></small></div></div>
+    <div class="map-note" style="text-align:center">👆 上の欄にYouTubeのリンクを貼るだけ（埋め込みコード不要）。再生すると音も出ます。</div>
+  </div>
 </div></section>
 
 <!-- Reviews -->
@@ -302,6 +316,7 @@
     <label><input type="checkbox" data-t="features" checked> 3つの強み</label>
     <label><input type="checkbox" data-t="about" checked> お店紹介</label>
     <label><input type="checkbox" data-t="products" checked> 商品・メニュー</label>
+    <label><input type="checkbox" data-t="video" checked> 動画</label>
     <label><input type="checkbox" data-t="reviews" checked> お客様の声</label>
     <label><input type="checkbox" data-t="access" checked> 店舗案内</label>
     <label><input type="checkbox" data-t="cta" checked> LINE誘導</label>
@@ -459,6 +474,20 @@
       const a=_addr.value.trim();
       clearTimeout(_t);
       _t=setTimeout(()=>{ if(a) _map.src="https://maps.google.com/maps?q="+encodeURIComponent(a)+"&z=16&output=embed"; },500);
+    });
+  }
+
+  /* ===== YouTubeのリンクを貼ると動画が表示される ===== */
+  const _vIn=document.getElementById("videoInput");
+  const _vWrap=document.getElementById("videoWrap");
+  const _vPlaceholder='<div class="video-ph">🎬<small>YouTubeのリンクを貼ると<br><b>ここに動画が表示されます</b></small></div>';
+  function _ytId(u){ const m=String(u).match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/)([\w-]{11})/); return m?m[1]:null; }
+  if(_vIn && _vWrap){
+    _vIn.addEventListener("input",()=>{
+      const id=_ytId(_vIn.value.trim());
+      _vWrap.innerHTML = id
+        ? '<iframe class="video-frame" src="https://www.youtube.com/embed/'+id+'" title="動画" allow="encrypted-media" allowfullscreen></iframe>'
+        : _vPlaceholder;
     });
   }
 

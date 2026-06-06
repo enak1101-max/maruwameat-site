@@ -129,6 +129,15 @@
   .wiz-actions button{flex:1;min-width:120px;background:var(--soft);border:1px solid var(--line);border-radius:7px;padding:10px;font-size:12.5px;font-weight:700;color:var(--accent);cursor:pointer;font-family:inherit}
   .wiz-actions button:hover{background:var(--main);color:#fff;border-color:var(--main)}
   @media(max-width:560px){ .next-btn{left:14px;right:80px;transform:none;text-align:center} }
+  /* ロック画面（パスワード） */
+  .lock-screen{position:fixed;inset:0;z-index:200;background:#26313d;display:flex;align-items:center;justify-content:center;padding:20px}
+  .lock-box{background:#fff;border-radius:14px;padding:34px 30px;max-width:340px;width:100%;text-align:center;box-shadow:0 20px 50px -16px rgba(0,0,0,.5)}
+  .lock-box .lock-icon{font-size:40px}
+  .lock-box h2{font-size:18px;margin:10px 0 6px}
+  .lock-box p{font-size:13px;color:#8c857c;margin-bottom:16px}
+  .lock-box input{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin-bottom:10px;font-family:inherit;text-align:center}
+  .lock-box button{width:100%;padding:12px;border:none;border-radius:8px;background:var(--main);color:#fff;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit}
+  .lock-box #lockErr{color:#c0392b;font-size:13px;font-weight:700;margin-top:10px;min-height:18px}
   .rev p{font-size:calc(14px * var(--fs));margin:10px 0;color:var(--ink)}
   .rev .who{font-size:12px;color:var(--accent)}
   body.theme-dark .reviews{background:#1c1c1c}
@@ -207,6 +216,29 @@
 </style>
 </head>
 <body>
+
+<!-- ロック画面（パスワード）-->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h2>パスワードを入力</h2>
+    <p>このビルダーは関係者限定です</p>
+    <input type="password" id="lockInput" placeholder="パスワード" autocomplete="off">
+    <button type="button" id="lockBtn">解除する</button>
+    <div id="lockErr"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var PASSWORD="maruwa2026"; /* ← パスワードはここを変更 */
+  var lock=document.getElementById("lockScreen");
+  function unlock(){ lock.style.display="none"; try{sessionStorage.setItem("hpb_unlocked","1");}catch(e){} }
+  try{ if(sessionStorage.getItem("hpb_unlocked")==="1") unlock(); }catch(e){}
+  function attempt(){ if(document.getElementById("lockInput").value===PASSWORD) unlock(); else document.getElementById("lockErr").textContent="パスワードが違います"; }
+  document.getElementById("lockBtn").addEventListener("click",attempt);
+  document.getElementById("lockInput").addEventListener("keydown",function(e){ if(e.key==="Enter") attempt(); });
+})();
+</script>
 
 <div class="demo-bar">🎨 ホームページビルダー（デモ）— 右下の <b>🎨ボタン</b>で色・フォント／<b>✏️ 文字はクリックして直接編集</b>／画像枠タップで写真選択</div>
 <div class="spec-bar">📐 画像の目安 ｜ <b>ロゴ</b>：PNG/SVG・正方形・512×512px ｜ <b>商品写真</b>：JPG・正方形・800×800px ｜ <b>紹介写真</b>：JPG・4:3・1200×900px</div>

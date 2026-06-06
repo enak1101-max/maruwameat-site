@@ -151,6 +151,11 @@
   .ig-qr{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:32px;text-align:center}
   .ig-qr img{width:150px;height:150px;border-radius:14px;border:1px solid var(--line);box-shadow:0 8px 22px -12px rgba(0,0,0,.4)}
   .ig-qr span{font-size:14px;color:var(--gray);font-weight:700;line-height:1.7}
+  /* Instagramアイコン・公式リンクボタン */
+  .ig-ic{display:inline-block;vertical-align:middle}
+  .ig-links{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .ig-btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border:1.5px solid var(--orange);color:var(--orange-deep);background:#fff;border-radius:30px;padding:10px 20px;font-size:13.5px;font-weight:700}
+  .ig-btn:hover{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF);color:#fff;border-color:transparent}
 
   /* Instagram */
   .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
@@ -216,6 +221,9 @@
 
 <div class="proto-note">★ これはデザイン確認用モックアップです（写真・文言・価格はすべて仮）</div>
 
+<!-- Instagram公式アイコン（再利用） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ig" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.35" fill="currentColor"/></symbol></svg>
+
 <!-- Header -->
 <header>
   <div class="wrap nav">
@@ -229,7 +237,7 @@
     </nav>
     <div class="nav-cta">
       <a href="tel:0925024129" class="sns" title="本店に電話する">📞</a>
-      <a href="https://www.instagram.com/maruwameat_fukuoka" class="sns" target="_blank" rel="noopener" title="Instagram（店舗）">📷</a>
+      <a href="https://www.instagram.com/maruwameat_fukuoka" class="sns" target="_blank" rel="noopener" title="Instagram（店舗）"><svg class="ig-ic" width="18" height="18" aria-hidden="true"><use href="#ig"/></svg></a>
       <a href="shop.html" class="btn btn-primary">🛒 通販で買う</a>
       <button class="burger">☰</button>
     </div>
@@ -432,7 +440,11 @@
     </div>
     <div class="ig-qr">
       <img data-img="ig_qr" alt="マル和ミート Instagram QRコード">
-      <span>QRコードから<br>フォローできます<br>＠maruwameat_fukuoka</span>
+      <span>QRコードからフォローできます</span>
+      <div class="ig-links">
+        <a class="ig-btn" href="https://www.instagram.com/maruwameat_fukuoka" target="_blank" rel="noopener"><svg class="ig-ic" width="17" height="17" aria-hidden="true"><use href="#ig"/></svg> お店 ＠maruwameat_fukuoka</a>
+        <a class="ig-btn" href="https://www.instagram.com/maruwa_meat_shacho" target="_blank" rel="noopener"><svg class="ig-ic" width="17" height="17" aria-hidden="true"><use href="#ig"/></svg> 社長 ＠maruwa_meat_shacho</a>
+      </div>
     </div>
   </div>
 </section>
@@ -469,8 +481,8 @@
       <div>
         <h5>SNS・お問い合わせ</h5>
         <div class="foot-sns">
-          <a href="https://www.instagram.com/maruwameat_fukuoka" target="_blank" rel="noopener" title="Instagram（店舗）">📷</a>
-          <a href="https://www.instagram.com/maruwa_meat_shacho" target="_blank" rel="noopener" title="Instagram（社長）">👤</a>
+          <a href="https://www.instagram.com/maruwameat_fukuoka" target="_blank" rel="noopener" title="Instagram（店舗）"><svg class="ig-ic" width="19" height="19" aria-hidden="true"><use href="#ig"/></svg></a>
+          <a href="https://www.instagram.com/maruwa_meat_shacho" target="_blank" rel="noopener" title="Instagram（社長）"><svg class="ig-ic" width="19" height="19" aria-hidden="true"><use href="#ig"/></svg></a>
           <a href="#" title="LINE公式（開設後にリンク）">📱</a>
         </div>
         <div class="foot-links" style="margin-top:14px">

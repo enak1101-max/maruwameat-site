@@ -261,6 +261,7 @@
         <dt>電話</dt><dd><input id="phoneInput" class="addr-in" placeholder="電話番号を入力"></dd>
         <dt>営業</dt><dd><input id="hoursInput" class="addr-in" placeholder="営業時間を入力"></dd>
         <dt>定休</dt><dd><input id="closedInput" class="addr-in" placeholder="定休日を入力"></dd>
+        <dt>問合せ</dt><dd><input id="contactInput" class="addr-in" placeholder="お問い合わせ用メール（例：info@example.com）"></dd>
       </dl>
       <div style="margin-top:14px">
         <div style="font-size:12px;font-weight:700;color:var(--gray);margin-bottom:6px">SNSリンク（入れたものだけ表示されます）</div>
@@ -565,6 +566,22 @@
   bindField("phoneInput","phone");
   bindField("hoursInput","hours");
   bindField("closedInput","closed");
+
+  /* お問い合わせ用メール → 「お問い合わせ」ボタンを押すとメール起動 */
+  const _contact=document.getElementById("contactInput");
+  if(_contact){
+    _contact.addEventListener("input",()=>{
+      const v=_contact.value.trim();
+      let href="#";
+      if(v){
+        if(v.includes("@")) href="mailto:"+v;                 // メール → 直接メール作成
+        else if(/^https?:/.test(v)) href=v;                    // URL（フォーム等）
+        else if(/^[\d+\-() ]+$/.test(v)) href="tel:"+v.replace(/[^\d+]/g,""); // 電話
+        else href=v;
+      }
+      document.querySelectorAll('[data-link="contact"]').forEach(a=>{ a.href=href; });
+    });
+  }
 
   /* SNSリンク → フッターのアイコン（入れたものだけ表示） */
   const SNS_FIELDS=[ {id:"snsIg",icon:"ig"},{id:"snsLine",icon:"line"},{id:"snsX",icon:"x"},{id:"snsYt",icon:"yt"} ];

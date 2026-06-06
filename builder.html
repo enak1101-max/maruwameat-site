@@ -104,6 +104,18 @@
   .card,.rev,.feat .f{position:relative}
   .del-btn{position:absolute;top:7px;right:7px;z-index:3;width:24px;height:24px;border-radius:50%;border:none;background:rgba(0,0,0,.42);color:#fff;font-size:12px;cursor:pointer;line-height:1;display:grid;place-items:center}
   .del-btn:hover{background:#c0392b}
+  /* ポリシー表示モーダル */
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:80;display:none;align-items:flex-start;justify-content:center;padding:36px 16px;overflow:auto}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;max-width:720px;width:100%;border-radius:12px;padding:26px 30px;color:var(--ink)}
+  .modal h3{font-size:20px;margin-bottom:6px;color:var(--accent)}
+  .modal .close-x{float:right;cursor:pointer;font-size:20px;color:var(--gray);border:none;background:none}
+  .modal .pol-body{font-size:13.5px;line-height:1.9;white-space:pre-wrap}
+  .modal .pol-body h4{font-size:15px;margin:14px 0 2px;color:var(--ink)}
+  .modal .pol-body table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;white-space:normal}
+  .modal .pol-body th,.modal .pol-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  .modal .pol-body th{background:#f6f4f1;white-space:nowrap;width:34%}
+  .modal .miss{color:#b06a1f;font-weight:700}
   .rev p{font-size:calc(14px * var(--fs));margin:10px 0;color:var(--ink)}
   .rev .who{font-size:12px;color:var(--accent)}
   body.theme-dark .reviews{background:#1c1c1c}
@@ -281,6 +293,7 @@
         <dt>営業</dt><dd><input id="hoursInput" class="addr-in" placeholder="営業時間を入力"></dd>
         <dt>定休</dt><dd><input id="closedInput" class="addr-in" placeholder="定休日を入力"></dd>
         <dt>問合せ</dt><dd><input id="contactInput" class="addr-in" placeholder="お問い合わせ用メール（例：info@example.com）"></dd>
+        <dt>業種</dt><dd><input id="bizInput" class="addr-in" placeholder="業種（例：飲食店・美容室・小売店）"></dd>
       </dl>
       <div style="margin-top:14px">
         <div style="font-size:12px;font-weight:700;color:var(--gray);margin-bottom:6px">SNSリンク（入れたものだけ表示されます）</div>
@@ -310,10 +323,16 @@
   <div class="foot-grid">
     <div><h5 class="ph-text" data-field="name">〈店名〉</h5><p style="color:#a89f97" contenteditable="true" class="ed" data-sync="catch">〈キャッチコピー〉</p><p style="margin-top:10px"><span data-field="address">〈住所〉</span><br><span data-field="phone">〈電話番号〉</span></p></div>
     <div><h5>メニュー</h5><a href="#about">紹介</a><a href="#products">商品</a><a href="#reviews">お客様の声</a><a href="#access">アクセス</a></div>
-    <div><h5>SNS・お問い合わせ</h5><div class="foot-sns" id="footSns"></div><a href="#" data-link="contact" style="margin-top:10px">お問い合わせ</a></div>
+    <div><h5>SNS・お問い合わせ</h5><div class="foot-sns" id="footSns"></div><a href="#" data-link="contact" style="margin-top:10px">お問い合わせ</a>
+      <a href="#" data-policy="privacy">プライバシーポリシー</a>
+      <a href="#" data-policy="cancel">キャンセル・返品について</a>
+      <a href="#" data-policy="tokusho">特定商取引法に基づく表記</a></div>
   </div>
   <div class="copy">© <span data-field="name">〈店名〉</span></div>
 </div></footer>
+
+<!-- ポリシー表示モーダル -->
+<div class="modal-bg" id="modalBg"><div class="modal"><button class="close-x" id="modalClose" type="button">✕</button><h3 id="modalTitle"></h3><div class="pol-body" id="modalBody"></div></div></div>
 
 <!-- 設定パネル -->
 <button class="fab" id="fab" title="デザイン設定">🎨</button>
@@ -689,6 +708,49 @@
   const _addFeat=document.getElementById("addFeat");
   if(_addFeat) _addFeat.addEventListener("click",()=>{ document.getElementById("featGrid").appendChild(makeFeature()); });
   document.addEventListener("click",e=>{ const del=e.target.closest(".del-btn"); if(del){ const card=del.closest(".card,.rev,.feat .f"); if(card) card.remove(); } });
+
+  /* ===== 規約・ポリシー自動作成（店名・住所・連絡先・業種から生成）===== */
+  function _v(id){ const e=document.getElementById(id); return e?e.value.trim():""; }
+  function _ph(v,label){ return v || ("〈"+label+"〉"); }
+  function genPolicy(type){
+    const name=_ph(_v("nameInput"),"店名"), addr=_ph(_v("addrInput"),"住所"),
+          tel=_ph(_v("phoneInput"),"電話番号"), mail=_ph(_v("contactInput"),"メール"), biz=_ph(_v("bizInput"),"業種");
+    if(type==="privacy") return {title:"プライバシーポリシー", html:
+`${name}（以下「当店」といいます）は、お客様の個人情報を以下のとおり適切に取り扱います。
+
+<h4>1. 取得する情報</h4>お名前・ご住所・電話番号・メールアドレス・ご注文内容 等。
+<h4>2. 利用目的</h4>商品の発送・ご連絡・お問い合わせ対応・サービス向上のため。
+<h4>3. 第三者への提供</h4>法令に基づく場合を除き、ご本人の同意なく第三者に提供しません。
+<h4>4. 開示・訂正・削除</h4>ご本人からのお申し出により、適切に対応いたします。
+<h4>5. お問い合わせ窓口</h4>${name}　メール：${mail}／電話：${tel}`};
+    if(type==="cancel") return {title:"キャンセル・返品について", html:
+`<h4>ご注文のキャンセル</h4>発送準備前であればキャンセルを承ります。${name}（${tel}）までご連絡ください。
+<h4>返品・交換</h4>商品に不良・破損・誤配送があった場合は、商品到着後すみやかにご連絡ください。送料は当店負担にて、交換または返金いたします。
+お客様のご都合による返品は、商品の性質上お受けできない場合がございます。
+<h4>お問い合わせ</h4>メール：${mail}／電話：${tel}`};
+    return {title:"特定商取引法に基づく表記", table:[
+      ["販売事業者",name],["運営責任者","〈代表者氏名〉"],["所在地",addr],["電話番号",tel],
+      ["メールアドレス",mail],["業種・取扱商品",biz],["販売価格","各商品ページに記載（税込）"],
+      ["商品代金以外の費用","送料・決済手数料 等"],["お支払い方法","クレジットカード／その他"],
+      ["引渡し時期","ご注文後、順次発送いたします"],["返品・キャンセル","「キャンセル・返品について」に準じます"]
+    ]};
+  }
+  function openPolicy(type){
+    const p=genPolicy(type);
+    document.getElementById("modalTitle").textContent=p.title;
+    const body=document.getElementById("modalBody");
+    if(p.table){
+      body.innerHTML='<table>'+p.table.map(r=>'<tr><th>'+r[0]+'</th><td>'+(/〈[^〉]*〉/.test(r[1])?'<span class="miss">'+r[1]+'</span>':r[1])+'</td></tr>').join('')
+        +'</table><p style="font-size:12px;color:#999;margin-top:10px">※オレンジの〈　〉は、お店情報を入力すると自動で埋まります。</p>';
+    } else {
+      body.innerHTML=p.html.replace(/〈[^〉]*〉/g,m=>'<span class="miss">'+m+'</span>')
+        +'<p style="font-size:12px;color:#999;margin-top:12px">※オレンジの〈　〉は、お店情報を入力すると自動で埋まります。</p>';
+    }
+    document.getElementById("modalBg").classList.add("show");
+  }
+  document.querySelectorAll("[data-policy]").forEach(a=>a.addEventListener("click",e=>{ e.preventDefault(); openPolicy(a.dataset.policy); }));
+  document.getElementById("modalClose").addEventListener("click",()=>document.getElementById("modalBg").classList.remove("show"));
+  document.getElementById("modalBg").addEventListener("click",e=>{ if(e.target.id==="modalBg") e.currentTarget.classList.remove("show"); });
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

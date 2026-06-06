@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --main:#E8722A; --accent:#B34E14; --gold:#CBA15B;
+    --main:#CC8462; --accent:#A8623F; --gold:#C5A878;
     --ink:#2C2A28; --gray:#8C857C; --soft:#F6F2EC; --line:#ECE5DC; --bg:#FFFFFF;
     --head-font:"Noto Serif JP",serif; --body-font:"Noto Sans JP",sans-serif;
   }
@@ -115,7 +115,8 @@
   .panel .grp{margin-bottom:16px}
   .panel .grp>label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#444}
   .presets{display:flex;flex-wrap:wrap;gap:7px}
-  .preset{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #ddd;cursor:pointer}
+  .preset{width:32px;height:32px;border-radius:50%;border:2px solid #fff;cursor:pointer;box-shadow:0 0 0 1px #ddd, inset 0 2px 4px rgba(255,255,255,.5), inset 0 -3px 5px rgba(0,0,0,.28)}
+  .preset:hover{transform:scale(1.1)}
   .colorrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12.5px}
   .colorrow input[type=color]{width:38px;height:30px;border:1px solid #ddd;border-radius:6px;background:none;cursor:pointer;padding:0}
   .panel select{width:100%;padding:8px;border:1px solid #ddd;border-radius:7px;font-size:13px;font-family:inherit}
@@ -235,8 +236,8 @@
 
   <div class="grp">
     <label>色を自分で選ぶ</label>
-    <div class="colorrow"><input type="color" id="cMain" value="#E8722A"><span>メインカラー</span></div>
-    <div class="colorrow"><input type="color" id="cAccent" value="#B34E14"><span>アクセント（濃い色）</span></div>
+    <div class="colorrow"><input type="color" id="cMain" value="#CC8462"><span>メインカラー</span></div>
+    <div class="colorrow"><input type="color" id="cAccent" value="#A8623F"><span>アクセント（濃い色）</span></div>
   </div>
 
   <div class="grp">
@@ -273,23 +274,25 @@
 <script>
   const root=document.documentElement;
   const PRESETS=[
-    {name:"オレンジ", main:"#E8722A", accent:"#B34E14"},
-    {name:"ネイビー", main:"#34506B", accent:"#243A4F"},
-    {name:"グリーン", main:"#4E8A5B", accent:"#356245"},
-    {name:"ワイン",   main:"#8E3B4E", accent:"#6B2A39"},
-    {name:"ピンク",   main:"#D96A8A", accent:"#B14668"},
-    {name:"ブラウン", main:"#7A5A3A", accent:"#574027"},
-    {name:"ブラック", main:"#3A3A3A", accent:"#111111"},
-    {name:"ブルー",   main:"#2F7CC0", accent:"#1F5A8F"},
+    {name:"テラコッタ",   main:"#CC8462", accent:"#A8623F"},
+    {name:"スモークブルー", main:"#5E7689", accent:"#445A6C"},
+    {name:"セージグリーン", main:"#8BA086", accent:"#69836A"},
+    {name:"モーヴ",       main:"#B58A98", accent:"#8E6675"},
+    {name:"グレージュ",   main:"#B3A48C", accent:"#8E7E66"},
+    {name:"ラベンダー",   main:"#9690AE", accent:"#736D90"},
+    {name:"くすみブルーグレー", main:"#7E97A6", accent:"#5E7886"},
+    {name:"黒（光沢）",    main:"#3A3A3A", accent:"#0A0A0A", gloss:true},
   ];
-  const DEFAULT={main:"#E8722A",accent:"#B34E14",head:"'Noto Serif JP',serif",body:"'Noto Sans JP',sans-serif"};
+  const DEFAULT={main:"#CC8462",accent:"#A8623F",head:"'Noto Serif JP',serif",body:"'Noto Sans JP',sans-serif"};
 
   // プリセットの丸ボタンを生成
   const pc=document.getElementById("presets");
   PRESETS.forEach(p=>{
     const b=document.createElement("button");
     b.className="preset"; b.title=p.name;
-    b.style.background="linear-gradient(135deg,"+p.main+","+p.accent+")";
+    b.style.background = p.gloss
+      ? "radial-gradient(circle at 34% 28%, #8a8a8a, #2a2a2a 55%, #000 100%)"
+      : "linear-gradient(135deg,"+p.main+","+p.accent+")";
     b.onclick=()=>{ setColor(p.main,p.accent); };
     pc.appendChild(b);
   });

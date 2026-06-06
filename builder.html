@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --main:#CC8462; --accent:#A8623F; --gold:#C5A878;
+    --main:#CC8462; --accent:#A8623F; --gold:#C5A878; --tone:22;
     --ink:#2C2A28; --gray:#8C857C; --soft:#F6F2EC; --line:#ECE5DC; --bg:#FFFFFF;
     --head-font:"Noto Serif JP",serif; --body-font:"Noto Sans JP",sans-serif;
   }
@@ -40,7 +40,7 @@
 
   /* Hero */
   .hero{position:relative;min-height:430px;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line);
-    background:linear-gradient(135deg,color-mix(in srgb,var(--main) 22%,#fff),color-mix(in srgb,var(--accent) 11%,#fff));color:var(--ink)}
+    background:linear-gradient(135deg,color-mix(in srgb,var(--main) calc(var(--tone)*1%),#fff),color-mix(in srgb,var(--accent) calc(var(--tone)*0.5%),#fff));color:var(--ink)}
   .hero-in{position:relative;z-index:2;padding:40px 0}
   .hero .eyebrow{letter-spacing:3px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:14px}
   .hero h1{font-family:var(--head-font);font-size:clamp(28px,4.5vw,46px);line-height:1.5}
@@ -82,7 +82,7 @@
   .center{text-align:center;margin-top:34px}
 
   /* Reviews（薄いトーン） */
-  .reviews{background:color-mix(in srgb,var(--main) 9%,#fff)}
+  .reviews{background:color-mix(in srgb,var(--main) calc(var(--tone)*0.4%),#fff)}
   .reviews .sec-head h2{color:var(--ink)}
   .reviews .sec-head h2:after{background:var(--main)}
   .reviews .sec-head .en{color:var(--accent)}
@@ -103,7 +103,7 @@
   .access .ph-thumb{aspect-ratio:16/10}
 
   /* CTA（薄いトーン） */
-  .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,#fff),color-mix(in srgb,var(--main) 11%,#fff));color:var(--ink);text-align:center}
+  .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) calc(var(--tone)*0.72%),#fff),color-mix(in srgb,var(--main) calc(var(--tone)*0.5%),#fff));color:var(--ink);text-align:center}
   .cta h2{font-family:var(--head-font);font-size:26px;margin-bottom:10px}
   .cta p{color:var(--gray);font-size:14px;margin-bottom:22px}
   body.theme-dark .cta{background:#161616;color:#fff}
@@ -253,6 +253,12 @@
   </div>
 
   <div class="grp">
+    <label>色の濃さ（薄い ⇔ 濃い）</label>
+    <input type="range" id="tone" min="6" max="55" value="22" style="width:100%;accent-color:var(--accent)">
+    <div class="sub" style="margin:4px 0 0">背景の色づきを調整します（薄いほど白っぽく）</div>
+  </div>
+
+  <div class="grp">
     <label>見出しフォント</label>
     <select id="headFont">
       <option value="'Noto Serif JP',serif">明朝（上品・高級感）</option>
@@ -321,6 +327,7 @@
   }
   document.getElementById("cMain").addEventListener("input",e=>{document.body.classList.remove("theme-dark");root.style.setProperty("--main",e.target.value);});
   document.getElementById("cAccent").addEventListener("input",e=>{document.body.classList.remove("theme-dark");root.style.setProperty("--accent",e.target.value);});
+  document.getElementById("tone").addEventListener("input",e=>root.style.setProperty("--tone",e.target.value));
   document.getElementById("headFont").addEventListener("change",e=>root.style.setProperty("--head-font",e.target.value));
   document.getElementById("bodyFont").addEventListener("change",e=>root.style.setProperty("--body-font",e.target.value));
 
@@ -335,6 +342,8 @@
   // リセット
   document.getElementById("reset").onclick=()=>{
     applyTheme(DEFAULT);
+    root.style.setProperty("--tone","22");
+    document.getElementById("tone").value=22;
     root.style.setProperty("--head-font",DEFAULT.head);
     root.style.setProperty("--body-font",DEFAULT.body);
     document.getElementById("headFont").value=DEFAULT.head;

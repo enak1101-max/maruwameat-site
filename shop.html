@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通販｜マル和ミート｜佐賀牛・宮崎牛・博多和牛・ブランド豚のお取り寄せ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#FFFDF9; --orange:#E8722A; --orange-deep:#B34E14; --orange-soft:#F3E9D9;
+    --gold:#CBA15B; --espresso:#33281F; --ink:#33281F; --gray:#9A8C7B; --line:#EFE5D6; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--base);line-height:1.8}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+  .serif{font-family:"Noto Serif JP",serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:7px;font-weight:700;font-size:14px;transition:.2s;cursor:pointer;border:2px solid transparent}
+  .btn-primary{background:var(--orange);color:#fff}
+  .btn-primary:hover{background:var(--orange-deep)}
+  .btn-cart{background:var(--orange);color:#fff;width:100%}
+  .btn-cart:hover{background:var(--orange-deep)}
+  .btn-ghost{background:#fff;color:var(--orange-deep);border-color:var(--orange)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,253,249,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:19px;color:var(--orange-deep)}
+  .logo .mark{width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-size:17px;font-weight:900}
+  .gnav{display:flex;gap:20px;font-size:14px;font-weight:500}
+  .gnav a:hover{color:var(--orange)}
+  .cart-btn{position:relative;background:var(--orange);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-weight:700;font-size:14px;cursor:pointer}
+  .cart-count{position:absolute;top:-8px;right:-8px;background:var(--espresso);color:#fff;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-weight:700}
+
+  /* Notice bar */
+  .notice{background:var(--orange-deep);color:#fff;font-size:13px}
+  .notice .in{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;padding:11px 16px;text-align:center}
+  .notice b{color:#ffe1bd}
+
+  /* Breadcrumb + intro */
+  .crumb{font-size:12px;color:var(--gray);padding:16px 0}
+  .crumb a:hover{color:var(--orange)}
+  .shop-intro{text-align:center;padding:8px 0 26px}
+  .shop-intro .en{color:var(--gold);letter-spacing:3px;font-size:13px;font-weight:700}
+  .shop-intro h1{font-size:30px;margin:8px 0 10px}
+  .shop-intro p{color:var(--gray);font-size:14px}
+
+  /* Category nav */
+  .cat-nav{position:sticky;top:64px;z-index:40;background:var(--base);border-bottom:1px solid var(--line);padding:12px 0}
+  .cat-nav .in{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .cat-nav a{font-size:13px;font-weight:700;border:1.5px solid var(--line);border-radius:30px;padding:7px 16px;color:var(--ink);background:#fff;transition:.2s}
+  .cat-nav a:hover{border-color:var(--orange);color:var(--orange-deep)}
+
+  /* Section */
+  .cat{padding:44px 0 8px}
+  .cat-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .cat-head h2{font-size:23px}
+  .cat-head .bar{width:6px;height:26px;background:var(--orange);border-radius:3px}
+  .cat-head .note{font-size:12px;color:var(--gray);margin-left:auto}
+
+  /* Product grid */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .item{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+  .item:hover{box-shadow:0 14px 30px -18px rgba(0,0,0,.4);transform:translateY(-3px)}
+  .item .ph{aspect-ratio:1/1;overflow:hidden;position:relative}
+  .item .ph img{transition:.5s}
+  .item:hover .ph img{transform:scale(1.06)}
+  .badge{position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:20px}
+  .b-frozen{background:#2D7CC9}
+  .b-chilled{background:#1FA87A}
+  .b-gift{position:absolute;top:10px;right:10px;background:var(--gold);font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:20px}
+  .item .body{padding:14px 15px 16px;display:flex;flex-direction:column;flex:1}
+  .item h4{font-size:15px;margin-bottom:4px;line-height:1.5}
+  .item .meta{font-size:12px;color:var(--gray);margin-bottom:8px;min-height:32px}
+  .item .price{color:var(--orange-deep);font-weight:700;font-size:16px;margin-bottom:12px}
+  .item .price small{color:var(--gray);font-weight:400;font-size:11px}
+  .item .btn-cart{margin-top:auto}
+
+  /* Shipping info */
+  .ship{background:var(--orange-soft);margin-top:40px}
+  .ship .in{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:42px 0}
+  .ship .col h3{font-size:17px;color:var(--orange-deep);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .ship .col p{font-size:13px;color:var(--ink)}
+
+  /* Footer */
+  footer{background:#2b2522;color:#cfc8c0;padding:42px 0 24px;font-size:13px;margin-top:0}
+  .foot-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+  .foot-links a:hover{color:#fff}
+  .copy{text-align:center;color:#8c857c;font-size:12px}
+
+  /* Toast */
+  .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--espresso);color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;z-index:80}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* Mobile cart bar */
+  .mcart{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:9px 14px;align-items:center;justify-content:space-between;gap:10px}
+  .mcart .sum{font-size:13px;font-weight:700}
+  .proto-note{background:var(--gold);color:#3a2c00;text-align:center;font-size:13px;font-weight:700;padding:8px}
+
+  @media(max-width:980px){ .grid{grid-template-columns:repeat(3,1fr)} .ship .in{grid-template-columns:1fr} }
+  @media(max-width:680px){
+    .gnav{display:none}
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .cat-nav{top:64px}
+    .mcart{display:flex}
+    body{padding-bottom:66px}
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-note">★ デザイン確認用モックアップ（商品・価格・在庫はすべて仮）｜実際の購入機能はEC（BASE/STORES/Shopify）確定後に接続します</div>
+
+<!-- Header -->
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo"><span class="mark">和</span>マル和ミート</a>
+    <nav class="gnav">
+      <a href="index.html">トップ</a>
+      <a href="#gift">ギフト</a>
+      <a href="#steak">看板・ステーキ</a>
+      <a href="#wagyu">和牛</a>
+      <a href="#pork">豚</a>
+      <a href="#sozai">冷凍惣菜</a>
+    </nav>
+    <button class="cart-btn" onclick="alert('※モックアップです。実際のカート・お会計はEC（BASE/STORES/Shopify）側で行います。')">🛒 カート<span class="cart-count" id="cc">0</span></button>
+  </div>
+</header>
+
+<!-- Notice -->
+<div class="notice"><div class="in">
+  <span>🧊 <b>クール便（冷凍）</b>でお届け</span>
+  <span>🚚 <b>10,000円以上</b>で送料無料</span>
+  <span>🎁 のし・ラッピング対応</span>
+  <span>📋 <a href="#tokushoho" style="color:#fff;text-decoration:underline">特定商取引法に基づく表記</a></span>
+</div></div>
+
+<div class="wrap">
+  <div class="crumb"><a href="index.html">トップ</a> ＞ 通販</div>
+  <div class="shop-intro">
+    <span class="en">ONLINE SHOP</span>
+    <h1 class="serif">マル和ミートのお取り寄せ</h1>
+    <p>お肉のプロが選び抜いた、佐賀牛・宮崎牛・博多和牛・ブランド豚を、ご家庭とご贈答に。<br>すべて冷凍クール便で全国へお届けします。</p>
+  </div>
+</div>
+
+<!-- Category nav -->
+<div class="cat-nav"><div class="wrap in">
+  <a href="#gift">🎁 ギフト松竹梅</a>
+  <a href="#steak">🥩 看板・ステーキ</a>
+  <a href="#wagyu">🐂 和牛</a>
+  <a href="#pork">🐖 豚</a>
+  <a href="#sozai">🧊 冷凍惣菜</a>
+</div></div>
+
+<!-- GIFT -->
+<section class="cat" id="gift">
+  <div class="wrap">
+    <div class="cat-head"><span class="bar"></span><h2 class="serif">ギフト 松竹梅</h2><span class="note">のし・メッセージカード対応</span></div>
+    <div class="grid">
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><span class="b-gift">松</span><img data-img="g_matsu" alt=""></div><div class="body"><h4>宮崎牛 極みギフト</h4><div class="meta">A5ステーキ詰合せ／化粧箱入り</div><div class="price">¥15,000〜20,000</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><span class="b-gift">竹</span><img data-img="g_take" alt=""></div><div class="body"><h4>和牛 ステーキセット</h4><div class="meta">人気の定番。贈って喜ばれる一箱</div><div class="price">¥8,000〜12,000</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><span class="b-gift">梅</span><img data-img="g_ume" alt=""></div><div class="body"><h4>和牛 すき焼きギフト</h4><div class="meta">内祝い・カジュアルギフトに</div><div class="price">¥4,000〜6,000</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><span class="b-gift">松</span><img data-img="g_sirloin" alt=""></div><div class="body"><h4>和牛 サーロイン詰合せ</h4><div class="meta">厚切りステーキの贅沢ギフト</div><div class="price">¥12,000〜18,000</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STEAK -->
+<section class="cat" id="steak">
+  <div class="wrap">
+    <div class="cat-head"><span class="bar"></span><h2 class="serif">看板・ステーキ</h2><span class="note">テレビ取材の人気商品</span></div>
+    <div class="grid">
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="s_a5" alt=""></div><div class="body"><h4>A5和牛 ヒレステーキ</h4><div class="meta">150g×2／とろけるサシ</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="s_sirloin" alt=""></div><div class="body"><h4>和牛 サーロインステーキ</h4><div class="meta">厚切りで贅沢に</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="s_tataki" alt=""></div><div class="body"><h4>特選和牛 たたき</h4><div class="meta">看板商品／薬味とともに</div><div class="price">¥480〜 <small>/ 100g</small></div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="s_yakiniku" alt=""></div><div class="body"><h4>和牛 焼肉セット</h4><div class="meta">博多秘伝のたれ付き</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WAGYU -->
+<section class="cat" id="wagyu">
+  <div class="wrap">
+    <div class="cat-head"><span class="bar"></span><h2 class="serif">和牛</h2><span class="note">すき焼き・しゃぶしゃぶ</span></div>
+    <div class="grid">
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="w_sukiyaki" alt=""></div><div class="body"><h4>和牛 すき焼き肉</h4><div class="meta">きめ細かなサシのスライス</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="w_shabu" alt=""></div><div class="body"><h4>和牛 しゃぶしゃぶ</h4><div class="meta">口の中でほどける薄切り</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="w_hamburg" alt=""></div><div class="body"><h4>博多和牛 ハンバーグ</h4><div class="meta">肉の旨みあふれる手ごね</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="w_block" alt=""></div><div class="body"><h4>和牛 切り落とし</h4><div class="meta">量で満足・普段使いに</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORK -->
+<section class="cat" id="pork">
+  <div class="wrap">
+    <div class="cat-head"><span class="bar"></span><h2 class="serif">豚</h2><span class="note">夢幻豚・六白黒豚</span></div>
+    <div class="grid">
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="p_shabu" alt=""></div><div class="body"><h4>ブランド豚 しゃぶしゃぶ</h4><div class="meta">甘みのある脂が自慢</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="p_yakiniku" alt=""></div><div class="body"><h4>豚 タレ漬け焼肉</h4><div class="meta">「子供に取られた」と評判の一品</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOZAI -->
+<section class="cat" id="sozai">
+  <div class="wrap">
+    <div class="cat-head"><span class="bar"></span><h2 class="serif">冷凍惣菜</h2><span class="note">※揚げたて惣菜は店頭限定</span></div>
+    <div class="grid">
+      <div class="item"><div class="ph"><span class="badge b-frozen">冷凍</span><img data-img="z_hamburg" alt=""></div><div class="body"><h4>和牛 ハンバーグ（冷凍）</h4><div class="meta">焼くだけ簡単・子育て世帯に人気</div><div class="price">¥ 価格目安</div><button class="btn btn-cart" onclick="addCart()">カートに入れる</button></div></div>
+    </div>
+    <p style="font-size:13px;color:var(--gray);margin-top:14px">※ コロッケ・メンチカツ・唐揚げなどの揚げたて惣菜は<strong>店頭限定</strong>です。通販用の冷凍惣菜は、そうざい製造業の許可が整い次第ラインナップを拡充予定です。</p>
+  </div>
+</section>
+
+<!-- Shipping -->
+<section class="ship">
+  <div class="wrap in">
+    <div class="col"><h3>🚚 配送について</h3><p>全国へ<strong>クール便（冷凍）</strong>でお届け。10,000円以上のご購入で<strong>送料無料</strong>。配送日時のご指定が可能です（ギフトに最適）。</p></div>
+    <div class="col"><h3>💳 お支払い</h3><p>クレジットカード／コンビニ決済／代引き／PayPay 等に対応予定（EC確定後に設定）。</p></div>
+    <div class="col"><h3>🎁 ギフト対応</h3><p>のし（御中元・御歳暮・御祝・内祝）、ラッピング、メッセージカードを承ります。</p></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="tokushoho">
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">トップ</a>
+      <a href="index.html#stores">店舗案内</a>
+      <a href="#">特定商取引法に基づく表記</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">配送・返品について</a>
+      <a href="tel:0925024129">📞 092-502-4129</a>
+    </div>
+    <div class="copy">© MARUWA MEAT. All Rights Reserved.（モックアップ）</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">🛒 カートに追加しました</div>
+<div class="mcart"><span class="sum" id="ms">カート：0点</span><button class="btn btn-primary" onclick="alert('※モックアップです。お会計はEC側で行います。')">🛒 レジへ進む</button></div>
+
+<!-- 画像マッピング（差し替え設定）／簡易カート -->
+<script>
+  const IMAGES = {
+    g_matsu:    "assets/images/gifts/gift-miyazaki-steak-box.jpg",
+    g_take:     "assets/images/gifts/gift-steak-box-4p.jpg",
+    g_ume:      "assets/images/products/gift-wagyu-slice-box.jpg",
+    g_sirloin:  "assets/images/gifts/gift-sirloin-steak-box.jpg",
+    s_a5:       "assets/images/products/a5-fillet-steak-closeup.jpg",
+    s_sirloin:  "assets/images/products/sirloin-steak-closeup.jpg",
+    s_tataki:   "assets/images/products/a5-fillet-steak-3p.jpg",
+    s_yakiniku: "assets/images/products/yakiniku-set-tare.jpg",
+    w_sukiyaki: "assets/images/products/wagyu-sukiyaki-slice-tray-1.jpg",
+    w_shabu:    "assets/images/products/wagyu-shabu-rosette.jpg",
+    w_hamburg:  "assets/images/products/hakata-wagyu-hamburg.jpg",
+    w_block:    "assets/images/products/wagyu-sukiyaki-slice-tray-2.jpg",
+    p_shabu:    "assets/images/products/pork-shabu.jpg",
+    p_yakiniku: "assets/images/products/yakiniku-set-tare.jpg",
+    z_hamburg:  "assets/images/products/hamburg-raw-box.jpg",
+  };
+  document.querySelectorAll("img[data-img]").forEach(el=>{ const k=el.getAttribute("data-img"); if(IMAGES[k]) el.src=IMAGES[k]; });
+
+  // 簡易カート（モック）
+  let cart=0;
+  function addCart(){
+    cart++;
+    document.getElementById("cc").textContent=cart;
+    document.getElementById("ms").textContent="カート："+cart+"点";
+    const t=document.getElementById("toast");
+    t.classList.add("show");
+    clearTimeout(window._tt);
+    window._tt=setTimeout(()=>t.classList.remove("show"),1400);
+  }
+</script>
+</body>
+</html>

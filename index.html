@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マル和ミート｜食卓のしあわせと安心をお届けするお店｜福岡・雑餉隈の精肉店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== テーマ B：クリーム×柿オレンジ（明るい・親しみ・上品） ===== */
+    --base:#FFFDF9;          /* 背景 クリームホワイト */
+    --orange:#E8722A;        /* アクセント 柿オレンジ */
+    --orange-deep:#B34E14;   /* 濃い柿（hover/価格文字/白文字背景） */
+    --orange-soft:#F3E9D9;   /* タン（セクション背景） */
+    --gold:#CBA15B;          /* 差し色 ゴールド */
+    --espresso:#33281F;      /* 締めの濃チャコール（お客様の声・フッター） */
+    --ink:#33281F;           /* 文字 温かいチャコール */
+    --gray:#9A8C7B; --line:#EFE5D6; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--base);line-height:1.8;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+  .serif{font-family:"Noto Serif JP",serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:7px;font-weight:700;font-size:15px;transition:.25s;cursor:pointer;border:2px solid transparent}
+  .btn-primary{background:var(--orange);color:#fff}
+  .btn-primary:hover{background:var(--orange-deep)}
+  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border-color:#fff}
+  .btn-ghost:hover{background:#fff;color:var(--orange-deep)}
+  .btn-line{background:#06C755;color:#fff}
+  .btn-line:hover{filter:brightness(.92)}
+  .sec{padding:74px 0}
+  .sec-head{text-align:center;margin-bottom:42px}
+  .sec-head .en{display:block;color:var(--gold);letter-spacing:3px;font-size:13px;font-weight:700;margin-bottom:8px}
+  .sec-head h2{font-size:30px;font-weight:700;position:relative;display:inline-block;padding-bottom:14px}
+  .sec-head h2:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:46px;height:3px;background:var(--orange)}
+  .sec-head p{color:var(--gray);margin-top:14px;font-size:15px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,247,242,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px;color:var(--orange-deep)}
+  .logo .mark{width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:900}
+  .gnav{display:flex;gap:22px;font-size:14px;font-weight:500}
+  .gnav a:hover{color:var(--orange)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .nav-cta .sns{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:15px}
+  .nav-cta .sns:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+  .burger{display:none;font-size:26px;background:none;border:none;cursor:pointer}
+
+  /* Hero */
+  .hero{position:relative;height:min(78vh,640px);min-height:460px;overflow:hidden}
+  .hero img{position:absolute;inset:0;filter:brightness(.82) saturate(1.05)}
+  .hero:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(95deg, rgba(40,30,22,.78) 0%, rgba(40,30,22,.45) 52%, rgba(40,30,22,.12) 100%)}
+  .hero-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;color:#fff;max-width:1180px;margin:0 auto;padding:0 28px}
+  .hero .eyebrow{letter-spacing:4px;font-size:13px;font-weight:700;margin-bottom:18px;color:#ffe6cc}
+  .hero h1{font-size:clamp(30px,5vw,52px);font-weight:700;line-height:1.5;text-shadow:0 2px 20px rgba(0,0,0,.45)}
+  .hero h1 .accent{color:#fff;border-bottom:4px solid var(--gold)}
+  .hero p.lead{margin-top:18px;font-size:clamp(14px,2vw,17px);max-width:540px}
+  .hero-btns{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+
+  /* News ticker（流れるお知らせ） */
+  .news{background:var(--white);border-bottom:1px solid var(--line)}
+  .news .row{display:flex;align-items:center;gap:14px;padding:13px 0}
+  .news .tag{background:var(--orange);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:4px;white-space:nowrap;flex:none}
+  .ticker{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent);mask-image:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent)}
+  .news ul{list-style:none;display:flex;width:max-content;font-size:14px;animation:ticker 34s linear infinite}
+  .ticker:hover ul{animation-play-state:paused}
+  .news li{white-space:nowrap;margin-right:44px}
+  .news time{color:var(--orange-deep);font-weight:700;margin-right:10px}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Brands */
+  .brands{background:var(--white)}
+  .brand-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:6px}
+  .brand-chip{border:1.5px solid var(--orange);color:var(--orange-deep);font-weight:700;border-radius:40px;padding:10px 24px;font-size:15px;background:#fff}
+
+  /* Kodawari */
+  .kodawari .cols{display:grid;grid-template-columns:1.1fr 1fr;gap:46px;align-items:center}
+  .kodawari .ph{aspect-ratio:4/3;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px -18px rgba(0,0,0,.4)}
+  .kodawari h3{font-size:24px;margin-bottom:18px;line-height:1.6}
+  .kodawari .feats{display:flex;gap:14px;margin-top:24px}
+  .kodawari .feat{flex:1;text-align:center;background:var(--orange-soft);border-radius:10px;padding:18px 8px}
+  .kodawari .feat .ic{font-size:26px}
+  .kodawari .feat b{display:block;margin-top:6px;color:var(--orange-deep);font-size:15px}
+
+  /* Product cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(0,0,0,.3);transition:.25s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 18px 36px -16px rgba(0,0,0,.4)}
+  .card .ph{aspect-ratio:1/1;overflow:hidden}
+  .card .ph img{transition:.5s}
+  .card:hover .ph img{transform:scale(1.06)}
+  .card .body{padding:16px 18px 20px}
+  .card .body h4{font-size:17px;margin-bottom:6px}
+  .card .body .desc{font-size:13px;color:var(--gray);min-height:38px}
+  .card .price{margin-top:8px;color:var(--orange-deep);font-weight:700;font-size:16px}
+  .card .price small{color:var(--gray);font-weight:400;font-size:12px}
+  .center-cta{text-align:center;margin-top:38px}
+
+  /* Gift */
+  .gift{background:linear-gradient(180deg,#fff 0%, var(--orange-soft) 100%)}
+  .gift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .gift-card{background:#fff;border:1px solid var(--gold);border-radius:14px;overflow:hidden;position:relative}
+  .gift-card .rank{position:absolute;top:12px;left:12px;z-index:2;background:var(--gold);color:#fff;font-weight:700;padding:5px 16px;border-radius:30px;font-size:14px}
+  .gift-card .ph{aspect-ratio:4/3;overflow:hidden}
+  .gift-card .body{padding:18px 20px 22px}
+  .gift-card h4{font-size:18px;margin-bottom:6px}
+  .gift-card .price{color:var(--orange-deep);font-weight:700;font-size:17px;margin-top:8px}
+
+  /* Reviews（深いチャコールで締めて上品に） */
+  .reviews{background:var(--espresso);color:#F7F1E8}
+  .reviews .sec-head h2{color:#fff}
+  .reviews .sec-head h2:after{background:var(--orange)}
+  .reviews .sec-head .en{color:var(--gold)}
+  .rev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .rev{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:24px}
+  .rev .stars{color:var(--gold);font-size:16px;letter-spacing:2px}
+  .rev p{margin:14px 0;font-size:15px;line-height:1.85}
+  .rev .who{font-size:13px;color:var(--gold)}
+
+  /* Stores */
+  .store-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .store{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(0,0,0,.3)}
+  .store .ph{aspect-ratio:16/10;overflow:hidden}
+  .store .body{padding:22px 24px}
+  .store h4{font-size:20px;color:var(--orange-deep);margin-bottom:12px}
+  .store .body.tag-tmp h4:after{content:"営業時間 仮";font-size:11px;background:var(--gray);color:#fff;padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle}
+  .store dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+  .store dt{color:var(--gray);font-weight:700}
+  .store .store-btns{margin-top:16px;display:flex;gap:10px}
+  .store .store-btns .btn{padding:10px 16px;font-size:13px}
+  .store dd a{color:var(--orange-deep);font-weight:700;text-decoration:underline}
+  .store-map{width:100%;height:210px;border:0;display:block;margin-top:18px;border-radius:10px}
+
+  /* Media（ボタン→番組ページへリンク） */
+  .media{background:#fff}
+  .media-banner{max-width:640px;margin:0 auto;text-align:center;background:var(--orange-soft);border-radius:16px;padding:38px 30px;box-shadow:0 12px 30px -20px rgba(0,0,0,.3)}
+  .mf-badge{display:inline-block;background:var(--orange);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:30px;margin-bottom:16px}
+  .media-banner h4{font-size:21px;line-height:1.6;margin-bottom:10px;color:var(--espresso)}
+  .media-banner p{font-size:14px;color:var(--gray);margin-bottom:22px}
+
+  /* Instagram QR */
+  .ig-qr{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:32px;text-align:center}
+  .ig-qr img{width:150px;height:150px;border-radius:14px;border:1px solid var(--line);box-shadow:0 8px 22px -12px rgba(0,0,0,.4)}
+  .ig-qr span{font-size:14px;color:var(--gray);font-weight:700;line-height:1.7}
+
+  /* Instagram */
+  .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .ig-grid .ph{aspect-ratio:1/1;overflow:hidden;border-radius:6px}
+  .ig-head{text-align:center;margin-bottom:24px}
+  .ig-head a{color:var(--orange-deep);font-weight:700}
+
+  /* LINE banner */
+  .line-cta{background:var(--orange-deep);color:#fff}
+  .line-cta .in{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .line-cta h3{font-size:26px;margin-bottom:8px}
+  .line-cta p{color:#ffe6cc}
+  .qr{width:96px;height:96px;background:#fff;border-radius:10px;display:grid;place-items:center;color:var(--ink);font-size:11px;text-align:center}
+
+  /* Footer */
+  footer{background:#2b2522;color:#cfc8c0;padding:50px 0 26px;font-size:14px}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;padding-bottom:30px;border-bottom:1px solid #443c38}
+  .foot-top h5{color:#fff;font-size:16px;margin-bottom:12px}
+  .foot-store{margin-bottom:12px}
+  .foot-links{display:flex;flex-direction:column;gap:8px}
+  .foot-links a:hover{color:#fff}
+  .foot-sns{display:flex;gap:12px;margin-top:6px}
+  .foot-sns a{width:40px;height:40px;border-radius:50%;border:1px solid #554b46;display:grid;place-items:center;font-size:17px;transition:.2s}
+  .foot-sns a:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+  .copy{text-align:center;padding-top:24px;color:#8c857c;font-size:12px}
+
+  /* Sticky mobile CTA */
+  .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:9px 12px;gap:9px}
+  .mobile-cta .btn{flex:1;justify-content:center;padding:13px}
+
+  /* Note ribbon */
+  .proto-note{background:var(--gold);color:#3a2c00;text-align:center;font-size:13px;font-weight:700;padding:8px}
+
+  @media(max-width:980px){
+    .kodawari .cols{grid-template-columns:1fr}
+    .cards,.gift-grid,.rev-grid{grid-template-columns:repeat(2,1fr)}
+    .store-grid{grid-template-columns:1fr}
+    .ig-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media(max-width:680px){
+    .gnav,.nav-cta .btn{display:none}
+    .burger{display:block}
+    .cards,.gift-grid,.rev-grid{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr}
+    .sec{padding:54px 0}
+    .mobile-cta{display:flex}
+    body{padding-bottom:70px}
+    .media-feature{grid-template-columns:1fr}
+    /* スマホ：ヒーロー見出しのフォントを調整（変な改行を防ぐ） */
+    .hero-in{padding:0 20px}
+    .hero .eyebrow{font-size:11px;letter-spacing:2px;margin-bottom:14px}
+    .hero h1{font-size:clamp(22px,6.2vw,28px);line-height:1.55}
+    .hero p.lead{font-size:13px;margin-top:14px}
+    .news ul{animation-duration:24s}
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-note">★ これはデザイン確認用モックアップです（写真・文言・価格はすべて仮）</div>
+
+<!-- Header -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="mark">和</span>マル和ミート</a>
+    <nav class="gnav">
+      <a href="#kodawari">こだわり</a>
+      <a href="#products">商品</a>
+      <a href="#gift">ギフト</a>
+      <a href="#reviews">お客様の声</a>
+      <a href="#stores">店舗案内</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:0925024129" class="sns" title="本店に電話する">📞</a>
+      <a href="https://www.instagram.com/maruwameat_fukuoka" class="sns" target="_blank" rel="noopener" title="Instagram（店舗）">📷</a>
+      <a href="shop.html" class="btn btn-primary">🛒 通販で買う</a>
+      <button class="burger">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <img data-img="hero" alt="マル和ミートの看板商品 和牛しゃぶしゃぶ">
+  <div class="hero-in">
+    <span class="eyebrow">地域の皆様に愛される 福岡・雑餉隈の精肉店</span>
+    <h1 class="serif">食卓のしあわせと<br>安心を、<span class="accent">お届けする</span>お店。</h1>
+    <p class="lead">お肉のプロが選び抜いた一品を、ご家庭とご贈答に。</p>
+    <div class="hero-btns">
+      <a href="shop.html" class="btn btn-primary">🛒 通販で見る</a>
+      <a href="#stores" class="btn btn-ghost">🏠 店舗案内</a>
+    </div>
+  </div>
+</section>
+
+<!-- News -->
+<div class="news">
+  <div class="wrap row">
+    <span class="tag">お知らせ</span>
+    <div class="ticker">
+      <ul>
+        <li><time>6/04</time>🐂 第1・第3水曜日は 特選和牛・国産牛肉 半額セール！</li>
+        <li><time>6/04</time>🐖 第2・第4水曜日は ブランド豚 半額セール！</li>
+        <li><time>6/04</time>🍤 毎週水曜日は 揚げたて惣菜（唐揚げ・ハムカツ・メンチカツバーガー 等）も取り揃え！</li>
+        <li><time>5/20</time>FUKUOKA NEXT Pay がご利用いただけます。</li>
+        <li aria-hidden="true"><time>6/04</time>🐂 第1・第3水曜日は 特選和牛・国産牛肉 半額セール！</li>
+        <li aria-hidden="true"><time>6/04</time>🐖 第2・第4水曜日は ブランド豚 半額セール！</li>
+        <li aria-hidden="true"><time>6/04</time>🍤 毎週水曜日は 揚げたて惣菜（唐揚げ・ハムカツ・メンチカツバーガー 等）も取り揃え！</li>
+        <li aria-hidden="true"><time>5/20</time>FUKUOKA NEXT Pay がご利用いただけます。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Brands -->
+<section class="sec brands">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en">OUR BRANDS</span>
+      <h2 class="serif">選び抜いた、ブランド肉</h2>
+      <p>目利きが厳選した銘柄だけを取り扱っています</p>
+    </div>
+    <div class="brand-grid">
+      <span class="brand-chip">佐賀牛</span>
+      <span class="brand-chip">宮崎牛</span>
+      <span class="brand-chip">鹿児島牛</span>
+      <span class="brand-chip">博多和牛</span>
+      <span class="brand-chip">六白黒豚</span>
+      <span class="brand-chip">夢幻豚（むげんとん）</span>
+    </div>
+  </div>
+</section>
+
+<!-- Kodawari -->
+<section class="sec kodawari" id="kodawari" style="background:var(--base)">
+  <div class="wrap cols">
+    <div class="ph"><img data-img="kodawari" alt="美しいサシの和牛ブロック"></div>
+    <div>
+      <span class="en" style="color:var(--gold);font-weight:700;letter-spacing:3px;font-size:13px">OUR COMMITMENT</span>
+      <h3 class="serif">お肉のプロが、毎日選ぶ。<br>だから、安心しておいしい。</h3>
+      <p>福岡・雑餉隈で地域のみなさまに愛されてきた精肉店。確かな目利きで仕入れた銘柄牛・銘柄豚を、一番おいしい状態でお届けします。揚げたての惣菜も自慢です。</p>
+      <div class="feats">
+        <div class="feat"><div class="ic">🥩</div><b>確かな目利き</b></div>
+        <div class="feat"><div class="ic">❄️</div><b>鮮度へのこだわり</b></div>
+        <div class="feat"><div class="ic">🏠</div><b>地域密着</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="sec" id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en">SIGNATURE</span>
+      <h2 class="serif">看板商品</h2>
+      <p>テレビ取材でも紹介された自慢の品々</p>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="ph"><img data-img="prod_a5" alt="A5和牛ヒレステーキ"></div><div class="body"><h4>A5和牛 ヒレステーキ</h4><div class="desc">とろけるサシ。特別な日の一皿に。</div><div class="price">¥ 価格目安 <small>/ 100g 480円〜</small></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_yakiniku" alt="和牛焼肉セット"></div><div class="body"><h4>和牛 焼肉セット</h4><div class="desc">博多秘伝のたれ付き。届いて焼くだけ。</div><div class="price">¥ 価格目安</div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_sukiyaki" alt="和牛すき焼き肉"></div><div class="body"><h4>和牛 すき焼き肉</h4><div class="desc">きめ細かなサシのスライス。鍋の主役に。</div><div class="price">¥ 価格目安</div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_shabu" alt="和牛しゃぶしゃぶ"></div><div class="body"><h4>和牛 しゃぶしゃぶ</h4><div class="desc">口の中でほどける薄切り和牛。</div><div class="price">¥ 価格目安</div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_hamburg" alt="博多和牛ハンバーグ"></div><div class="body"><h4>博多和牛 ハンバーグ</h4><div class="desc">肉の旨みがあふれる手ごね。</div><div class="price">¥ 価格目安</div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_tataki" alt="特選和牛たたき"></div><div class="body"><h4>特選和牛 たたき</h4><div class="desc">看板商品。さっと炙って薬味とともに。</div><div class="price">¥480〜 <small>/ 100g</small></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_pork_shabu" alt="ブランド豚しゃぶしゃぶ"></div><div class="body"><h4>ブランド豚 しゃぶしゃぶ</h4><div class="desc">夢幻豚・六白黒豚など。甘みのある脂が自慢。</div><div class="price">¥ 価格目安</div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_sirloin" alt="和牛サーロインステーキ"></div><div class="body"><h4>和牛 サーロインステーキ</h4><div class="desc">きめ細かなサシ。厚切りで贅沢に。</div><div class="price">¥ 価格目安</div></div></div>
+    </div>
+    <div class="center-cta"><a href="shop.html" class="btn btn-primary">🛒 通販で全部見る</a></div>
+  </div>
+</section>
+
+<!-- Gift -->
+<section class="sec gift" id="gift">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en">GIFT</span>
+      <h2 class="serif">贈り物に、選べる松竹梅</h2>
+      <p>お中元・お歳暮・お祝いに。のし・ラッピング承ります</p>
+    </div>
+    <div class="gift-grid">
+      <div class="gift-card"><span class="rank">🌸 松</span><div class="ph"><img data-img="gift_matsu" alt="極みステーキギフト"></div><div class="body"><h4 class="serif">特選和牛 極みギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">A5ステーキ詰合せ・化粧箱入り</div><div class="price">¥15,000〜20,000</div></div></div>
+      <div class="gift-card"><span class="rank">🎋 竹</span><div class="ph"><img data-img="gift_take" alt="和牛ステーキセット"></div><div class="body"><h4 class="serif">和牛 ステーキセット</h4><div class="desc" style="font-size:13px;color:var(--gray)">人気の定番。贈って喜ばれる一箱</div><div class="price">¥8,000〜12,000</div></div></div>
+      <div class="gift-card"><span class="rank">🌿 梅</span><div class="ph"><img data-img="gift_ume" alt="和牛すき焼きギフト"></div><div class="body"><h4 class="serif">和牛 すき焼きギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">内祝い・カジュアルギフトに</div><div class="price">¥4,000〜6,000</div></div></div>
+    </div>
+    <div class="center-cta"><a href="shop.html#gift" class="btn btn-primary">🎁 ギフトを見る</a></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en">REVIEWS</span>
+      <h2 class="serif">お客様の声</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev"><div class="stars">★★★★★</div><p>「高級A5ステーキ肉、とても美味しかったです。サシが上品でとろけました。」</p><div class="who">— 通販ご利用のお客様</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>「お肉がどれもキレイでリーズナブル。ご近所に教えたくなるお店です。」</p><div class="who">— 雑餉隈 ご来店のお客様</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>「お惣菜が美味しく、曜日ごとに安売りが決まっているので気付けばいつも通ってしまいます笑」</p><div class="who">— 常連のお客様</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>「タレ漬けの豚肉、美味しくて子供達に取られてしまいました。」</p><div class="who">— ご家族でご利用のお客様</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Stores -->
+<section class="sec" id="stores" style="background:var(--base)">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">STORES</span><h2 class="serif">店舗案内</h2></div>
+    <div class="store-grid">
+      <div class="store">
+        <div class="ph"><img data-img="store_honten" alt="マル和ミート 雑餉隈本店"></div>
+        <div class="body">
+          <h4>雑餉隈本店</h4>
+          <dl>
+            <dt>住所</dt><dd>福岡県福岡市博多区銀天町1-2-11</dd>
+            <dt>電話</dt><dd>092-502-4129</dd>
+            <dt>営業</dt><dd>9:30〜19:00</dd>
+            <dt>定休</dt><dd>1月1日〜1月4日</dd>
+            <dt>駐車</dt><dd>無／近隣<a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BA%E9%8A%80%E5%A4%A9%E7%94%BA%E7%AC%AC1%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1%E4%B8%81%E7%9B%AE" target="_blank" rel="noopener">タイムズ銀天町1丁目</a></dd>
+          </dl>
+          <div class="store-btns"><a href="tel:0925024129" class="btn btn-primary">📞 電話する</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%83%9E%E3%83%AB%E5%92%8C%E3%83%9F%E3%83%BC%E3%83%88%20%E9%9B%91%E9%A4%89%E9%9A%88%E6%9C%AC%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1-2-11" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color:var(--orange);color:var(--orange-deep)">🗺 大きな地図</a></div>
+          <iframe class="store-map" src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1-2-11&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="雑餉隈本店 地図"></iframe>
+        </div>
+      </div>
+      <div class="store">
+        <div class="ph"><img data-img="store_tsukikuma" alt="マル和ミート 月隈店"></div>
+        <div class="body">
+          <h4>月隈店</h4>
+          <dl>
+            <dt>住所</dt><dd>福岡県福岡市博多区東月隈3-18-4</dd>
+            <dt>電話</dt><dd>092-504-2944</dd>
+            <dt>営業</dt><dd>10:00〜19:00</dd>
+            <dt>定休</dt><dd>日曜日・1月1日〜1月4日</dd>
+            <dt>駐車</dt><dd>あり</dd>
+          </dl>
+          <div class="store-btns"><a href="tel:0925042944" class="btn btn-primary">📞 電話する</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%83%9E%E3%83%AB%E5%92%8C%E3%83%9F%E3%83%BC%E3%83%88%20%E6%9C%88%E9%9A%88%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E6%9D%B1%E6%9C%88%E9%9A%883-18-4" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color:var(--orange);color:var(--orange-deep)">🗺 大きな地図</a></div>
+          <iframe class="store-map" src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E6%9D%B1%E6%9C%88%E9%9A%883-18-4&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="月隈店 地図"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Media -->
+<section class="sec media">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">MEDIA</span><h2 class="serif">メディア・取材実績</h2></div>
+    <div class="media-banner">
+      <span class="mf-badge">TNC ももち浜ストア</span>
+      <h4 class="serif">テレビ西日本「ももち浜ストア」で<br>特選牛たたきが紹介されました</h4>
+      <p>2014年8月15日(金) OA ／ ジモトシュラン【雑餉隈版】</p>
+      <a class="btn btn-primary" href="https://www.tnc.co.jp/store/shop/archives/19031" target="_blank" rel="noopener">▶ 番組ページを見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- Instagram -->
+<section class="sec" style="background:var(--base)">
+  <div class="wrap">
+    <div class="ig-head">
+      <span class="en" style="color:var(--gold);font-weight:700;letter-spacing:3px;font-size:13px">INSTAGRAM</span>
+      <h2 class="serif" style="font-size:26px;margin:6px 0">日々のお肉を発信中</h2>
+      <a href="https://www.instagram.com/maruwameat_fukuoka">＠maruwameat_fukuoka をフォロー →</a>
+    </div>
+    <div class="ig-grid">
+      <div class="ph"><img data-img="ig1" alt=""></div>
+      <div class="ph"><img data-img="ig2" alt=""></div>
+      <div class="ph"><img data-img="ig3" alt=""></div>
+      <div class="ph"><img data-img="ig4" alt=""></div>
+      <div class="ph"><img data-img="ig5" alt=""></div>
+      <div class="ph"><img data-img="ig6" alt=""></div>
+    </div>
+    <div class="ig-qr">
+      <img data-img="ig_qr" alt="マル和ミート Instagram QRコード">
+      <span>QRコードから<br>フォローできます<br>＠maruwameat_fukuoka</span>
+    </div>
+  </div>
+</section>
+
+<!-- LINE -->
+<section class="sec line-cta">
+  <div class="wrap in">
+    <div>
+      <h3 class="serif">LINEでお得情報をお届け</h3>
+      <p>特売・新商品・クーポンをいち早く。ブランド肉 半額セールの案内も！</p>
+      <div style="margin-top:16px"><a href="#" class="btn btn-line">📱 友だち追加する</a></div>
+    </div>
+    <div class="qr">QRコード<br>（公式アカウント<br>開設後に設置）</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <h5>マル和ミート</h5>
+        <p style="color:#a89f97">食卓のしあわせと安心をお届けするお店</p>
+        <div class="foot-store" style="margin-top:14px"><b style="color:#fff">雑餉隈本店</b><br>銀天町1-2-11 / <a href="tel:0925024129" style="color:#e8a877">📞 092-502-4129</a><br>9:30-19:00</div>
+        <div class="foot-store"><b style="color:#fff">月隈店</b><br>東月隈3-18-4 / <a href="tel:0925042944" style="color:#e8a877">📞 092-504-2944</a></div>
+      </div>
+      <div>
+        <h5>メニュー</h5>
+        <div class="foot-links">
+          <a href="#kodawari">こだわり</a><a href="#products">商品紹介</a><a href="#gift">ギフト</a>
+          <a href="#reviews">お客様の声</a><a href="#stores">店舗案内</a><a href="shop.html">通販</a>
+        </div>
+      </div>
+      <div>
+        <h5>SNS・お問い合わせ</h5>
+        <div class="foot-sns">
+          <a href="https://www.instagram.com/maruwameat_fukuoka" target="_blank" rel="noopener" title="Instagram（店舗）">📷</a>
+          <a href="https://www.instagram.com/maruwa_meat_shacho" target="_blank" rel="noopener" title="Instagram（社長）">👤</a>
+          <a href="#" title="LINE公式（開設後にリンク）">📱</a>
+        </div>
+        <div class="foot-links" style="margin-top:14px">
+          <a href="#">プライバシーポリシー</a>
+          <a href="#">特定商取引法に基づく表記</a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">© MARUWA MEAT. All Rights Reserved.（モックアップ）</div>
+  </div>
+</footer>
+
+<!-- Mobile sticky CTA -->
+<div class="mobile-cta">
+  <a href="shop.html" class="btn btn-primary">🛒 通販で買う</a>
+  <a href="#" class="btn btn-line">📱 LINE追加</a>
+</div>
+
+<!-- =====================================================================
+     画像マッピング（差し替え設定）
+     ─────────────────────────────────────────────────────────────────
+     ■ 画像を差し替えるには、下の IMAGES の右側のパスを変えるだけ。
+       例）hero を別の写真にしたい → hero: "assets/images/products/xxx.jpg"
+     ■ もしくは、assets/ 内のファイルを「同じ名前のまま」新しい写真に
+       置き換えてもOK（この設定は触らなくて済みます）。
+     ■ data-img="キー名" が付いた <img> に、自動でこの画像が入ります。
+     ===================================================================== -->
+<script>
+  const IMAGES = {
+    // ヒーロー（一番上の大きな写真）
+    hero:           "assets/images/products/wagyu-shabu-rosette.jpg", // 看板商品の和牛しゃぶしゃぶ
+    // こだわりセクションの写真
+    kodawari:       "assets/images/products/wagyu-block-sashi.jpg",
+    // 看板商品カード
+    prod_a5:        "assets/images/products/a5-fillet-steak-closeup.jpg",
+    prod_yakiniku:  "assets/images/products/yakiniku-set-tare.jpg",
+    prod_sukiyaki:  "assets/images/products/wagyu-sukiyaki-slice-tray-1.jpg",
+    prod_shabu:     "assets/images/products/wagyu-shabu-rosette.jpg",
+    prod_hamburg:   "assets/images/products/hakata-wagyu-hamburg.jpg",
+    prod_tataki:    "assets/images/products/a5-fillet-steak-3p.jpg",
+    prod_pork_shabu:"assets/images/products/pork-shabu.jpg", // ブランド豚しゃぶしゃぶ（商品イメージ）
+    prod_sirloin:   "assets/images/products/sirloin-steak-closeup.jpg", // 和牛サーロインステーキ
+    // ギフト 松竹梅
+    gift_matsu:     "assets/images/gifts/gift-miyazaki-steak-box.jpg", // 宮崎牛ステーキ箱（横向き）
+    gift_take:      "assets/images/gifts/gift-steak-box-4p.jpg",
+    gift_ume:       "assets/images/products/gift-wagyu-slice-box.jpg",
+    // 店舗写真
+    store_honten:   "assets/images/store/storefront-sign.jpg",
+    store_tsukikuma:"assets/images/store/store-entrance-door.jpg",
+    // Instagram QR
+    ig_qr:          "assets/images/sns/instagram-qr.jpg",
+    // Instagram グリッド（6枚）
+    ig1:            "assets/images/products/sirloin-steak-2p.jpg",
+    ig2:            "assets/images/products/wagyu-sukiyaki-slice-tray-2.jpg",
+    ig3:            "assets/images/store/signage-mugenton-sale.jpg",
+    ig4:            "assets/images/products/hamburg-raw-box.jpg",
+    ig5:            "assets/images/store/showcase-sozai.jpg",
+    ig6:            "assets/images/sozai/karaage-frying.jpg",
+  };
+  // data-img を持つ <img> に上の設定を流し込む
+  document.querySelectorAll("img[data-img]").forEach(el=>{
+    const key = el.getAttribute("data-img");
+    if(IMAGES[key]) el.src = IMAGES[key];
+  });
+</script>
+
+</body>
+</html>

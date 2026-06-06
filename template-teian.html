@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ホームページ・ネットショップ 制作のご提案（基本提案書）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== シンプル・ニュートラル（業種を選ばない） ===== */
+    --bg:#FFFFFF; --soft:#F5F7FA; --ink:#26313D; --accent:#34506B; --accent-d:#243A4F;
+    --gray:#6C7684; --line:#E5E9EE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:#eceff3;line-height:1.78;-webkit-font-smoothing:antialiased}
+  .serif{font-family:"Noto Serif JP",serif}
+  .sheet{max-width:880px;margin:24px auto;background:var(--bg);box-shadow:0 12px 36px -16px rgba(20,30,45,.35);border-radius:10px;overflow:hidden}
+  /* ヘッダー */
+  .top{background:var(--accent);color:#fff;padding:34px 36px}
+  .top .kick{font-size:12px;letter-spacing:3px;color:#cdd9e5;font-weight:700}
+  .top h1{font-size:26px;line-height:1.5;margin:10px 0 6px}
+  .top p{font-size:13px;color:#d7e0ea}
+  .tmpl-bar{background:#fef6e7;color:#7a5a14;font-size:12px;padding:8px 36px;border-bottom:1px solid #f0e2c4}
+  .pad{padding:26px 36px}
+  h2.sec{font-size:18px;color:var(--accent);display:flex;align-items:center;gap:10px;margin:28px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  h2.sec .n{background:var(--accent);color:#fff;width:24px;height:24px;border-radius:5px;display:grid;place-items:center;font-size:13px;font-weight:700}
+  .lead{font-size:14px}
+  .ph{color:#b06a1f;font-weight:700}  /* プレースホルダ強調 */
+  /* 機能 */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .feat .f{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:13px 14px}
+  .feat .f .ic{font-size:19px}
+  .feat .f b{display:block;font-size:13.5px;margin:3px 0 2px}
+  .feat .f span{font-size:11.5px;color:var(--gray)}
+  /* テーブル */
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--accent-d);color:#fff;font-size:12.5px}
+  tr:nth-child(even) td{background:#fafbfc}
+  .take{background:#eef3f8}
+  .big{font-size:15px;font-weight:700;color:var(--accent)}
+  .reco{display:inline-block;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;margin-left:5px;vertical-align:middle}
+  /* ランニング */
+  .run{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-size:13px}
+  .run div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:6px 0}
+  .run b{color:var(--accent)}
+  /* コールアウト */
+  .callout{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;margin-top:12px}
+  .callout h4{font-size:14px;color:var(--accent-d);margin-bottom:5px}
+  /* 構成図 */
+  .hub{background:var(--accent-d);color:#fff;text-align:center;font-weight:700;padding:12px;border-radius:8px;font-size:14px}
+  .down{text-align:center;color:var(--accent);font-size:20px;margin:2px 0}
+  .branches{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .br{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .br .br-h{font-weight:700;font-size:13.5px;margin-bottom:4px}
+  .br .br-name{display:inline-block;background:#fff;border:1px solid var(--accent);color:var(--accent);font-weight:700;font-size:12.5px;padding:3px 12px;border-radius:5px;margin-bottom:8px}
+  .br p{font-size:12px;color:var(--gray);margin:0}
+  .links-ref{margin-top:12px;font-size:12.5px;background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:11px 14px}
+  .links-ref a{display:inline-block;color:var(--accent);font-weight:700;border:1px solid var(--accent);border-radius:5px;padding:3px 12px;margin:3px 5px 0 0;text-decoration:none}
+  .links-ref a:hover{background:var(--accent);color:#fff}
+  /* 流れ */
+  .flow{counter-reset:s;font-size:13.5px}
+  .flow .step{display:flex;gap:12px;align-items:flex-start;margin:8px 0;padding:10px 14px;background:var(--soft);border-radius:8px}
+  .flow .step .num{background:var(--accent);color:#fff;min-width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .flow .step b{color:var(--ink)}
+  .flow .step span{color:var(--gray);font-size:12.5px}
+  /* おすすめ */
+  .reco-box{background:#fff;border:2px solid var(--accent);border-radius:10px;padding:16px 18px;margin-top:8px}
+  .reco-box h3{color:var(--accent-d);font-size:15px;margin-bottom:6px}
+  .reco-box p{font-size:13px}
+  .note{font-size:11px;color:var(--gray);margin-top:10px}
+  /* フッター */
+  .foot{background:#243A4F;color:#c9d3dd;padding:22px 36px;font-size:12px}
+  .foot b{color:#fff}
+  @media(max-width:680px){
+    .pad,.tmpl-bar,.foot{padding-left:20px;padding-right:20px}
+    .top{padding:24px 20px}
+    .feat,.branches,.run{grid-template-columns:1fr}
+  }
+  @media print{ body{background:#fff} .sheet{box-shadow:none;margin:0;border-radius:0} .tmpl-bar{display:none} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="kick">WEB &amp; ONLINE SHOP — PROPOSAL</div>
+    <h1 class="serif">ホームページ ＋ ネットショップ<br>制作のご提案</h1>
+    <p><span class="ph">〈クライアント名〉</span> 様 ／ ご提案日 <span class="ph">〈YYYY年M月D日〉</span></p>
+  </div>
+  <div class="tmpl-bar">★ これは基本提案書テンプレートです。<span class="ph">〈　〉</span>の箇所を案件ごとに差し替えてご使用ください。</div>
+
+  <div class="pad">
+
+    <!-- 概要 -->
+    <h2 class="sec"><span class="n">1</span>ご提案の概要</h2>
+    <p class="lead"><span class="ph">〈業種・店名〉</span>様の魅力をWebで発信し、<b>来店・問い合わせ・ネット販売</b>につなげる公式サイトをご提案します。スマートフォン最優先のデザインで、SNS・地図・電話・ネット通販まで一体で連動させ、集客と売上の「本拠地」をつくります。</p>
+
+    <!-- できること -->
+    <h2 class="sec"><span class="n">2</span>制作できること</h2>
+    <div class="feat">
+      <div class="f"><div class="ic">🏠</div><b>ブランドサイト</b><span>会社・店舗・商品の魅力を発信</span></div>
+      <div class="f"><div class="ic">🛒</div><b>ネット通販（EC）</b><span>全国へオンライン販売</span></div>
+      <div class="f"><div class="ic">📅</div><b>予約・お問い合わせ</b><span>フォーム・予約受付</span></div>
+      <div class="f"><div class="ic">📱</div><b>SNS連動</b><span>LINE / Instagram 等と連携</span></div>
+      <div class="f"><div class="ic">🗺️</div><b>地図・電話連動</b><span>タップでナビ・発信</span></div>
+      <div class="f"><div class="ic">📝</div><b>更新機能（CMS）</b><span>お知らせ・ブログを自社更新</span></div>
+      <div class="f"><div class="ic">⭐</div><b>お客様の声</b><span>レビューで信頼を可視化</span></div>
+      <div class="f"><div class="ic">🔍</div><b>SEO・解析</b><span>検索対策・アクセス分析</span></div>
+      <div class="f"><div class="ic">🔒</div><b>常時SSL・スマホ対応</b><span>安全・どの端末でも快適</span></div>
+    </div>
+
+    <!-- 料金 -->
+    <h2 class="sec"><span class="n">3</span>制作プラン（松竹梅）</h2>
+    <table>
+      <tr><th>プラン</th><th>梅（お手軽）</th><th class="take">竹（標準）<span class="reco">おすすめ</span></th><th>松（本格）</th></tr>
+      <tr><td><b>初期制作費（税別）</b></td><td class="big">25〜40万円</td><td class="take big">50〜80万円</td><td class="big">100〜180万円</td></tr>
+      <tr><td>サイト</td><td>主要ページ</td><td class="take">全ページ＋更新機能(CMS)</td><td>完全オリジナル</td></tr>
+      <tr><td>ネット通販</td><td>ASP連携(BASE/STORES)</td><td class="take">ASP＋商品登録代行</td><td>Shopify 本格構築</td></tr>
+      <tr><td>SNS・連動</td><td>連携サポート</td><td class="take">LINE/Instagram連動・設定</td><td>＋運用設計・レク</td></tr>
+      <tr><td>デザイン・素材</td><td>テンプレ調整</td><td class="take">オリジナルデザイン</td><td>ロゴ整備・撮影ディレクション</td></tr>
+      <tr><td>納期目安</td><td>3〜4週間</td><td class="take">5〜8週間</td><td>2〜3ヶ月</td></tr>
+    </table>
+    <p class="note">※デザイン確定・素材支給済みの場合は、設計/デザイン工程を圧縮でき費用を抑えられます。金額は標準的な目安です。</p>
+
+    <!-- ランニング -->
+    <h2 class="sec"><span class="n">4</span>毎月かかる費用（ランニング）</h2>
+    <div class="run">
+      <div><span>ドメイン（独自URL）</span><b>年 1,500〜4,000円</b></div>
+      <div><span>サーバー / ホスティング</span><b>月 0〜1,500円</b></div>
+      <div><span>ネット通販 BASE/STORES</span><b>月 0円＋売れた分の手数料</b></div>
+      <div><span>ネット通販 Shopify</span><b>月 3,650円〜＋決済手数料</b></div>
+      <div><span>LINE公式アカウント</span><b>月 0円（無料枠）</b></div>
+      <div><span>保守サポート（任意）</span><b>月 5,000〜20,000円</b></div>
+    </div>
+
+    <!-- EC比較 -->
+    <h2 class="sec"><span class="n">5</span>ネット通販の選択肢（比較）</h2>
+    <table>
+      <tr><th>項目</th><th>BASE</th><th>STORES</th><th>Shopify</th><th>Bカート（卸/BtoB）</th></tr>
+      <tr><td>初期費用</td><td>0円</td><td>0円</td><td>0円</td><td>80,000円</td></tr>
+      <tr><td>月額（最小）</td><td>0円〜</td><td>0円〜</td><td class="take">3,650円〜（年払）</td><td>9,800円〜</td></tr>
+      <tr><td>決済/手数料の目安</td><td>約6.6%+40円</td><td>5%</td><td class="take">約3.4%〜</td><td>掛け払い約3.2%</td></tr>
+      <tr><td>向いている規模</td><td>小・スタート</td><td>小〜中</td><td class="take">中〜大・本格</td><td>卸・取引先向け</td></tr>
+      <tr><td>強み</td><td>無料で即開始</td><td>デザイン・予約連携</td><td class="take">拡張性・ブランドEC</td><td>掛け払い・取引先別価格</td></tr>
+    </table>
+
+    <div class="callout">
+      <h4>Shopify を選ぶ場合のポイント</h4>
+      月額制（3,650円〜）ですが、<b>デザインの自由度・拡張性・多商品・将来の海外展開</b>に強く、本格的なブランドECに最適です。決済はShopify Paymentsで取引手数料0、アプリで予約・定期便・多言語なども追加可能。<b>売上規模が大きくなるほど、手数料面で無料ASPより有利</b>になります。
+    </div>
+    <div class="callout" style="border-left-color:var(--gray)">
+      <h4>はじめ方の目安</h4>
+      売上が読めないうちは <b>BASE/STORES（無料）でスタート</b> → 軌道に乗ったら <b>Shopify へ移行</b>、が堅実です。最初から本格的にやるなら Shopify から始めるのも可。
+    </div>
+
+    <!-- 構成図 -->
+    <h2 class="sec"><span class="n">6</span>サイトの構成（一般向け＋業務向けの合わせ技）</h2>
+    <p class="lead">一般のお客様と、業務用・卸のお客様で、得意なサービスを使い分けられます。公式サイトが「入口」です。</p>
+    <div style="margin-top:10px">
+      <div class="hub">🏠 公式サイト（入口・ブランドの顔）</div>
+      <div class="down">▼</div>
+      <div class="branches">
+        <div class="br">
+          <div class="br-h">🛒 一般のお客様向け 通販（BtoC）</div>
+          <div class="br-name">BASE / STORES / Shopify</div>
+          <p>カード決済で個人のお客様へ販売。手軽さ重視ならASP、本格派ならShopify。</p>
+        </div>
+        <div class="br">
+          <div class="br-h">🧾 業務用・卸向け 受発注（BtoB）</div>
+          <div class="br-name">Bカート など（任意）</div>
+          <p>取引先がログインして発注・掛け払い（月末請求）。FAX/電話注文の置き換えに。</p>
+        </div>
+      </div>
+      <div class="links-ref">
+        <b>🔗 各サービス公式サイト：</b>
+        <a href="https://thebase.in/" target="_blank" rel="noopener">BASE</a>
+        <a href="https://stores.jp/" target="_blank" rel="noopener">STORES</a>
+        <a href="https://www.shopify.com/jp" target="_blank" rel="noopener">Shopify</a>
+        <a href="https://bcart.jp/" target="_blank" rel="noopener">Bカート</a>
+      </div>
+    </div>
+
+    <!-- 販路 -->
+    <h2 class="sec"><span class="n">7</span>販路の広がり（将来の展開）</h2>
+    <p class="lead">自社サイトで整えた<b>商品情報・写真・配送/決済の体制</b>は、そのまま他の販路にも活かせます（業種により適用可否あり）。</p>
+    <div class="flow" style="margin-top:10px">
+      <div class="step"><span class="num">1</span><div><b>自社サイト＋通販を整える</b><br><span>商品・写真・配送・決済・各種表記が揃う（＝土台）</span></div></div>
+      <div class="step"><span class="num">2</span><div><b>ふるさと納税（自治体に申請）</b><br><span>地場産品が対象。代金・送料は自治体負担で全国にPR ※対象業種・商品に限る</span></div></div>
+      <div class="step"><span class="num">3</span><div><b>各種モール（楽天 / Yahoo! / Amazon ほか）</b><br><span>同じ素材を使って各モールへ横展開</span></div></div>
+    </div>
+
+    <!-- 流れ -->
+    <h2 class="sec"><span class="n">8</span>制作の進め方</h2>
+    <table>
+      <tr><th>フェーズ</th><th>内容</th></tr>
+      <tr><td>① ヒアリング・要件整理</td><td>目的・ターゲット・掲載内容・素材の確認</td></tr>
+      <tr><td>② 設計・デザイン</td><td>サイトマップ／ワイヤー／デザイン案の確定</td></tr>
+      <tr><td>③ 制作・実装</td><td>サイト構築・通販セットアップ・各種連動</td></tr>
+      <tr><td>④ テスト・公開</td><td>表示/注文/問い合わせ検証 → 公開</td></tr>
+      <tr><td>⑤ 運用サポート</td><td>更新マニュアル・保守・改善（任意）</td></tr>
+    </table>
+
+    <!-- おすすめ -->
+    <h2 class="sec"><span class="n">9</span>おすすめの進め方</h2>
+    <div class="reco-box">
+      <h3>「竹」プランで無料ASPからスタート → 成長に応じて拡張</h3>
+      <p>初期費用・固定費を抑えてリスク小さく公開 → 反応を見ながら、Shopify移行・業務用(卸)・各販路展開を段階的に追加。最小の投資で「動く本拠地」をまず手に入れる進め方です。</p>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b><span class="ph">〈制作会社名〉</span></b>　|　<span class="ph">〈住所〉</span>　|　TEL <span class="ph">〈電話番号〉</span>　|　<span class="ph">〈メール / URL〉</span><br>
+    <span class="note" style="color:#9aa6b2">本提案は概算です。最終スコープ・プラットフォーム確定後に正式お見積りを発行します。</span>
+  </div>
+
+</div>
+</body>
+</html>

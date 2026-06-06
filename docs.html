@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資料室｜マル和ミート 制作プロジェクト</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#FFFDF9; --orange:#E8722A; --orange-deep:#B34E14; --orange-soft:#F3E9D9;
+    --gold:#CBA15B; --espresso:#33281F; --ink:#33281F; --gray:#9A8C7B; --line:#EFE5D6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--base);line-height:1.85}
+  .serif{font-family:"Noto Serif JP",serif}
+  header{background:linear-gradient(120deg,var(--orange),var(--orange-deep));color:#fff;padding:20px 22px;position:sticky;top:0;z-index:30}
+  header .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px}
+  header .brand .mark{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--orange-deep);display:grid;place-items:center;font-weight:900}
+  header .sub{font-size:12px;color:#ffe6cc;margin-top:4px}
+  header a.home{color:#fff;font-size:12px;text-decoration:underline;float:right;margin-top:-30px}
+  .layout{display:grid;grid-template-columns:300px 1fr;max-width:1180px;margin:0 auto;gap:0;min-height:80vh}
+  /* サイドの資料リスト */
+  .side{border-right:1px solid var(--line);padding:18px 14px;background:#fff}
+  .side h2{font-size:13px;color:var(--gray);letter-spacing:1px;margin:6px 8px 10px}
+  .doc-link{display:block;padding:12px 14px;border-radius:10px;cursor:pointer;margin-bottom:6px;border:1px solid transparent;transition:.15s}
+  .doc-link:hover{background:var(--orange-soft)}
+  .doc-link.active{background:var(--orange-soft);border-color:var(--orange)}
+  .doc-link b{display:block;font-size:14px;color:var(--ink)}
+  .doc-link span{font-size:11.5px;color:var(--gray)}
+  /* 本文 */
+  .main{padding:28px 34px 60px;max-width:820px}
+  .loading{color:var(--gray);font-size:14px;padding:40px 0}
+  /* markdown styling */
+  .md h1{font-size:26px;margin:8px 0 16px;color:var(--espresso);border-bottom:3px solid var(--orange);padding-bottom:10px;font-family:"Noto Serif JP",serif}
+  .md h2{font-size:20px;margin:30px 0 12px;color:var(--orange-deep);border-left:5px solid var(--orange);padding-left:10px}
+  .md h3{font-size:16px;margin:22px 0 8px;color:var(--espresso)}
+  .md p{margin:10px 0;font-size:14px}
+  .md ul,.md ol{margin:10px 0 10px 22px;font-size:14px}
+  .md li{margin:4px 0}
+  .md table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+  .md th,.md td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  .md th{background:var(--espresso);color:#fff}
+  .md tr:nth-child(even) td{background:#fdf8f1}
+  .md code{background:var(--orange-soft);padding:2px 6px;border-radius:4px;font-size:12.5px}
+  .md pre{background:var(--espresso);color:#f7f1e8;padding:14px 16px;border-radius:10px;overflow:auto;font-size:12.5px;margin:14px 0;line-height:1.6}
+  .md pre code{background:none;color:inherit;padding:0}
+  .md blockquote{border-left:4px solid var(--gold);background:#fbf5ea;padding:8px 16px;margin:14px 0;color:#6b5d49;font-size:13.5px;border-radius:0 8px 8px 0}
+  .md a{color:var(--orange-deep);font-weight:700}
+  .md hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+  .md strong{color:var(--espresso)}
+  .tip{background:var(--orange-soft);border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:18px}
+  .copybtn{background:var(--orange);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer;margin-bottom:18px;font-family:inherit}
+  .copybtn:hover{background:var(--orange-deep)}
+  @media(max-width:760px){
+    .layout{grid-template-columns:1fr}
+    .side{border-right:0;border-bottom:1px solid var(--line)}
+    .main{padding:20px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="mark">和</span>マル和ミート 資料室</div>
+  <div class="sub">制作プロジェクトの詳細資料（読みやすく表示しています）</div>
+  <a class="home" href="proposal.html">← 提案書へ戻る</a>
+</header>
+
+<div class="layout">
+  <nav class="side" id="side">
+    <h2>📋 提案・見積もり</h2>
+    <h2 style="margin-top:18px">📐 設計・デザイン</h2>
+  </nav>
+  <main class="main">
+    <div class="tip">💡 左の一覧から見たい資料を選んでください（スマホでは上に並びます）。専門用語が多いので、わからない所はいつでも聞いてください。</div>
+    <div class="md" id="content"><div class="loading">資料を読み込み中…</div></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  // 資料リスト（友好的なタイトル付き）
+  const DOCS = [
+    {grp:0, id:"youken",   title:"要件定義書", desc:"つくるものの全体像", path:"docs/requirements/要件定義書.md"},
+    {grp:0, id:"estimate", title:"制作費 見積もり", desc:"松竹梅の料金プラン", path:"docs/requirements/制作費見積もり.md"},
+    {grp:0, id:"ec",       title:"通販プラットフォーム比較", desc:"BASE / STORES / Shopify", path:"docs/requirements/EC比較と通販設計.md"},
+    {grp:0, id:"lineup",   title:"通販 商品ラインナップ案", desc:"何をいくらで売るか", path:"docs/requirements/通販商品ラインナップ案.md"},
+    {grp:0, id:"furusato", title:"ふるさと納税＆販路ガイド", desc:"通販の先の広げ方", path:"docs/requirements/ふるさと納税と販路ガイド.md"},
+    {grp:1, id:"sitemap",  title:"サイト構成（サイトマップ）", desc:"ページの構造・配置", path:"docs/design/サイトマップ_ワイヤーフレーム.md"},
+    {grp:1, id:"design",   title:"デザイン方針", desc:"色・フォント・トーン", path:"docs/design/トップページデザイン案.md"},
+    {grp:1, id:"photos",   title:"写真素材カタログ", desc:"提供写真の使い道", path:"docs/design/写真素材カタログ.md"},
+  ];
+
+  const side=document.getElementById("side");
+  const content=document.getElementById("content");
+  const groups=side.querySelectorAll("h2");
+  const links=[];
+
+  DOCS.forEach((d,i)=>{
+    const a=document.createElement("div");
+    a.className="doc-link";
+    a.innerHTML=`<b>${d.title}</b><span>${d.desc}</span>`;
+    a.onclick=()=>load(i);
+    // グループの直後に差し込む
+    if(d.grp===0) groups[1].before(a); else side.appendChild(a);
+    links.push(a);
+  });
+
+  function copyLink(i){
+    const url=location.origin+location.pathname+"#"+DOCS[i].id;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(url).then(()=>{
+        const b=document.getElementById("copybtn");
+        if(b){b.textContent="✅ リンクをコピーしました"; setTimeout(()=>b.textContent="🔗 このページの直リンクをコピー",1800);}
+      });
+    }else{ prompt("このページのリンク：", url); }
+  }
+  async function load(i){
+    links.forEach(l=>l.classList.remove("active"));
+    links[i].classList.add("active");
+    if(DOCS[i] && history.replaceState) history.replaceState(null,"","#"+DOCS[i].id);
+    content.innerHTML='<div class="loading">読み込み中…</div>';
+    try{
+      const res=await fetch(encodeURI(DOCS[i].path),{cache:"no-store"});
+      if(!res.ok) throw new Error(res.status);
+      const md=await res.text();
+      content.innerHTML='<button id="copybtn" class="copybtn" onclick="copyLink('+i+')">🔗 このページの直リンクをコピー</button>'+marked.parse(md);
+      window.scrollTo({top:0,behavior:"smooth"});
+    }catch(e){
+      content.innerHTML='<div class="loading">読み込めませんでした（'+e.message+'）。<br>※このページは共有リンク（https〜）経由でご覧ください。パソコンのファイルを直接開くと表示できない場合があります。</div>';
+    }
+  }
+  function idToIndex(id){ return DOCS.findIndex(d=>d.id===id); }
+  function applyHash(){
+    const id=decodeURIComponent(location.hash.replace(/^#/,""));
+    const i=idToIndex(id);
+    load(i>=0?i:0);
+  }
+  window.addEventListener("hashchange",applyHash);
+  applyHash(); // URLの#に応じて該当資料を直接表示
+</script>
+</body>
+</html>

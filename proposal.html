@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マル和ミート 公式サイト＋通販 ご提案｜1枚まとめ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#FFFDF9; --orange:#E8722A; --orange-deep:#B34E14; --orange-soft:#F3E9D9;
+    --gold:#CBA15B; --espresso:#33281F; --ink:#33281F; --gray:#9A8C7B; --line:#EFE5D6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:#efe7da;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .serif{font-family:"Noto Serif JP",serif}
+  .sheet{max-width:880px;margin:24px auto;background:var(--base);box-shadow:0 14px 40px -16px rgba(0,0,0,.4);border-radius:14px;overflow:hidden}
+  /* ヘッダー */
+  .top{background:linear-gradient(120deg,var(--orange) 0%,var(--orange-deep) 100%);color:#fff;padding:30px 34px}
+  .top .brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;margin-bottom:14px}
+  .top .brand .mark{width:36px;height:36px;border-radius:50%;background:#fff;color:var(--orange-deep);display:grid;place-items:center;font-weight:900;font-size:19px}
+  .top h1{font-size:25px;line-height:1.5;margin-bottom:8px}
+  .top p{font-size:13.5px;color:#ffe6cc}
+  .pad{padding:26px 34px}
+  h2.sec{font-size:18px;color:var(--orange-deep);display:flex;align-items:center;gap:9px;margin:26px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--orange-soft)}
+  h2.sec .n{background:var(--orange);color:#fff;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700}
+  .lead{font-size:14px;color:var(--ink)}
+  /* 完成イメージ */
+  .preview{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;align-items:center;background:var(--orange-soft);border-radius:12px;padding:16px;margin-top:6px}
+  .preview img{width:100%;border-radius:8px;border:1px solid var(--line);display:block;box-shadow:0 8px 20px -12px rgba(0,0,0,.4)}
+  .preview .pv-txt h3{font-size:15px;margin-bottom:8px}
+  .preview .pv-txt p{font-size:13px;color:var(--gray);margin-bottom:12px}
+  .btn{display:inline-block;background:var(--orange);color:#fff;font-weight:700;font-size:13px;padding:10px 18px;border-radius:7px;text-decoration:none}
+  /* 機能 */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .feat .f{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 14px}
+  .feat .f .ic{font-size:20px}
+  .feat .f b{display:block;font-size:13.5px;margin:3px 0 2px}
+  .feat .f span{font-size:11.5px;color:var(--gray)}
+  /* 料金 */
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--espresso);color:#fff;font-size:12.5px}
+  .plan-take{background:var(--orange-soft)}
+  .price-big{font-size:16px;font-weight:700;color:var(--orange-deep)}
+  .reco{display:inline-block;background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle}
+  /* ランニング */
+  .run{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;font-size:13px}
+  .run div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:6px 0}
+  .run b{color:var(--orange-deep)}
+  /* 流れ */
+  .flow{background:var(--espresso);color:#f7f1e8;border-radius:12px;padding:18px 22px;font-size:13.5px}
+  .flow .step{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+  .flow .step .num{background:var(--orange);color:#fff;min-width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .flow .step b{color:#fff}
+  .flow .step span{color:#cfc4b6;font-size:12.5px}
+  /* 構成図 */
+  .arch{margin-top:10px}
+  .hub{background:var(--espresso);color:#fff;text-align:center;font-weight:700;padding:12px;border-radius:10px;font-size:14px}
+  .arch .down{text-align:center;color:var(--orange);font-size:20px;line-height:1.1;margin:2px 0}
+  .branches{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .br{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .br .br-h{font-weight:700;font-size:13.5px;margin-bottom:4px}
+  .br .br-name{display:inline-block;background:var(--orange-soft);color:var(--orange-deep);font-weight:700;font-size:13px;padding:3px 12px;border-radius:20px;margin-bottom:8px}
+  .br p{font-size:12px;color:var(--gray);margin:0}
+  .br.opt{border-style:dashed}
+  .br .opt-tag{font-size:10px;color:#fff;background:var(--gray);border-radius:10px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+  .links-ref{margin-top:12px;font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+  .links-ref b{color:var(--espresso)}
+  .links-ref a{display:inline-block;color:var(--orange-deep);font-weight:700;border:1px solid var(--orange);border-radius:20px;padding:3px 12px;margin:3px 4px 0 0;text-decoration:none}
+  .links-ref a:hover{background:var(--orange);color:#fff}
+  @media(max-width:680px){ .branches{grid-template-columns:1fr} }
+  /* おすすめ */
+  .reco-box{background:#fff;border:2px solid var(--orange);border-radius:12px;padding:16px 18px;margin-top:8px}
+  .reco-box h3{color:var(--orange-deep);font-size:15px;margin-bottom:6px}
+  .reco-box p{font-size:13px}
+  /* フッター */
+  .foot{background:#2b2522;color:#cfc8c0;padding:20px 34px;font-size:12px}
+  .foot b{color:#fff}
+  .note{font-size:11px;color:var(--gray);margin-top:10px}
+  @media(max-width:680px){
+    .pad{padding:20px}
+    .top{padding:24px 20px}
+    .feat{grid-template-columns:1fr 1fr}
+    .preview{grid-template-columns:1fr}
+    .run{grid-template-columns:1fr}
+  }
+  @media print{ body{background:#fff} .sheet{box-shadow:none;margin:0;border-radius:0} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ヘッダー -->
+  <div class="top">
+    <div class="brand"><span class="mark">和</span>マル和ミート</div>
+    <h1 class="serif">公式ホームページ ＋ ネット通販<br>制作のご提案</h1>
+    <p>食卓のしあわせと安心をお届けするお店｜福岡・雑餉隈の精肉店</p>
+  </div>
+
+  <div class="pad">
+
+    <!-- 完成イメージ -->
+    <h2 class="sec"><span class="n">1</span>完成イメージ（試作版が完成しています）</h2>
+    <div class="preview">
+      <img src="assets/images/preview/home-preview.jpg" alt="マル和ミート ホームページ完成イメージ">
+      <div class="pv-txt">
+        <h3>もう実際の画面が見られます</h3>
+        <p>オーナー様のラッキーカラー・オレンジを基調に、いただいたお肉の写真でデザイン済み。スマホでもご確認いただけます。</p>
+        <a class="btn" href="index.html">▶ サイトを見る</a>
+        <a class="btn" href="shop.html" style="background:#fff;color:var(--orange-deep);border:2px solid var(--orange);margin-top:6px">🛒 通販ページを見る</a>
+      </div>
+    </div>
+
+    <!-- できること -->
+    <h2 class="sec"><span class="n">2</span>サイトでできること</h2>
+    <div class="feat">
+      <div class="f"><div class="ic">🥩</div><b>商品・こだわり紹介</b><span>看板商品・ブランド肉を魅力的に</span></div>
+      <div class="f"><div class="ic">🛒</div><b>ネット通販</b><span>冷凍クール便で全国にお届け</span></div>
+      <div class="f"><div class="ic">🎁</div><b>ギフト（松竹梅）</b><span>のし対応・贈答需要を取込み</span></div>
+      <div class="f"><div class="ic">⭐</div><b>お客様の声</b><span>実食レビューで信頼アップ</span></div>
+      <div class="f"><div class="ic">🗺️</div><b>2店舗の地図・電話</b><span>タップでナビ・発信</span></div>
+      <div class="f"><div class="ic">📱</div><b>LINE / Instagram連動</b><span>特売・新商品を発信</span></div>
+    </div>
+
+    <!-- 料金 -->
+    <h2 class="sec"><span class="n">3</span>制作プラン（松竹梅）</h2>
+    <table>
+      <tr><th>プラン</th><th>🌿 梅（お手軽）</th><th class="plan-take">🎋 竹（おすすめ）<span class="reco">推奨</span></th><th>🌸 松（本格）</th></tr>
+      <tr><td><b>初期制作費（税別）</b></td><td class="price-big">25〜40万円</td><td class="plan-take price-big">50〜80万円</td><td class="price-big">100〜180万円</td></tr>
+      <tr><td>サイト</td><td>主要ページ</td><td class="plan-take">全ページ＋更新機能</td><td>完全オリジナル</td></tr>
+      <tr><td>通販</td><td>BASE/STORES連携</td><td class="plan-take">BASE/STORES＋商品登録代行</td><td>Shopify本格構築</td></tr>
+      <tr><td>LINE・SNS</td><td>開設サポート</td><td class="plan-take">開設＋リッチメニュー＋連動</td><td>＋配信設計・運用レク</td></tr>
+      <tr><td>ロゴ・撮影</td><td>既存活用</td><td class="plan-take">既存活用＋調整</td><td>ロゴ整備＋撮影込</td></tr>
+      <tr><td>納期目安</td><td>3〜4週間</td><td class="plan-take">5〜8週間</td><td>2〜3ヶ月</td></tr>
+    </table>
+    <p class="note">※デザイン確定・写真提供・試作完成済みのため、通常より設計/デザイン工程を圧縮できています。</p>
+
+    <!-- ランニング -->
+    <h2 class="sec"><span class="n">4</span>毎月かかる費用（ランニング）</h2>
+    <div class="run">
+      <div><span>ドメイン（独自URL）</span><b>年 1,500〜4,000円</b></div>
+      <div><span>サーバー</span><b>月 0〜1,500円</b></div>
+      <div><span>通販 BASE/STORES</span><b>月 0円＋売れた分の手数料</b></div>
+      <div><span>LINE公式アカウント</span><b>月 0円（無料枠）</b></div>
+      <div><span>Shopify（選んだ場合）</span><b>月 3,650円〜</b></div>
+      <div><span>保守サポート（任意）</span><b>月 5,000〜20,000円</b></div>
+    </div>
+    <p class="note">※BASE/STORES＋LINE無料なら、固定費は実質「ドメイン代＋売れた分の手数料」だけで始められます。</p>
+
+    <!-- 通販の先 -->
+    <h2 class="sec"><span class="n">5</span>通販の先にある「販路の広がり」</h2>
+    <p class="lead">自社サイトで整えた商品・写真・配送体制は、そのまま他の販路にも活かせます。</p>
+    <div class="flow" style="margin-top:12px">
+      <div class="step"><span class="num">1</span><div><b>自社サイト＋通販を整える</b><br><span>商品・写真・冷凍配送・特商法が揃う（＝土台）</span></div></div>
+      <div class="step"><span class="num">2</span><div><b>ふるさと納税（福岡市に申請）</b><br><span>市内加工の精肉店として応募資格あり。代金・送料は市が負担、全国にPR</span></div></div>
+      <div class="step"><span class="num">3</span><div><b>楽天・Yahoo!・Amazon・食べチョク等</b><br><span>同じ素材を使って各モールへ横展開</span></div></div>
+    </div>
+
+    <!-- 構成図（合わせ技） -->
+    <h2 class="sec"><span class="n">6</span>サイトの構成（合わせ技のイメージ）</h2>
+    <p class="lead">一般のお客様と飲食店（卸）で、得意なサービスを使い分けます。公式サイトが「入口」です。</p>
+    <div class="arch">
+      <div class="hub">🏠 公式サイト（入口・お店の顔）</div>
+      <div class="down">▼</div>
+      <div class="branches">
+        <div class="br">
+          <div class="br-h">🛒 一般のお客様 通販</div>
+          <div class="br-name">BASE / STORES</div>
+          <p>カード決済・冷凍クール便で個人宅へ。月0円〜で手軽に。</p>
+        </div>
+        <div class="br opt">
+          <div class="br-h">🧾 業務用・卸のご注文<span class="opt-tag">将来・検討中</span></div>
+          <div class="br-name">Bカート など</div>
+          <p>飲食店がスマホでログイン発注・掛け払い。FAX/電話の置き換え（導入は任意）。</p>
+        </div>
+      </div>
+      <div class="links-ref">
+        <b>🔗 各サービス公式サイト：</b>
+        <a href="https://thebase.in/" target="_blank" rel="noopener">BASE</a>
+        <a href="https://stores.jp/" target="_blank" rel="noopener">STORES</a>
+        <a href="https://www.shopify.com/jp" target="_blank" rel="noopener">Shopify</a>
+        <a href="https://bcart.jp/" target="_blank" rel="noopener">Bカート（卸）</a>
+      </div>
+    </div>
+
+    <!-- おすすめ -->
+    <h2 class="sec"><span class="n">7</span>おすすめの進め方</h2>
+    <div class="reco-box">
+      <h3>🎋「竹」プランで BASE/STORES からスタート</h3>
+      <p>初期費用・固定費を抑えてノーリスクで通販を立ち上げ → 売上が伸びたら Shopify(松) へ移行、ふるさと納税やモールへ展開。すでに試作・デザイン・写真が揃っているので、竹でも高い完成度に仕上がります。</p>
+    </div>
+
+  </div>
+
+  <!-- 資料室 -->
+  <div class="pad" style="padding-top:0">
+    <h2 class="sec"><span class="n">8</span>もっと詳しく（資料室）</h2>
+    <p class="lead">要件定義・商品案・通販比較・ふるさと納税ガイドなど、詳しい資料をブラウザで読みやすくまとめています。</p>
+    <p style="margin-top:10px"><a class="btn" href="docs.html">📚 詳細資料を見る</a></p>
+  </div>
+
+  <!-- フッター -->
+  <div class="foot">
+    <b>マル和ミート</b>｜雑餉隈本店 092-502-4129（9:30-19:00）／月隈店 092-504-2944（10:00-19:00）<br>
+    <span class="note" style="color:#9a9089">本提案は概算です。プラットフォーム確定・最終スコープ合意後に正式お見積りを発行します。</span>
+  </div>
+
+</div>
+</body>
+</html>

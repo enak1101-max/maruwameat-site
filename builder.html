@@ -109,6 +109,8 @@
   .access dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
   .access dt{color:var(--gray);font-weight:700}
   .access .ph-thumb{aspect-ratio:16/10}
+  .map-embed{width:100%;aspect-ratio:16/10;border:0;border-radius:var(--radius);display:block}
+  .map-note{font-size:11px;color:var(--gray);margin-top:7px;line-height:1.5}
 
   /* CTA（薄いトーン） */
   .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) calc(var(--tone)*0.72%),#fff),color-mix(in srgb,var(--main) calc(var(--tone)*0.5%),#fff));color:var(--ink);text-align:center}
@@ -214,7 +216,11 @@
       <dt>営業</dt><dd>〈営業時間〉</dd>
       <dt>定休</dt><dd>〈定休日〉</dd>
     </dl>
-    <div class="ph-thumb">🗺️<small>地図（Googleマップ）<br><b>埋め込みコード</b></small></div>
+    <div>
+      <iframe class="map-embed" src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1&z=11&output=embed" loading="lazy" title="地図（サンプル）"></iframe>
+      <div class="map-note">▲ これがGoogleマップの「埋め込み」（指で動かせる地図）。住所を入れると差し替わります。下のボタンは別途「リンク」です。</div>
+      <div style="text-align:center;margin-top:8px"><a href="#" class="btn btn-main" data-link="map" style="font-size:12px;padding:8px 16px">🗺 大きな地図で見る（リンク）</a></div>
+    </div>
   </div>
 </div></section>
 
@@ -435,6 +441,7 @@
     contact:  "",   // お問い合わせ
     products: "",   // 商品一覧・通販
     line:     "",   // LINE友だち追加
+    map:      "",   // 「大きな地図で見る」（GoogleマップのURL）
   };
   document.querySelectorAll("[data-link]").forEach(a=>{
     const u=LINKS[a.dataset.link];

@@ -101,6 +101,9 @@
   .card .price{margin-top:8px;color:var(--orange-deep);font-weight:700;font-size:16px}
   .card .price small{color:var(--gray);font-weight:400;font-size:12px}
   .center-cta{text-align:center;margin-top:38px}
+  /* 開閉式トグル（スマホのみ表示） */
+  .toggle-btn{display:none;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--orange-soft);color:var(--orange-deep);border:1.5px solid var(--orange);border-radius:10px;padding:14px;font-weight:700;font-size:15px;margin-bottom:8px}
+  .toggle-btn:active{background:#ecdcc6}
 
   /* Gift */
   .gift{background:linear-gradient(180deg,#fff 0%, var(--orange-soft) 100%)}
@@ -202,6 +205,10 @@
     .hero h1{font-size:clamp(22px,6.2vw,28px);line-height:1.55}
     .hero p.lead{font-size:13px;margin-top:14px}
     .news ul{animation-duration:24s}
+    /* スマホ：商品・ギフトを開閉式に（長すぎ防止） */
+    .toggle-btn{display:flex}
+    .collapsible{max-height:0;overflow:hidden;transition:max-height .45s ease}
+    .collapsible.open{max-height:7000px}
   }
 </style>
 </head>
@@ -306,7 +313,8 @@
       <h2 class="serif">看板商品</h2>
       <p>テレビ取材でも紹介された自慢の品々</p>
     </div>
-    <div class="cards">
+    <button class="toggle-btn" data-target="cards-products" data-closed="🥩 看板商品を見る ▼" data-open="🥩 看板商品をとじる ▲">🥩 看板商品を見る ▼</button>
+    <div class="cards collapsible" id="cards-products">
       <div class="card"><div class="ph"><img data-img="prod_a5" alt="A5和牛ヒレステーキ"></div><div class="body"><h4>A5和牛 ヒレステーキ</h4><div class="desc">とろけるサシ。特別な日の一皿に。</div><div class="price">¥ 価格目安 <small>/ 100g 480円〜</small></div></div></div>
       <div class="card"><div class="ph"><img data-img="prod_yakiniku" alt="和牛焼肉セット"></div><div class="body"><h4>和牛 焼肉セット</h4><div class="desc">博多秘伝のたれ付き。届いて焼くだけ。</div><div class="price">¥ 価格目安</div></div></div>
       <div class="card"><div class="ph"><img data-img="prod_sukiyaki" alt="和牛すき焼き肉"></div><div class="body"><h4>和牛 すき焼き肉</h4><div class="desc">きめ細かなサシのスライス。鍋の主役に。</div><div class="price">¥ 価格目安</div></div></div>
@@ -328,7 +336,8 @@
       <h2 class="serif">贈り物に、選べる松竹梅</h2>
       <p>お中元・お歳暮・お祝いに。のし・ラッピング承ります</p>
     </div>
-    <div class="gift-grid">
+    <button class="toggle-btn" data-target="gift-grid" data-closed="🎁 ギフトを見る ▼" data-open="🎁 ギフトをとじる ▲">🎁 ギフトを見る ▼</button>
+    <div class="gift-grid collapsible" id="gift-grid">
       <div class="gift-card"><span class="rank">🌸 松</span><div class="ph"><img data-img="gift_matsu" alt="極みステーキギフト"></div><div class="body"><h4 class="serif">特選和牛 極みギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">A5ステーキ詰合せ・化粧箱入り</div><div class="price">¥15,000〜20,000</div></div></div>
       <div class="gift-card"><span class="rank">🎋 竹</span><div class="ph"><img data-img="gift_take" alt="和牛ステーキセット"></div><div class="body"><h4 class="serif">和牛 ステーキセット</h4><div class="desc" style="font-size:13px;color:var(--gray)">人気の定番。贈って喜ばれる一箱</div><div class="price">¥8,000〜12,000</div></div></div>
       <div class="gift-card"><span class="rank">🌿 梅</span><div class="ph"><img data-img="gift_ume" alt="和牛すき焼きギフト"></div><div class="body"><h4 class="serif">和牛 すき焼きギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">内祝い・カジュアルギフトに</div><div class="price">¥4,000〜6,000</div></div></div>
@@ -525,6 +534,14 @@
   document.querySelectorAll("img[data-img]").forEach(el=>{
     const key = el.getAttribute("data-img");
     if(IMAGES[key]) el.src = IMAGES[key];
+  });
+  // 開閉式トグル（スマホ）
+  document.querySelectorAll(".toggle-btn").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const t=document.getElementById(b.dataset.target);
+      const open=t.classList.toggle("open");
+      b.textContent = open ? b.dataset.open : b.dataset.closed;
+    });
   });
 </script>
 

@@ -8,25 +8,26 @@
 <style>
   :root{
     --main:#CC8462; --accent:#A8623F; --gold:#C5A878; --tone:22;
+    --radius:12px; --secpad:66px; --fs:1;
     --ink:#2C2A28; --gray:#8C857C; --soft:#F6F2EC; --line:#ECE5DC; --bg:#FFFFFF;
     --head-font:"Noto Serif JP",serif; --body-font:"Noto Sans JP",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:var(--body-font);color:var(--ink);background:var(--bg);line-height:1.8;-webkit-font-smoothing:antialiased}
+  body{font-family:var(--body-font);color:var(--ink);background:var(--bg);line-height:1.8;-webkit-font-smoothing:antialiased;font-size:calc(16px * var(--fs))}
   .serif{font-family:var(--head-font)}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:7px;font-weight:700;font-size:14px;cursor:pointer;border:2px solid transparent;transition:.2s}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:calc(var(--radius) * .55);font-weight:700;font-size:14px;cursor:pointer;border:2px solid transparent;transition:.2s}
   .btn-main{background:var(--main);color:#fff}
   .btn-main:hover{background:var(--accent)}
   .btn-ghost{background:transparent;color:#fff;border-color:#fff}
-  .ph-thumb{aspect-ratio:1/1;background:var(--soft);display:grid;place-items:center;color:var(--main);font-size:30px;border-radius:8px}
+  .ph-thumb{aspect-ratio:1/1;background:var(--soft);display:grid;place-items:center;color:var(--main);font-size:30px;border-radius:var(--radius)}
   .ph-thumb small{display:block;font-size:11px;color:var(--gray);margin-top:4px;font-weight:700}
-  .sec{padding:66px 0}
+  .sec{padding:var(--secpad) 0}
   .sec-head{text-align:center;margin-bottom:38px}
   .sec-head .en{color:var(--gold);letter-spacing:3px;font-size:12px;font-weight:700}
-  .sec-head h2{font-size:28px;font-weight:700;font-family:var(--head-font);margin-top:6px;position:relative;display:inline-block;padding-bottom:12px}
+  .sec-head h2{font-size:calc(28px * var(--fs));font-weight:700;font-family:var(--head-font);margin-top:6px;position:relative;display:inline-block;padding-bottom:12px}
   .sec-head h2:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:42px;height:3px;background:var(--main)}
   .ph-text{color:#b06a1f;font-weight:700} /* プレースホルダ */
 
@@ -43,8 +44,8 @@
     background:linear-gradient(135deg,color-mix(in srgb,var(--main) calc(var(--tone)*1%),#fff),color-mix(in srgb,var(--accent) calc(var(--tone)*0.5%),#fff));color:var(--ink)}
   .hero-in{position:relative;z-index:2;padding:40px 0}
   .hero .eyebrow{letter-spacing:3px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:14px}
-  .hero h1{font-family:var(--head-font);font-size:clamp(28px,4.5vw,46px);line-height:1.5}
-  .hero p{margin-top:16px;font-size:15px;color:var(--gray);max-width:520px}
+  .hero h1{font-family:var(--head-font);font-size:clamp(calc(28px * var(--fs)),calc(4.5vw * var(--fs)),calc(46px * var(--fs)));line-height:1.5}
+  .hero p{margin-top:16px;font-size:calc(15px * var(--fs));color:var(--gray);max-width:520px}
   .hero-btns{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
   .hero .btn-ghost{color:var(--ink);border-color:var(--line);background:transparent}
   /* 黒（光沢）テーマだけヒーローを艶ダークに */
@@ -60,10 +61,10 @@
 
   /* Features */
   .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .feat .f{text-align:center;background:var(--soft);border-radius:12px;padding:26px 16px}
+  .feat .f{text-align:center;background:var(--soft);border-radius:var(--radius);padding:26px 16px}
   .feat .f .ic{font-size:30px}
-  .feat .f h3{font-size:16px;margin:8px 0 4px;font-family:var(--head-font)}
-  .feat .f p{font-size:12.5px;color:var(--gray)}
+  .feat .f h3{font-size:calc(16px * var(--fs));margin:8px 0 4px;font-family:var(--head-font)}
+  .feat .f p{font-size:calc(12.5px * var(--fs));color:var(--gray)}
 
   /* About */
   .about .cols{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
@@ -73,11 +74,11 @@
 
   /* Products */
   .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .card{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.2s}
   .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgba(0,0,0,.3)}
   .card .ph-thumb{border-radius:0}
   .card .body{padding:14px}
-  .card h4{font-size:15px;margin-bottom:4px}
+  .card h4{font-size:calc(15px * var(--fs));margin-bottom:4px}
   .card .price{color:var(--accent);font-weight:700;font-size:15px}
   .center{text-align:center;margin-top:34px}
 
@@ -87,9 +88,9 @@
   .reviews .sec-head h2:after{background:var(--main)}
   .reviews .sec-head .en{color:var(--accent)}
   .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .rev{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
+  .rev{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
   .rev .stars{color:var(--gold)}
-  .rev p{font-size:14px;margin:10px 0;color:var(--ink)}
+  .rev p{font-size:calc(14px * var(--fs));margin:10px 0;color:var(--ink)}
   .rev .who{font-size:12px;color:var(--accent)}
   body.theme-dark .reviews{background:#1c1c1c}
   body.theme-dark .reviews .sec-head h2{color:#fff}
@@ -97,7 +98,7 @@
   body.theme-dark .rev p{color:#eee}
 
   /* Access */
-  .access .box{background:var(--soft);border-radius:14px;padding:26px 28px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
+  .access .box{background:var(--soft);border-radius:var(--radius);padding:26px 28px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
   .access dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
   .access dt{color:var(--gray);font-weight:700}
   .access .ph-thumb{aspect-ratio:16/10}
@@ -259,6 +260,19 @@
   </div>
 
   <div class="grp">
+    <label>角丸の強さ（四角 ⇔ 丸み）</label>
+    <input type="range" id="radius" min="0" max="22" value="12" style="width:100%;accent-color:var(--accent)">
+  </div>
+  <div class="grp">
+    <label>余白の広さ（詰まる ⇔ ゆったり）</label>
+    <input type="range" id="secpad" min="34" max="100" value="66" style="width:100%;accent-color:var(--accent)">
+  </div>
+  <div class="grp">
+    <label>文字の大きさ（小 ⇔ 大）</label>
+    <input type="range" id="fs" min="85" max="120" value="100" style="width:100%;accent-color:var(--accent)">
+  </div>
+
+  <div class="grp">
     <label>見出しフォント</label>
     <select id="headFont">
       <option value="'Noto Serif JP',serif">明朝（上品・高級感）</option>
@@ -298,7 +312,7 @@
     {name:"モーヴ",       main:"#B58A98", accent:"#8E6675"},
     {name:"グレージュ",   main:"#B3A48C", accent:"#8E7E66"},
     {name:"ラベンダー",   main:"#9690AE", accent:"#736D90"},
-    {name:"くすみブルーグレー", main:"#7E97A6", accent:"#5E7886"},
+    {name:"ネイビー（紺）", main:"#37466A", accent:"#283452"},
     {name:"ホワイト（ミニマル）", main:"#4A4A4A", accent:"#222222", light:true},
     {name:"黒（光沢）",    main:"#3A3A3A", accent:"#0A0A0A", gloss:true},
   ];
@@ -328,6 +342,9 @@
   document.getElementById("cMain").addEventListener("input",e=>{document.body.classList.remove("theme-dark");root.style.setProperty("--main",e.target.value);});
   document.getElementById("cAccent").addEventListener("input",e=>{document.body.classList.remove("theme-dark");root.style.setProperty("--accent",e.target.value);});
   document.getElementById("tone").addEventListener("input",e=>root.style.setProperty("--tone",e.target.value));
+  document.getElementById("radius").addEventListener("input",e=>root.style.setProperty("--radius",e.target.value+"px"));
+  document.getElementById("secpad").addEventListener("input",e=>root.style.setProperty("--secpad",e.target.value+"px"));
+  document.getElementById("fs").addEventListener("input",e=>root.style.setProperty("--fs",e.target.value/100));
   document.getElementById("headFont").addEventListener("change",e=>root.style.setProperty("--head-font",e.target.value));
   document.getElementById("bodyFont").addEventListener("change",e=>root.style.setProperty("--body-font",e.target.value));
 
@@ -342,8 +359,10 @@
   // リセット
   document.getElementById("reset").onclick=()=>{
     applyTheme(DEFAULT);
-    root.style.setProperty("--tone","22");
-    document.getElementById("tone").value=22;
+    root.style.setProperty("--tone","22");      document.getElementById("tone").value=22;
+    root.style.setProperty("--radius","12px");  document.getElementById("radius").value=12;
+    root.style.setProperty("--secpad","66px");  document.getElementById("secpad").value=66;
+    root.style.setProperty("--fs","1");         document.getElementById("fs").value=100;
     root.style.setProperty("--head-font",DEFAULT.head);
     root.style.setProperty("--body-font",DEFAULT.body);
     document.getElementById("headFont").value=DEFAULT.head;

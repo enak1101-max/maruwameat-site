@@ -39,13 +39,19 @@
   .gnav a:hover{color:var(--main)}
 
   /* Hero */
-  .hero{position:relative;min-height:440px;display:flex;align-items:center;background:linear-gradient(135deg,var(--main),var(--accent));color:#fff;overflow:hidden}
-  .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 50%)}
+  .hero{position:relative;min-height:430px;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line);
+    background:linear-gradient(135deg,color-mix(in srgb,var(--main) 22%,#fff),color-mix(in srgb,var(--accent) 11%,#fff));color:var(--ink)}
   .hero-in{position:relative;z-index:2;padding:40px 0}
-  .hero .eyebrow{letter-spacing:3px;font-size:12px;font-weight:700;opacity:.9;margin-bottom:14px}
-  .hero h1{font-family:var(--head-font);font-size:clamp(28px,4.5vw,46px);line-height:1.5;text-shadow:0 2px 16px rgba(0,0,0,.2)}
-  .hero p{margin-top:16px;font-size:15px;opacity:.95;max-width:520px}
+  .hero .eyebrow{letter-spacing:3px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:14px}
+  .hero h1{font-family:var(--head-font);font-size:clamp(28px,4.5vw,46px);line-height:1.5}
+  .hero p{margin-top:16px;font-size:15px;color:var(--gray);max-width:520px}
   .hero-btns{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+  .hero .btn-ghost{color:var(--ink);border-color:var(--line);background:transparent}
+  /* 黒（光沢）テーマだけヒーローを艶ダークに */
+  body.theme-dark .hero{background:radial-gradient(circle at 30% 25%,#3d3d3d,#0a0a0a 72%);color:#fff;border-bottom:none}
+  body.theme-dark .hero .eyebrow{color:#e0c9b8}
+  body.theme-dark .hero p{color:#d6d6d6}
+  body.theme-dark .hero .btn-ghost{color:#fff;border-color:#fff}
 
   /* News */
   .news{background:var(--soft)}
@@ -75,16 +81,20 @@
   .card .price{color:var(--accent);font-weight:700;font-size:15px}
   .center{text-align:center;margin-top:34px}
 
-  /* Reviews */
-  .reviews{background:var(--ink);color:#fff}
-  .reviews .sec-head h2{color:#fff}
+  /* Reviews（薄いトーン） */
+  .reviews{background:color-mix(in srgb,var(--main) 9%,#fff)}
+  .reviews .sec-head h2{color:var(--ink)}
   .reviews .sec-head h2:after{background:var(--main)}
-  .reviews .sec-head .en{color:var(--gold)}
+  .reviews .sec-head .en{color:var(--accent)}
   .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .rev{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:22px}
+  .rev{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
   .rev .stars{color:var(--gold)}
-  .rev p{font-size:14px;margin:10px 0}
-  .rev .who{font-size:12px;color:var(--gold)}
+  .rev p{font-size:14px;margin:10px 0;color:var(--ink)}
+  .rev .who{font-size:12px;color:var(--accent)}
+  body.theme-dark .reviews{background:#1c1c1c}
+  body.theme-dark .reviews .sec-head h2{color:#fff}
+  body.theme-dark .rev{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}
+  body.theme-dark .rev p{color:#eee}
 
   /* Access */
   .access .box{background:var(--soft);border-radius:14px;padding:26px 28px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
@@ -92,10 +102,12 @@
   .access dt{color:var(--gray);font-weight:700}
   .access .ph-thumb{aspect-ratio:16/10}
 
-  /* CTA */
-  .cta{background:linear-gradient(135deg,var(--accent),var(--main));color:#fff;text-align:center}
+  /* CTA（薄いトーン） */
+  .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,#fff),color-mix(in srgb,var(--main) 11%,#fff));color:var(--ink);text-align:center}
   .cta h2{font-family:var(--head-font);font-size:26px;margin-bottom:10px}
-  .cta p{opacity:.92;font-size:14px;margin-bottom:22px}
+  .cta p{color:var(--gray);font-size:14px;margin-bottom:22px}
+  body.theme-dark .cta{background:#161616;color:#fff}
+  body.theme-dark .cta p{color:#ccc}
 
   /* Footer */
   footer{background:#23211f;color:#cfc8c0;padding:40px 0 22px;font-size:13px}
@@ -143,7 +155,7 @@
   <div class="eyebrow"><span class="ph-text" style="color:#ffe">〈エリア・業種〉</span></div>
   <h1 class="serif">〈キャッチコピーを<br>ここに入れます〉</h1>
   <p>〈お店やサービスの紹介文をここに入れます。お客様に伝えたい魅力を一言で。〉</p>
-  <div class="hero-btns"><a href="#products" class="btn btn-main" style="background:#fff;color:var(--accent)">商品を見る</a><a href="#access" class="btn btn-ghost">アクセス</a></div>
+  <div class="hero-btns"><a href="#products" class="btn btn-main">商品を見る</a><a href="#access" class="btn btn-ghost">アクセス</a></div>
 </div></section>
 
 <!-- News -->
@@ -210,7 +222,7 @@
 <section class="sec cta" data-sec="cta"><div class="wrap">
   <h2 class="serif">〈来店・お問い合わせを促す一言〉</h2>
   <p>〈LINEやお問い合わせへの誘導文を入れます〉</p>
-  <a href="#" class="btn btn-main" style="background:#fff;color:var(--accent)">📱 LINEで友だち追加</a>
+  <a href="#" class="btn btn-main">📱 LINEで友だち追加</a>
 </div></section>
 
 <!-- Footer -->
@@ -281,6 +293,7 @@
     {name:"グレージュ",   main:"#B3A48C", accent:"#8E7E66"},
     {name:"ラベンダー",   main:"#9690AE", accent:"#736D90"},
     {name:"くすみブルーグレー", main:"#7E97A6", accent:"#5E7886"},
+    {name:"ホワイト（ミニマル）", main:"#4A4A4A", accent:"#222222", light:true},
     {name:"黒（光沢）",    main:"#3A3A3A", accent:"#0A0A0A", gloss:true},
   ];
   const DEFAULT={main:"#CC8462",accent:"#A8623F",head:"'Noto Serif JP',serif",body:"'Noto Sans JP',sans-serif"};
@@ -290,21 +303,24 @@
   PRESETS.forEach(p=>{
     const b=document.createElement("button");
     b.className="preset"; b.title=p.name;
-    b.style.background = p.gloss
-      ? "radial-gradient(circle at 34% 28%, #8a8a8a, #2a2a2a 55%, #000 100%)"
-      : "linear-gradient(135deg,"+p.main+","+p.accent+")";
-    b.onclick=()=>{ setColor(p.main,p.accent); };
+    b.style.background = p.light
+      ? "#ffffff"
+      : (p.gloss
+        ? "radial-gradient(circle at 34% 28%, #8a8a8a, #2a2a2a 55%, #000 100%)"
+        : "linear-gradient(135deg,"+p.main+","+p.accent+")");
+    b.onclick=()=>{ applyTheme(p); };
     pc.appendChild(b);
   });
 
-  function setColor(main,accent){
-    root.style.setProperty("--main",main);
-    root.style.setProperty("--accent",accent);
-    document.getElementById("cMain").value=main;
-    document.getElementById("cAccent").value=accent;
+  function applyTheme(p){
+    root.style.setProperty("--main",p.main);
+    root.style.setProperty("--accent",p.accent);
+    document.body.classList.toggle("theme-dark",!!p.gloss);
+    document.getElementById("cMain").value=p.main;
+    document.getElementById("cAccent").value=p.accent;
   }
-  document.getElementById("cMain").addEventListener("input",e=>root.style.setProperty("--main",e.target.value));
-  document.getElementById("cAccent").addEventListener("input",e=>root.style.setProperty("--accent",e.target.value));
+  document.getElementById("cMain").addEventListener("input",e=>{document.body.classList.remove("theme-dark");root.style.setProperty("--main",e.target.value);});
+  document.getElementById("cAccent").addEventListener("input",e=>{document.body.classList.remove("theme-dark");root.style.setProperty("--accent",e.target.value);});
   document.getElementById("headFont").addEventListener("change",e=>root.style.setProperty("--head-font",e.target.value));
   document.getElementById("bodyFont").addEventListener("change",e=>root.style.setProperty("--body-font",e.target.value));
 
@@ -318,7 +334,7 @@
 
   // リセット
   document.getElementById("reset").onclick=()=>{
-    setColor(DEFAULT.main,DEFAULT.accent);
+    applyTheme(DEFAULT);
     root.style.setProperty("--head-font",DEFAULT.head);
     root.style.setProperty("--body-font",DEFAULT.body);
     document.getElementById("headFont").value=DEFAULT.head;

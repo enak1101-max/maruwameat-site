@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代理セットアップ＆引き渡し マニュアル</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --soft:#F5F7FA; --ink:#26313D; --accent:#34506B; --accent-d:#243A4F;
+    --gray:#6C7684; --line:#E5E9EE; --warn:#B0541F;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:#eceff3;line-height:1.78;-webkit-font-smoothing:antialiased}
+  .serif{font-family:"Noto Serif JP",serif}
+  .sheet{max-width:900px;margin:24px auto;background:var(--bg);box-shadow:0 12px 36px -16px rgba(20,30,45,.35);border-radius:10px;overflow:hidden}
+  .top{background:var(--accent);color:#fff;padding:32px 36px}
+  .top .kick{font-size:12px;letter-spacing:3px;color:#cdd9e5;font-weight:700}
+  .top h1{font-size:24px;line-height:1.5;margin:9px 0 6px}
+  .top p{font-size:13px;color:#d7e0ea}
+  .tmpl-bar{background:#fef6e7;color:#7a5a14;font-size:12px;padding:8px 36px;border-bottom:1px solid #f0e2c4}
+  .pad{padding:26px 36px}
+  h2.sec{font-size:18px;color:var(--accent);display:flex;align-items:center;gap:10px;margin:28px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  h2.sec .n{background:var(--accent);color:#fff;width:24px;height:24px;border-radius:5px;display:grid;place-items:center;font-size:13px;font-weight:700}
+  .lead{font-size:14px}
+  .flow{counter-reset:s;font-size:13.5px}
+  .flow .step{display:flex;gap:12px;align-items:flex-start;margin:8px 0;padding:12px 16px;background:var(--soft);border-radius:8px}
+  .flow .step .num{background:var(--accent);color:#fff;min-width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700}
+  .flow .step b{color:var(--ink)}
+  .flow .step .d{font-size:12.5px;color:var(--gray);margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--accent-d);color:#fff;font-size:12.5px}
+  tr:nth-child(even) td{background:#fafbfc}
+  .chk td:first-child{width:30px;text-align:center;color:var(--accent);font-weight:700}
+  .blank{color:#c2c8d0}
+  .callout{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:13px 18px;font-size:13px;margin-top:12px}
+  .callout h4{font-size:14px;color:var(--accent-d);margin-bottom:4px}
+  .warn{background:#FBF1E9;border-left:4px solid var(--warn);border-radius:0 8px 8px 0;padding:13px 18px;font-size:13px;margin-top:12px}
+  .warn h4{font-size:14px;color:var(--warn);margin-bottom:4px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .two .c{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fff}
+  .two .c h4{font-size:14px;color:var(--accent-d);margin-bottom:5px}
+  .two .c p{font-size:12.5px;color:var(--gray)}
+  .note{font-size:11px;color:var(--gray);margin-top:10px}
+  .foot{background:#243A4F;color:#c9d3dd;padding:20px 36px;font-size:12px}
+  @media(max-width:680px){
+    .pad,.tmpl-bar,.foot,.top{padding-left:20px;padding-right:20px}
+    .two{grid-template-columns:1fr}
+    table{font-size:12px}
+  }
+  @media print{ body{background:#fff} .sheet{box-shadow:none;margin:0} .tmpl-bar{display:none} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="kick">SETUP &amp; HANDOVER — MANUAL</div>
+    <h1 class="serif">代理セットアップ＆引き渡し<br>マニュアル</h1>
+    <p>クライアント様に代わって各アカウントを作成し、揃った状態でお渡しするための手順</p>
+  </div>
+  <div class="tmpl-bar">★ 営業・作業チェック用の汎用マニュアルです。クライアント様への説明にもお使いいただけます。</div>
+
+  <div class="pad">
+
+    <h2 class="sec"><span class="n">1</span>このマニュアルの目的</h2>
+    <p class="lead">ホームページ・通販・LINEなどの各アカウントを<b>制作側（代理）でまとめて作成・設定</b>し、すべて整った状態でクライアント様に<b>所有権ごとお渡しする</b>ための進め方をまとめたものです。クライアント様は専門的な登録作業をせずに、完成したものを受け取れます。</p>
+
+    <h2 class="sec"><span class="n">2</span>基本の考え方：メールを1つに統一</h2>
+    <p class="lead">最初に<b>お店専用のビジネスメールを1つ</b>用意し、<b>すべてのサービスをそのメールで作成</b>します。こうすると、引き渡しが「<b>このメールとパスワードを渡すだけ</b>」で完結し、後の管理も簡単です。</p>
+    <div class="two" style="margin-top:10px">
+      <div class="c"><h4>パターン①：新規にメールを作る</h4><p>お店名のフリーメール（例：〇〇〇〇@yahoo.co.jp / @gmail.com）を制作側が新規取得し、親アカウントにする。個人メールは使わない。</p></div>
+      <div class="c"><h4>パターン②：既存のお店メールを使う</h4><p>クライアント様が<b>すでにお店用メールをお持ちの場合は、それを親アカウントに使う</b>（新規作成は不要）。最初から本人の所有なので引き渡しがより簡単。</p></div>
+    </div>
+    <div class="warn"><h4>⚠️ パターン②の進め方</h4>既存メールで各サービスを登録するには、登録時に届く<b>確認メール（認証コード）を受け取れる状態</b>が必要です。<b>(A) セットアップ中だけメールのパスワードを共有してもらう／(B) 届いた認証コードをその都度クライアント様に転送してもらう</b>、のどちらかで進めます。完了後は、必要に応じて制作側を各サービスの「管理者」に追加してサポートを継続。</div>
+
+    <h2 class="sec"><span class="n">3</span>セットアップの手順</h2>
+    <div class="flow">
+      <div class="step"><span class="num">1</span><div><b>専用ビジネスメールを作成</b><div class="d">お店名のメールを新規取得（マスターアカウント）。ID/パスワードを記録。</div></div></div>
+      <div class="step"><span class="num">2</span><div><b>各サービスを “そのメール” で作成</b><div class="d">LINE公式／ネット通販／ドメイン／サーバー 等を同じメールで登録（下のチェックリスト参照）。</div></div></div>
+      <div class="step"><span class="num">3</span><div><b>中身を構築・初期設定</b><div class="d">サイト・通販商品・LINEのあいさつ/リッチメニュー/友だち追加QR などを完成させる。</div></div></div>
+      <div class="step"><span class="num">4</span><div><b>アカウント管理表に記録</b><div class="d">サービス名・URL・ID・パスワードを一覧化（下のテンプレ）。※公開しない・安全に保管。</div></div></div>
+      <div class="step"><span class="num">5</span><div><b>クライアント様へ引き渡し</b><div class="d">ログイン情報を渡す＋必要に応じて管理者として追加（次項）。</div></div></div>
+      <div class="step"><span class="num">6</span><div><b>アフターサポート</b><div class="d">管理者として残れば、更新・不具合対応などの継続サポートが可能。</div></div></div>
+    </div>
+
+    <h2 class="sec"><span class="n">4</span>作成するアカウント（チェックリスト）</h2>
+    <table class="chk">
+      <tr><th>✓</th><th>サービス</th><th>用途</th></tr>
+      <tr><td>□</td><td>ビジネスメール（マスター）</td><td>すべての親アカウント</td></tr>
+      <tr><td>□</td><td>LINE公式アカウント</td><td>友だち配信・クーポン・予約導線</td></tr>
+      <tr><td>□</td><td>ネット通販（BASE / STORES / Shopify）</td><td>オンライン販売</td></tr>
+      <tr><td>□</td><td>独自ドメイン</td><td>お店のURL（例：〇〇〇.com）</td></tr>
+      <tr><td>□</td><td>サーバー / ホスティング</td><td>ホームページの公開</td></tr>
+      <tr><td>□</td><td>Googleビジネスプロフィール</td><td>地図・検索対策(MEO)・クチコミ</td></tr>
+      <tr><td>□</td><td>アクセス解析（GA4 等）</td><td>来訪データの計測</td></tr>
+    </table>
+    <div class="note">※ Instagram など、クライアント様が<b>すでにお持ちのアカウント</b>はそのまま活用（新規作成しない）。</div>
+
+    <h2 class="sec"><span class="n">5</span>アカウント管理表（記入用テンプレ）</h2>
+    <table>
+      <tr><th>サービス</th><th>ログインURL</th><th>ID（メール等）</th><th>パスワード</th><th>メモ</th></tr>
+      <tr><td>ビジネスメール</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">—</td></tr>
+      <tr><td>LINE公式</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">—</td></tr>
+      <tr><td>ネット通販</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">—</td></tr>
+      <tr><td>ドメイン</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">—</td></tr>
+      <tr><td>サーバー</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">（記入）</td><td class="blank">—</td></tr>
+    </table>
+    <div class="warn"><h4>⚠️ セキュリティの注意</h4>この表は<b>公開しないでください</b>（ネット上にアップしない）。紙・パスワード管理アプリ・オフラインのメモなど、<b>安全な場所に保管</b>し、引き渡しは本人へ直接行ってください。</div>
+
+    <h2 class="sec"><span class="n">6</span>引き渡しの方法（2通り）</h2>
+    <div class="two">
+      <div class="c"><h4>A：ログイン情報を渡す</h4><p>マスターメールとパスワード一式を本人へ。お店のメールなので、そのまま“所有者”になります。<b>いちばんシンプルで完全な引き渡し。</b></p></div>
+      <div class="c"><h4>B：管理者として追加</h4><p>アカウントはそのまま、本人を「管理者」権限で追加（LINE公式・解析等は複数人管理が可能）。<b>制作側が運用サポートを続ける場合に。</b></p></div>
+    </div>
+    <div class="callout"><h4>おすすめ</h4><b>A＋B 両方</b>。本人が所有者になり、制作側もサポートで入れる状態にしておくと安心です。引き渡し後に本人がパスワードを変更すれば、主導権が完全に移ります。</div>
+
+    <h2 class="sec"><span class="n">7</span>補足・注意点</h2>
+    <ul style="margin-left:20px;font-size:13.5px">
+      <li>既存アカウント（Instagram等）は新規作成せず、そのまま連携する。</li>
+      <li>LINE公式は「未認証」で即開設 → 後から「認証済」申請（店名・住所・電話で審査）。</li>
+      <li>有料プランの支払いはクレジットカードが基本（口座引き落としは通常なし）。</li>
+      <li>引き渡し時に「アカウント管理表」を一緒に渡すと、クライアント様が安心。</li>
+    </ul>
+
+  </div>
+
+  <div class="foot">
+    <b>代理セットアップ＆引き渡し マニュアル</b><br>
+    <span class="note" style="color:#9aa6b2">各サービスの仕様・名称は変わることがあります。最新は各公式サイトでご確認ください。</span>
+  </div>
+
+</div>
+</body>
+</html>

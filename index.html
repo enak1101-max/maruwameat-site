@@ -239,6 +239,14 @@
     .collapsible{max-height:0;overflow:hidden;transition:max-height .45s ease}
     .collapsible.open{max-height:7000px}
   }
+  /* ===== 編集モード（?edit＋パスワードで起動・訪問者には出ない）===== */
+  body.editing [contenteditable="true"]{outline:1px dashed rgba(232,114,42,.6);border-radius:3px;cursor:text}
+  body.editing [contenteditable="true"]:focus{outline:2px solid var(--orange);background:#fff}
+  body.editing img[data-img]{cursor:pointer;outline:2px dashed rgba(232,114,42,.5);outline-offset:2px}
+  .edit-bar{position:fixed;left:0;right:0;bottom:0;z-index:120;background:#26313d;color:#fff;display:flex;align-items:center;gap:12px;justify-content:center;padding:11px;font-size:14px;font-weight:700}
+  .edit-bar button{font-family:inherit;font-weight:700;font-size:14px;border:none;border-radius:7px;padding:9px 18px;cursor:pointer}
+  .edit-bar .save{background:var(--orange);color:#fff}
+  .edit-bar .exit{background:#55606b;color:#fff}
 </style>
 </head>
 <body>
@@ -599,6 +607,60 @@
       footSns.appendChild(a);
     });
   }
+</script>
+
+<!-- ===== 編集モード（オーナー/制作者用・?edit でパスワード起動）===== -->
+<script>
+(function(){
+  if(!/[?&]edit/.test(location.search)) return;          // 通常の訪問者には何も起きない
+  var pass=prompt("編集パスワードを入力してください");
+  if(pass!=="Enak2026") return;                          // 違えば通常表示のまま
+  document.body.classList.add("editing");
+
+  // 1) 文字を編集可能に
+  [".hero .eyebrow",".hero h1",".hero p.lead",".news li",".brand-chip",
+   ".kodawari h3",".kodawari p",".kodawari .feat b",
+   ".sec-head h2",".sec-head p",".sec-head .en",
+   ".card h4",".card .desc",".card .price",
+   ".gift-card h4",".gift-card .desc",".gift-card .price",
+   ".rev p",".rev .who",".store h4",".store dd",
+   ".media-banner h4",".media-banner p",".mf-badge",
+   ".line-cta h3",".line-cta p"].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(e){ e.setAttribute("contenteditable","true"); });
+  });
+
+  // 2) 画像をクリックで差し替え
+  var fi=document.createElement("input"); fi.type="file"; fi.accept="image/*"; fi.id="edFile"; fi.style.display="none"; document.body.appendChild(fi);
+  var tgt=null;
+  document.querySelectorAll("img[data-img]").forEach(function(img){
+    img.addEventListener("click",function(){ tgt=img; fi.value=""; fi.click(); });
+  });
+  fi.addEventListener("change",function(e){ var f=e.target.files[0]; if(!f||!tgt)return; var r=new FileReader(); r.onload=function(ev){ tgt.src=ev.target.result; }; r.readAsDataURL(f); });
+
+  // 3) 操作バー（保存／終了）
+  var bar=document.createElement("div"); bar.className="edit-bar";
+  bar.innerHTML='<span>✏️ 編集モード（文字クリックで編集／画像タップで差し替え）</span><button class="save" id="edSave">💾 保存（書き出し）</button><button class="exit" id="edExit">終了</button>';
+  document.body.appendChild(bar);
+  document.getElementById("edExit").onclick=function(){ location.href=location.pathname; };
+  document.getElementById("edSave").onclick=function(){
+    var clone=document.documentElement.cloneNode(true);
+    clone.querySelectorAll(".edit-bar,#edFile").forEach(function(e){e.remove();});
+    clone.querySelectorAll("[contenteditable]").forEach(function(e){e.removeAttribute("contenteditable");});
+    var b=clone.querySelector("body"); if(b) b.classList.remove("editing");
+    // 画像を焼き込み（差し替え後のsrcを固定し、data-imgを外して自動上書きを防ぐ）
+    clone.querySelectorAll("img[data-img]").forEach(function(ci){
+      var live=document.querySelector('img[data-img="'+ci.getAttribute("data-img")+'"]');
+      if(live) ci.setAttribute("src", live.getAttribute("src")||live.src);
+      ci.removeAttribute("data-img");
+    });
+    var html="<!DOCTYPE html>\n"+clone.outerHTML;
+    var blob=new Blob([html],{type:"text/html;charset=utf-8"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="index.html";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},3000);
+    var sp=bar.querySelector("span"); sp.textContent="💾 保存しました（index.html をダウンロード）";
+  };
+})();
 </script>
 
 </body>

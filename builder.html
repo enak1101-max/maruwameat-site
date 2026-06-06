@@ -120,6 +120,10 @@
   .mode-switch{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
   .mode-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 18px;border-radius:30px;border:1.5px solid var(--line);background:#fff;color:var(--gray);cursor:pointer}
   .mode-btn.active{background:var(--main);color:#fff;border-color:var(--main)}
+  /* クリックで直接編集できる文字 */
+  [contenteditable="true"]{cursor:text;border-radius:4px;transition:.15s}
+  [contenteditable="true"]:hover{box-shadow:0 0 0 1px var(--line);background:rgba(120,120,120,.06)}
+  [contenteditable="true"]:focus{outline:2px solid var(--main);background:#fff;color:var(--ink)}
 
   /* CTA（薄いトーン） */
   .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) calc(var(--tone)*0.72%),#fff),color-mix(in srgb,var(--main) calc(var(--tone)*0.5%),#fff));color:var(--ink);text-align:center}
@@ -163,7 +167,7 @@
 </head>
 <body>
 
-<div class="demo-bar">🎨 ホームページビルダー（デモ）— 右下の <b>🎨ボタン</b> で 色・フォント・表示セクションを切り替えられます</div>
+<div class="demo-bar">🎨 ホームページビルダー（デモ）— 右下の <b>🎨ボタン</b>で色・フォント／<b>✏️ 文字はクリックして直接編集</b>／画像枠タップで写真選択</div>
 <div class="spec-bar">📐 画像の目安 ｜ <b>ロゴ</b>：PNG/SVG・正方形・512×512px ｜ <b>商品写真</b>：JPG・正方形・800×800px ｜ <b>紹介写真</b>：JPG・4:3・1200×900px</div>
 
 <!-- SNSアイコン（再利用） -->
@@ -190,7 +194,7 @@
 </div></section>
 
 <!-- News -->
-<section class="news" data-sec="news"><div class="wrap row"><span class="tag">お知らせ</span><span>🔸 〈ここに最新のお知らせを表示します（営業時間・キャンペーン等）〉</span></div></section>
+<section class="news" data-sec="news"><div class="wrap row"><span class="tag">お知らせ</span><span id="newsText">🔸 〈ここに最新のお知らせを表示します（営業時間・キャンペーン等）〉</span></div></section>
 
 <!-- Features -->
 <section class="sec" data-sec="features"><div class="wrap">
@@ -284,7 +288,7 @@
 <!-- Footer -->
 <footer><div class="wrap">
   <div class="foot-grid">
-    <div><h5 class="ph-text" data-field="name">〈店名〉</h5><p style="color:#a89f97">〈キャッチコピー〉</p><p style="margin-top:10px"><span data-field="address">〈住所〉</span><br><span data-field="phone">〈電話番号〉</span></p></div>
+    <div><h5 class="ph-text" data-field="name">〈店名〉</h5><p style="color:#a89f97" contenteditable="true" class="ed">〈キャッチコピー〉</p><p style="margin-top:10px"><span data-field="address">〈住所〉</span><br><span data-field="phone">〈電話番号〉</span></p></div>
     <div><h5>メニュー</h5><a href="#about">紹介</a><a href="#products">商品</a><a href="#reviews">お客様の声</a><a href="#access">アクセス</a></div>
     <div><h5>SNS・お問い合わせ</h5><div class="foot-sns" id="footSns"></div><a href="#" data-link="contact" style="margin-top:10px">お問い合わせ</a></div>
   </div>
@@ -385,7 +389,7 @@
   else { CONTENT.products.forEach(p=>{
     const d=document.createElement("div"); d.className="card";
     d.innerHTML='<div class="ph-thumb">🖼️<small>商品写真<br><b>JPG / 正方形 / 800×800px</b></small></div>'
-      +'<div class="body"><h4>'+p.name+'</h4><div class="price">¥'+p.price+'</div></div>';
+      +'<div class="body"><h4 contenteditable="true" class="ed">'+p.name+'</h4><div class="price" contenteditable="true" class="ed">¥'+p.price+'</div></div>';
     prodGrid.appendChild(d);
   }); }
   // お客様の声
@@ -393,7 +397,7 @@
   if(!CONTENT.reviews || CONTENT.reviews.length===0){ hideSection("reviews"); }
   else { CONTENT.reviews.forEach(r=>{
     const d=document.createElement("div"); d.className="rev";
-    d.innerHTML='<div class="stars">★★★★★</div><p>「'+r.text+'」</p><div class="who">— '+r.who+'</div>';
+    d.innerHTML='<div class="stars">★★★★★</div><p contenteditable="true" class="ed">「'+r.text+'」</p><div class="who" contenteditable="true" class="ed">— '+r.who+'</div>';
     revGrid.appendChild(d);
   }); }
 
@@ -572,6 +576,11 @@
   }
   SNS_FIELDS.forEach(m=>{ const i=document.getElementById(m.id); if(i) i.addEventListener("input",renderFootSns); });
   renderFootSns();
+
+  /* ===== 文字をクリックして直接編集（キャッチコピー・一言・お知らせ・見出しなど）===== */
+  ["#newsText",".hero .eyebrow",".hero h1",".hero p.lead",".sec-head h2",
+   ".feat .f h3",".feat .f p",".about h3",".about p",".cta h2",".cta p"]
+    .forEach(sel=>document.querySelectorAll(sel).forEach(el=>{ el.contentEditable="true"; el.classList.add("ed"); }));
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

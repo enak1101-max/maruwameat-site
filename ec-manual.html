@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ネットショップ作成サービス 比較＆お申し込みマニュアル（BASE / STORES / Shopify）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --soft:#F5F7FA; --ink:#26313D; --accent:#34506B; --accent-d:#243A4F;
+    --gray:#6C7684; --line:#E5E9EE; --base-c:#00B900; --stores-c:#000; --shopify-c:#5E8E3E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:#eceff3;line-height:1.78;-webkit-font-smoothing:antialiased}
+  .serif{font-family:"Noto Serif JP",serif}
+  .sheet{max-width:900px;margin:24px auto;background:var(--bg);box-shadow:0 12px 36px -16px rgba(20,30,45,.35);border-radius:10px;overflow:hidden}
+  .top{background:var(--accent);color:#fff;padding:32px 36px}
+  .top .kick{font-size:12px;letter-spacing:3px;color:#cdd9e5;font-weight:700}
+  .top h1{font-size:24px;line-height:1.5;margin:9px 0 6px}
+  .top p{font-size:13px;color:#d7e0ea}
+  .pad{padding:26px 36px}
+  h2.sec{font-size:18px;color:var(--accent);display:flex;align-items:center;gap:10px;margin:28px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  h2.sec .n{background:var(--accent);color:#fff;width:24px;height:24px;border-radius:5px;display:grid;place-items:center;font-size:13px;font-weight:700}
+  .lead{font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--accent-d);color:#fff;font-size:12.5px}
+  td.h{background:var(--soft);font-weight:700;white-space:nowrap}
+  tr:nth-child(even) td:not(.h){background:#fafbfc}
+  .big{font-size:14px;font-weight:700;color:var(--accent)}
+  /* 選び方 */
+  .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  .pick .c{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--soft)}
+  .pick .c .name{font-weight:700;font-size:15px;margin-bottom:4px}
+  .pick .c .for{font-size:12.5px;color:var(--gray)}
+  .pick .c.b{border-top:4px solid #00B900}
+  .pick .c.s{border-top:4px solid #222}
+  .pick .c.sh{border-top:4px solid #5E8E3E}
+  /* 手順 */
+  .steps{background:var(--soft);border-radius:10px;padding:16px 18px;margin:8px 0 4px}
+  .steps h3{font-size:15px;color:var(--accent-d);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .steps ol{margin:0 0 0 20px;font-size:13.5px}
+  .steps li{margin:4px 0}
+  .gobtn{display:inline-block;margin-top:10px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;padding:9px 18px;border-radius:7px;text-decoration:none}
+  .gobtn:hover{background:var(--accent-d)}
+  /* 申込一覧 */
+  .links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  .links a{display:block;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);background:#fff;transition:.15s}
+  .links a:hover{border-color:var(--accent);box-shadow:0 8px 20px -14px rgba(0,0,0,.4)}
+  .links a b{display:block;font-size:15px;margin-bottom:3px}
+  .links a span{font-size:12px;color:var(--accent)}
+  .callout{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:13px 18px;font-size:13px;margin-top:12px}
+  .callout h4{font-size:14px;color:var(--accent-d);margin-bottom:4px}
+  .note{font-size:11px;color:var(--gray);margin-top:10px}
+  .foot{background:#243A4F;color:#c9d3dd;padding:20px 36px;font-size:12px}
+  .tmpl-bar{background:#fef6e7;color:#7a5a14;font-size:12px;padding:8px 36px;border-bottom:1px solid #f0e2c4}
+  @media(max-width:680px){
+    .pad,.tmpl-bar,.foot,.top{padding-left:20px;padding-right:20px}
+    .pick,.links{grid-template-columns:1fr}
+    table{font-size:12px}
+  }
+  @media print{ body{background:#fff} .sheet{box-shadow:none;margin:0} .tmpl-bar{display:none} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="top">
+    <div class="kick">ONLINE SHOP — SETUP MANUAL</div>
+    <h1 class="serif">ネットショップ作成サービス<br>比較＆お申し込みマニュアル</h1>
+    <p>BASE（ベイス）／ STORES（ストアーズ）／ Shopify（ショッピファイ）</p>
+  </div>
+  <div class="tmpl-bar">★ 営業・説明用の汎用マニュアルです。どのお客様にもそのままお使いいただけます。</div>
+
+  <div class="pad">
+
+    <!-- はじめに -->
+    <h2 class="sec"><span class="n">1</span>はじめに</h2>
+    <p class="lead">ネットショップ（通販）は、専門知識がなくても始められるサービスが揃っています。本マニュアルでは代表的な3つ「BASE・STORES・Shopify」を、<b>費用・手数料・申し込み方法</b>の観点でシンプルに比較します。どれも数分で無料登録でき、まず作って試すことができます。</p>
+
+    <!-- 比較表 -->
+    <h2 class="sec"><span class="n">2</span>かんたん比較表</h2>
+    <table>
+      <tr><th>項目</th><th>BASE（ベイス）</th><th>STORES（ストアーズ）</th><th>Shopify（ショッピファイ）</th></tr>
+      <tr><td class="h">初期費用</td><td>0円</td><td>0円</td><td>0円</td></tr>
+      <tr><td class="h">月額</td><td class="big">無料（0円）〜</td><td class="big">無料（0円）〜</td><td class="big">3,650円〜（年払い）</td></tr>
+      <tr><td class="h">決済手数料</td><td>約6.6%＋40円<br>（3.6%＋40円＋利用料3%）</td><td>5%（無料）／3.6%（有料 月2,980円）</td><td>約3.4%〜<br>（取引手数料は0）</td></tr>
+      <tr><td class="h">売上の入金</td><td>振込申請制<br>（手数料250円＋事務500円※2万円未満）</td><td>月末締め・翌月末に自動振込<br>（275円・1万円以上）</td><td>自動入金</td></tr>
+      <tr><td class="h">特徴</td><td>最速・いちばん簡単。アプリ内モール集客</td><td>デザインが綺麗。予約・POS連携</td><td>拡張性・ブランドEC・多商品・海外</td></tr>
+      <tr><td class="h">向いている人</td><td>初めて・最小コストで始めたい</td><td>見た目重視・自動入金が良い</td><td>本格的に・規模を伸ばしたい</td></tr>
+      <tr><td class="h">無料プラン</td><td>あり</td><td>あり</td><td>なし（月額制）</td></tr>
+    </table>
+    <p class="note">※手数料・料金は改定されることがあります。お申し込み時に各公式サイトで最新をご確認ください。</p>
+
+    <!-- 選び方 -->
+    <h2 class="sec"><span class="n">3</span>かんたんな選び方</h2>
+    <div class="pick">
+      <div class="c b"><div class="name">BASE を選ぶ</div><div class="for">とにかく<b>無料・最速・簡単</b>に始めたい。まずやってみたい初めての方に。</div></div>
+      <div class="c s"><div class="name">STORES を選ぶ</div><div class="for"><b>デザインのきれいさ</b>や、自動で入金される手軽さ、予約連携を重視する方に。</div></div>
+      <div class="c sh"><div class="name">Shopify を選ぶ</div><div class="for">月額を払ってでも<b>本格的なブランドEC</b>・拡張性・将来の海外も視野に入れる方に。</div></div>
+    </div>
+    <div class="callout"><h4>迷ったら</h4>まずは<b>無料のBASEかSTORES</b>でスタート → 売上が伸びてきたら<b>Shopify</b>へ移行、が堅実です（売上が大きいほどShopifyが手数料面で有利になります）。</div>
+
+    <!-- 申し込み手順 -->
+    <h2 class="sec"><span class="n">4</span>お申し込み手順（各サービス）</h2>
+
+    <div class="steps">
+      <h3>① BASE（ベイス）</h3>
+      <ol>
+        <li>公式サイトで「無料でネットショップを開く」をクリック</li>
+        <li>メールアドレス・パスワード・ショップのURLを入力</li>
+        <li>届いた確認メールのリンクをクリック</li>
+        <li>ショップ名・カテゴリを設定 → 開設完了</li>
+      </ol>
+      <a class="gobtn" href="https://thebase.com/" target="_blank" rel="noopener">▶ BASE 公式サイトを開く</a>
+    </div>
+
+    <div class="steps">
+      <h3>② STORES（ストアーズ）</h3>
+      <ol>
+        <li>公式サイトで「無料ではじめる」をクリック</li>
+        <li>メールアドレス・パスワードを入力</li>
+        <li>届いた確認メールのリンクをクリック</li>
+        <li>ショップ名などを設定 → 開設完了</li>
+      </ol>
+      <a class="gobtn" href="https://stores.jp/" target="_blank" rel="noopener">▶ STORES 公式サイトを開く</a>
+    </div>
+
+    <div class="steps">
+      <h3>③ Shopify（ショッピファイ）</h3>
+      <ol>
+        <li>公式サイトで「無料体験をはじめる」をクリック（初回は無料トライアルあり）</li>
+        <li>メールアドレスを入力してアカウント作成</li>
+        <li>ストア名・基本情報を設定</li>
+        <li>プラン（ベーシック等）を選択 → 開設完了</li>
+      </ol>
+      <a class="gobtn" href="https://www.shopify.com/jp" target="_blank" rel="noopener">▶ Shopify 公式サイトを開く</a>
+    </div>
+
+    <!-- 申し込みサイト一覧 -->
+    <h2 class="sec"><span class="n">5</span>お申し込みサイト一覧</h2>
+    <div class="links">
+      <a href="https://thebase.com/" target="_blank" rel="noopener"><b>BASE</b><span>thebase.com</span></a>
+      <a href="https://stores.jp/" target="_blank" rel="noopener"><b>STORES</b><span>stores.jp</span></a>
+      <a href="https://www.shopify.com/jp" target="_blank" rel="noopener"><b>Shopify</b><span>shopify.com/jp</span></a>
+    </div>
+
+    <!-- 支払い・入金 -->
+    <h2 class="sec"><span class="n">6</span>お支払い・入金のきほん</h2>
+    <table>
+      <tr><th>項目</th><th>内容</th></tr>
+      <tr><td class="h">月額利用料</td><td>無料プランなら0円（支払い不要）。有料プランはクレジットカード払い（口座の自動引き落としは基本なし）。</td></tr>
+      <tr><td class="h">売上金の受け取り</td><td>「引き落とし」ではなく、登録した銀行口座へ<b>「振込」で入金</b>されます。</td></tr>
+      <tr><td class="h">お客様の支払い方法</td><td>クレジットカード／コンビニ／銀行振込／後払い（ペイディ・atone）／PayPay／キャリア決済 など。お客様が銀行振込で払うことも可能。</td></tr>
+    </table>
+
+    <!-- 補足 -->
+    <div class="callout" style="border-left-color:var(--gray)">
+      <h4>補足：業務用・卸（BtoB）の受発注</h4>
+      飲食店などへの卸（掛け払い・取引先別価格）は、BASE/STORESよりも卸専用の「Bカート」などが適しています。一般のお客様向け通販とは分けて考えるのがおすすめです。
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>ネットショップ作成サービス 比較＆お申し込みマニュアル</b><br>
+    <span class="note" style="color:#9aa6b2">本資料は概要です。手数料・プラン・仕様は各社の最新情報をご確認ください。</span>
+  </div>
+
+</div>
+</body>
+</html>

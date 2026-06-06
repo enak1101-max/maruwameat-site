@@ -124,6 +124,12 @@
   [contenteditable="true"]{cursor:text;border-radius:4px;transition:.15s}
   [contenteditable="true"]:hover{box-shadow:0 0 0 1px var(--line);background:rgba(120,120,120,.06)}
   [contenteditable="true"]:focus{outline:2px solid var(--main);background:#fff;color:var(--ink)}
+  /* 文字ごとの調整ミニツールバー */
+  .mini-tb{position:absolute;z-index:70;display:none;gap:2px;background:#2b2b2b;border-radius:8px;padding:4px;box-shadow:0 6px 22px -6px rgba(0,0,0,.55)}
+  .mini-tb.show{display:flex}
+  .mini-tb button{background:transparent;border:none;color:#fff;font-weight:700;font-size:13px;padding:6px 10px;border-radius:5px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .mini-tb button:hover{background:rgba(255,255,255,.2)}
+  .mini-tb .sep{width:1px;background:#555;margin:3px 1px}
 
   /* CTA（薄いトーン） */
   .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) calc(var(--tone)*0.72%),#fff),color-mix(in srgb,var(--main) calc(var(--tone)*0.5%),#fff));color:var(--ink);text-align:center}
@@ -598,6 +604,36 @@
   ["#newsText",".hero .eyebrow",".hero h1",".hero p.lead",".sec-head h2",
    ".feat .f h3",".feat .f p",".about h3",".about p",".cta h2",".cta p"]
     .forEach(sel=>document.querySelectorAll(sel).forEach(el=>{ el.contentEditable="true"; el.classList.add("ed"); }));
+
+  /* ===== 文字ごとの調整ミニツールバー（小さく/大きく/太字/戻す）===== */
+  const tb=document.createElement("div"); tb.className="mini-tb";
+  tb.innerHTML='<button data-act="dec" title="小さく">A−</button><button data-act="inc" title="大きく">A＋</button><span class="sep"></span><button data-act="bold" title="太字">B</button><span class="sep"></span><button data-act="reset" title="元に戻す">↺</button>';
+  document.body.appendChild(tb);
+  let activeEl=null;
+  function showTB(el){
+    activeEl=el;
+    const r=el.getBoundingClientRect();
+    tb.style.top=(window.scrollY + r.top - 46)+"px";
+    tb.style.left=(window.scrollX + r.left)+"px";
+    tb.classList.add("show");
+  }
+  function hideTB(){ tb.classList.remove("show"); activeEl=null; }
+  document.addEventListener("focusin",e=>{ if(e.target.isContentEditable) showTB(e.target); });
+  document.addEventListener("click",e=>{ if(!e.target.isContentEditable && !tb.contains(e.target)) hideTB(); });
+  tb.querySelectorAll("button").forEach(b=>{
+    b.addEventListener("mousedown",e=>e.preventDefault()); // 編集中の文字のフォーカスを保つ
+    b.addEventListener("click",e=>{
+      e.preventDefault(); if(!activeEl) return;
+      const cs=getComputedStyle(activeEl);
+      const cur=parseFloat(activeEl.style.fontSize)||parseFloat(cs.fontSize);
+      const act=b.dataset.act;
+      if(act==="inc") activeEl.style.fontSize=(cur*1.12).toFixed(1)+"px";
+      else if(act==="dec") activeEl.style.fontSize=Math.max(9,cur*0.9).toFixed(1)+"px";
+      else if(act==="bold"){ const bold=(activeEl.style.fontWeight==="700")||(!activeEl.style.fontWeight&&(cs.fontWeight==="700"||cs.fontWeight==="bold")); activeEl.style.fontWeight=bold?"400":"700"; }
+      else if(act==="reset"){ activeEl.style.fontSize=""; activeEl.style.fontWeight=""; }
+      showTB(activeEl);
+    });
+  });
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

@@ -97,6 +97,7 @@
   .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .rev{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
   .rev .stars{color:var(--gold)}
+  .rev .stars span{cursor:pointer}
   .rev p{font-size:calc(14px * var(--fs));margin:10px 0;color:var(--ink)}
   .rev .who{font-size:12px;color:var(--accent)}
   body.theme-dark .reviews{background:#1c1c1c}
@@ -194,7 +195,7 @@
 <!-- Hero -->
 <section class="hero"><div class="wrap hero-in">
   <div class="eyebrow"><span class="ph-text" style="color:#ffe">〈エリア・業種〉</span></div>
-  <h1 class="serif">〈キャッチコピーを<br>ここに入れます〉</h1>
+  <h1 class="serif" data-sync="catch">〈キャッチコピーを<br>ここに入れます〉</h1>
   <p>〈お店やサービスの紹介文をここに入れます。お客様に伝えたい魅力を一言で。〉</p>
   <div class="hero-btns"><a href="#products" class="btn btn-main">商品を見る</a><a href="#access" class="btn btn-ghost">アクセス</a></div>
 </div></section>
@@ -295,7 +296,7 @@
 <!-- Footer -->
 <footer><div class="wrap">
   <div class="foot-grid">
-    <div><h5 class="ph-text" data-field="name">〈店名〉</h5><p style="color:#a89f97" contenteditable="true" class="ed">〈キャッチコピー〉</p><p style="margin-top:10px"><span data-field="address">〈住所〉</span><br><span data-field="phone">〈電話番号〉</span></p></div>
+    <div><h5 class="ph-text" data-field="name">〈店名〉</h5><p style="color:#a89f97" contenteditable="true" class="ed" data-sync="catch">〈キャッチコピー〉</p><p style="margin-top:10px"><span data-field="address">〈住所〉</span><br><span data-field="phone">〈電話番号〉</span></p></div>
     <div><h5>メニュー</h5><a href="#about">紹介</a><a href="#products">商品</a><a href="#reviews">お客様の声</a><a href="#access">アクセス</a></div>
     <div><h5>SNS・お問い合わせ</h5><div class="foot-sns" id="footSns"></div><a href="#" data-link="contact" style="margin-top:10px">お問い合わせ</a></div>
   </div>
@@ -404,7 +405,7 @@
   if(!CONTENT.reviews || CONTENT.reviews.length===0){ hideSection("reviews"); }
   else { CONTENT.reviews.forEach(r=>{
     const d=document.createElement("div"); d.className="rev";
-    d.innerHTML='<div class="stars">★★★★★</div><p contenteditable="true" class="ed">「'+r.text+'」</p><div class="who" contenteditable="true" class="ed">— '+r.who+'</div>';
+    d.innerHTML='<div class="stars" title="星をクリックで評価変更">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'">★</span>').join('')+'</div><p contenteditable="true" class="ed">「'+r.text+'」</p><div class="who" contenteditable="true" class="ed">— '+r.who+'</div>';
     revGrid.appendChild(d);
   }); }
 
@@ -642,6 +643,20 @@
       else if(act==="reset"){ activeEl.style.fontSize=""; activeEl.style.fontWeight=""; }
       showTB(activeEl);
     });
+  });
+
+  /* ===== キャッチコピーなどの連動（片方を編集すると同じ印の場所も変わる）===== */
+  document.querySelectorAll('[data-sync]').forEach(el=>{
+    el.addEventListener("input",()=>{
+      const key=el.dataset.sync, v=el.textContent;
+      document.querySelectorAll('[data-sync="'+key+'"]').forEach(o=>{ if(o!==el && o.textContent!==v) o.textContent=v; });
+    });
+  });
+
+  /* ===== レビューの星評価：星をクリックで変更 ===== */
+  document.addEventListener("click",e=>{
+    const s=e.target.closest(".stars span[data-n]");
+    if(s){ const n=+s.dataset.n; s.parentElement.querySelectorAll("span[data-n]").forEach(x=>{ x.textContent=(+x.dataset.n<=n)?"★":"☆"; }); }
   });
 
   // パネル開閉

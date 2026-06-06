@@ -116,6 +116,19 @@
   .modal .pol-body th,.modal .pol-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
   .modal .pol-body th{background:#f6f4f1;white-space:nowrap;width:34%}
   .modal .miss{color:#b06a1f;font-weight:700}
+  #modalBg{z-index:90}
+  /* 「次へ」ボタン＆規約ウィザード */
+  .next-btn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:55;background:var(--main);color:#fff;border:none;border-radius:30px;padding:13px 26px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 24px -8px rgba(0,0,0,.5);font-family:inherit}
+  .next-btn:hover{background:var(--accent)}
+  .wiz-grid{display:grid;gap:9px;margin-bottom:14px}
+  .wiz-row{display:grid;grid-template-columns:104px 1fr;gap:10px;align-items:center}
+  .wiz-row label{font-weight:700;color:var(--gray);font-size:12.5px}
+  .wiz-row>div{font-size:14px;font-weight:700}
+  .wiz-row select{padding:9px;border:1px solid var(--line);border-radius:7px;font-family:inherit;font-size:14px;width:100%;background:#fff}
+  .wiz-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+  .wiz-actions button{flex:1;min-width:120px;background:var(--soft);border:1px solid var(--line);border-radius:7px;padding:10px;font-size:12.5px;font-weight:700;color:var(--accent);cursor:pointer;font-family:inherit}
+  .wiz-actions button:hover{background:var(--main);color:#fff;border-color:var(--main)}
+  @media(max-width:560px){ .next-btn{left:14px;right:80px;transform:none;text-align:center} }
   .rev p{font-size:calc(14px * var(--fs));margin:10px 0;color:var(--ink)}
   .rev .who{font-size:12px;color:var(--accent)}
   body.theme-dark .reviews{background:#1c1c1c}
@@ -330,6 +343,39 @@
   </div>
   <div class="copy">© <span data-field="name">〈店名〉</span></div>
 </div></footer>
+
+<!-- 「次へ（規約設定へ）」ボタン -->
+<button class="next-btn" id="nextBtn" type="button">編集できたら ▶ 次へ（規約設定）</button>
+
+<!-- 規約設定ウィザード -->
+<div class="modal-bg" id="wizBg"><div class="modal">
+  <button class="close-x" id="wizClose" type="button">✕</button>
+  <h3>規約の設定（最後の仕上げ）</h3>
+  <p style="font-size:13px;color:var(--gray);margin-bottom:14px">ホームページに入力した内容が自動で反映されています。<b>業種を選んで「完成」</b>を押すと、規約が整います。</p>
+  <div class="wiz-grid">
+    <div class="wiz-row"><label>屋号（店名）</label><div id="wizName">—</div></div>
+    <div class="wiz-row"><label>住所</label><div id="wizAddr">—</div></div>
+    <div class="wiz-row"><label>電話</label><div id="wizTel">—</div></div>
+    <div class="wiz-row"><label>メール</label><div id="wizMail">—</div></div>
+    <div class="wiz-row"><label>業種</label>
+      <select id="wizBiz">
+        <option value="">▼ 選んでください</option>
+        <option>飲食店</option><option>カフェ・喫茶店</option><option>美容室・サロン</option>
+        <option>整体・治療院</option><option>小売店・物販</option><option>食品・精肉・鮮魚</option>
+        <option>教室・スクール</option><option>クリニック・医療</option><option>宿泊・観光</option>
+        <option>その他サービス業</option>
+      </select>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--gray);margin-bottom:6px">作成される規約（クリックで内容を確認）：</p>
+  <div class="wiz-actions">
+    <button type="button" data-policy="privacy">プライバシーポリシー</button>
+    <button type="button" data-policy="cancel">キャンセル・返品</button>
+    <button type="button" data-policy="tokusho">特商法表記</button>
+  </div>
+  <button class="btn btn-main" id="wizDone" type="button" style="width:100%;justify-content:center">✅ これで完成</button>
+  <div id="wizMsg" style="display:none;text-align:center;color:#2e8b57;font-weight:700;margin-top:12px;font-size:13.5px"></div>
+</div></div>
 
 <!-- ポリシー表示モーダル -->
 <div class="modal-bg" id="modalBg"><div class="modal"><button class="close-x" id="modalClose" type="button">✕</button><h3 id="modalTitle"></h3><div class="pol-body" id="modalBody"></div></div></div>
@@ -749,6 +795,32 @@
     document.getElementById("modalBg").classList.add("show");
   }
   document.querySelectorAll("[data-policy]").forEach(a=>a.addEventListener("click",e=>{ e.preventDefault(); openPolicy(a.dataset.policy); }));
+
+  /* ===== 「次へ → 規約設定」ウィザード ===== */
+  function openWizard(){
+    document.getElementById("wizName").textContent=_v("nameInput")||"（未入力）";
+    document.getElementById("wizAddr").textContent=_v("addrInput")||"（未入力）";
+    document.getElementById("wizTel").textContent=_v("phoneInput")||"（未入力）";
+    document.getElementById("wizMail").textContent=_v("contactInput")||"（未入力）";
+    const wb=document.getElementById("wizBiz"), bv=_v("bizInput"); if(bv) wb.value=bv;
+    document.getElementById("wizMsg").style.display="none";
+    document.getElementById("wizBg").classList.add("show");
+  }
+  document.getElementById("nextBtn").addEventListener("click",openWizard);
+  document.getElementById("wizClose").addEventListener("click",()=>document.getElementById("wizBg").classList.remove("show"));
+  document.getElementById("wizBg").addEventListener("click",e=>{ if(e.target.id==="wizBg") e.currentTarget.classList.remove("show"); });
+  document.getElementById("wizBiz").addEventListener("change",e=>{
+    const b=document.getElementById("bizInput");
+    if(b){ b.value=e.target.value; b.dispatchEvent(new Event("input",{bubbles:true})); }
+  });
+  document.getElementById("wizDone").addEventListener("click",()=>{
+    const biz=_v("wizBiz")||document.getElementById("wizBiz").value;
+    const m=document.getElementById("wizMsg");
+    if(!biz){ m.style.color="#c0392b"; m.textContent="先に「業種」を選んでください。"; m.style.display="block"; return; }
+    m.style.color="#2e8b57";
+    m.textContent="🎉 完成しました！規約（プライバシー／キャンセル返品／特商法）が整いました。上のボタンで内容を確認できます。";
+    m.style.display="block";
+  });
   document.getElementById("modalClose").addEventListener("click",()=>document.getElementById("modalBg").classList.remove("show"));
   document.getElementById("modalBg").addEventListener("click",e=>{ if(e.target.id==="modalBg") e.currentTarget.classList.remove("show"); });
 

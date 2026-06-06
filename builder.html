@@ -98,6 +98,12 @@
   .rev{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
   .rev .stars{color:var(--gold)}
   .rev .stars span{cursor:pointer}
+  /* 追加・削除ボタン */
+  .add-btn{background:var(--soft);border:1.5px dashed var(--main);color:var(--accent);font-weight:700;font-size:13px;padding:10px 22px;border-radius:30px;cursor:pointer;font-family:inherit;margin-bottom:10px}
+  .add-btn:hover{background:var(--main);color:#fff;border-style:solid}
+  .card,.rev{position:relative}
+  .del-btn{position:absolute;top:7px;right:7px;z-index:3;width:24px;height:24px;border-radius:50%;border:none;background:rgba(0,0,0,.42);color:#fff;font-size:12px;cursor:pointer;line-height:1;display:grid;place-items:center}
+  .del-btn:hover{background:#c0392b}
   .rev p{font-size:calc(14px * var(--fs));margin:10px 0;color:var(--ink)}
   .rev .who{font-size:12px;color:var(--accent)}
   body.theme-dark .reviews{background:#1c1c1c}
@@ -226,7 +232,8 @@
 <!-- Products -->
 <section class="sec" id="products" data-sec="products"><div class="wrap">
   <div class="sec-head"><span class="en">PRODUCTS</span><h2 class="serif">〈商品・メニュー〉</h2></div>
-  <div class="cards" id="prodGrid"><!-- 商品データから自動生成（空ならセクション非表示） --></div>
+  <div class="cards" id="prodGrid"><!-- 商品データから自動生成 --></div>
+  <div class="center"><button type="button" class="add-btn" id="addProd">＋ 商品を追加</button></div>
   <div class="center"><a href="#" class="btn btn-main" data-link="products">商品一覧・通販を見る</a></div>
 </div></section>
 
@@ -254,7 +261,8 @@
 <!-- Reviews -->
 <section class="sec reviews" id="reviews" data-sec="reviews"><div class="wrap">
   <div class="sec-head"><span class="en">REVIEWS</span><h2 class="serif">お客様の声</h2></div>
-  <div class="rev-grid" id="revGrid"><!-- レビューデータから自動生成（空ならセクション非表示） --></div>
+  <div class="rev-grid" id="revGrid"><!-- レビューデータから自動生成 --></div>
+  <div class="center" style="margin-top:24px"><button type="button" class="add-btn" id="addRev">＋ レビューを追加</button></div>
 </div></section>
 
 <!-- Access -->
@@ -390,24 +398,24 @@
       { text:"〈お客様の声をここに入れます〉", who:"〈お客様〉" },
     ],
   };
-  function hideSection(key){ const s=document.querySelector('[data-sec="'+key+'"]'); if(s) s.style.display="none"; }
-  // 商品
-  const prodGrid=document.getElementById("prodGrid");
-  if(!CONTENT.products || CONTENT.products.length===0){ hideSection("products"); }
-  else { CONTENT.products.forEach(p=>{
+  function makeProduct(p){ p=p||{};
     const d=document.createElement("div"); d.className="card";
-    d.innerHTML='<div class="ph-thumb">🖼️<small>商品写真<br><b>JPG / 正方形 / 800×800px</b></small></div>'
-      +'<div class="body"><h4 contenteditable="true" class="ed">'+p.name+'</h4><div class="price" contenteditable="true" class="ed">¥'+p.price+'</div></div>';
-    prodGrid.appendChild(d);
-  }); }
-  // お客様の声
-  const revGrid=document.getElementById("revGrid");
-  if(!CONTENT.reviews || CONTENT.reviews.length===0){ hideSection("reviews"); }
-  else { CONTENT.reviews.forEach(r=>{
+    d.innerHTML='<button class="del-btn" type="button" title="削除">✕</button>'
+      +'<div class="ph-thumb">🖼️<small>商品写真<br><b>JPG / 正方形 / 800×800px</b></small></div>'
+      +'<div class="body"><h4 contenteditable="true" class="ed">'+(p.name||'〈商品名〉')+'</h4><div class="price" contenteditable="true" class="ed">¥'+(p.price||'〈価格〉')+'</div></div>';
+    return d;
+  }
+  function makeReview(r){ r=r||{};
     const d=document.createElement("div"); d.className="rev";
-    d.innerHTML='<div class="stars" title="星をクリックで評価変更">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'">★</span>').join('')+'</div><p contenteditable="true" class="ed">「'+r.text+'」</p><div class="who" contenteditable="true" class="ed">— '+r.who+'</div>';
-    revGrid.appendChild(d);
-  }); }
+    d.innerHTML='<button class="del-btn" type="button" title="削除">✕</button>'
+      +'<div class="stars" title="星をクリックで評価変更">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'">★</span>').join('')+'</div>'
+      +'<p contenteditable="true" class="ed">「'+(r.text||'〈お客様の声をここに入れます〉')+'」</p><div class="who" contenteditable="true" class="ed">— '+(r.who||'〈お客様〉')+'</div>';
+    return d;
+  }
+  const prodGrid=document.getElementById("prodGrid");
+  (CONTENT.products||[]).forEach(p=>prodGrid.appendChild(makeProduct(p)));
+  const revGrid=document.getElementById("revGrid");
+  (CONTENT.reviews||[]).forEach(r=>revGrid.appendChild(makeReview(r)));
 
   const PRESETS=[
     {name:"テラコッタ",   main:"#CC8462", accent:"#A8623F"},
@@ -658,6 +666,13 @@
     const s=e.target.closest(".stars span[data-n]");
     if(s){ const n=+s.dataset.n; s.parentElement.querySelectorAll("span[data-n]").forEach(x=>{ x.textContent=(+x.dataset.n<=n)?"★":"☆"; }); }
   });
+
+  /* ===== 商品・レビューの追加／削除 ===== */
+  const _addProd=document.getElementById("addProd");
+  if(_addProd) _addProd.addEventListener("click",()=>{ const c=makeProduct(); document.getElementById("prodGrid").appendChild(c); c.querySelectorAll(".ph-thumb").forEach(bindUpload); });
+  const _addRev=document.getElementById("addRev");
+  if(_addRev) _addRev.addEventListener("click",()=>{ document.getElementById("revGrid").appendChild(makeReview()); });
+  document.addEventListener("click",e=>{ const del=e.target.closest(".del-btn"); if(del){ const card=del.closest(".card,.rev"); if(card) card.remove(); } });
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

@@ -25,6 +25,9 @@
   .ph-thumb{aspect-ratio:1/1;background:var(--soft);display:grid;place-items:center;color:var(--main);font-size:26px;border-radius:var(--radius);border:2px dashed color-mix(in srgb,var(--main) 45%,#fff);text-align:center;padding:8px}
   .ph-thumb small{display:block;font-size:11px;color:var(--gray);margin-top:5px;font-weight:700;line-height:1.55}
   .ph-thumb small b{color:var(--accent);font-weight:700}
+  .ph-thumb{cursor:pointer}
+  .ph-thumb:hover{border-color:var(--accent);background:color-mix(in srgb,var(--main) 8%,#fff)}
+  .logo .mark{cursor:pointer}
   /* 画像仕様のガイドバー */
   .spec-bar{background:var(--soft);color:var(--ink);font-size:11.5px;text-align:center;padding:7px 12px;border-bottom:1px solid var(--line)}
   .spec-bar b{color:var(--accent)}
@@ -153,7 +156,7 @@
 <header><div class="wrap nav">
   <a href="#" class="logo"><span class="mark" title="ロゴ画像：PNG(透過)またはSVG・正方形・推奨512×512px">ロゴ</span><span class="ph-text">〈お店の名前〉</span></a>
   <nav class="gnav"><a href="#about">紹介</a><a href="#products">商品</a><a href="#reviews">お客様の声</a><a href="#access">アクセス</a></nav>
-  <a href="#" class="btn btn-main">お問い合わせ</a>
+  <a href="#" class="btn btn-main" data-link="contact">お問い合わせ</a>
 </div></header>
 
 <!-- Hero -->
@@ -191,7 +194,7 @@
 <section class="sec" id="products" data-sec="products"><div class="wrap">
   <div class="sec-head"><span class="en">PRODUCTS</span><h2 class="serif">〈商品・メニュー〉</h2></div>
   <div class="cards" id="prodGrid"><!-- 商品データから自動生成（空ならセクション非表示） --></div>
-  <div class="center"><a href="#" class="btn btn-main">商品一覧・通販を見る</a></div>
+  <div class="center"><a href="#" class="btn btn-main" data-link="products">商品一覧・通販を見る</a></div>
 </div></section>
 
 <!-- Reviews -->
@@ -219,7 +222,7 @@
 <section class="sec cta" data-sec="cta"><div class="wrap">
   <h2 class="serif">〈来店・お問い合わせを促す一言〉</h2>
   <p>〈LINEやお問い合わせへの誘導文を入れます〉</p>
-  <a href="#" class="btn btn-main">📱 LINEで友だち追加</a>
+  <a href="#" class="btn btn-main" data-link="line">📱 LINEで友だち追加</a>
 </div></section>
 
 <!-- Footer -->
@@ -401,6 +404,42 @@
     document.getElementById("bodyFont").value=DEFAULT.body;
     document.querySelectorAll(".toggles input[data-t]").forEach(c=>{c.checked=true;const s=document.querySelector('[data-sec="'+c.dataset.t+'"]');if(s)s.style.display="";});
   };
+
+  /* ===== 画像の差し替え：枠をクリック→ファイル選択→プレビュー ===== */
+  const _file=document.createElement("input");
+  _file.type="file"; _file.accept="image/*"; _file.style.display="none";
+  document.body.appendChild(_file);
+  let _target=null;
+  function bindUpload(el){
+    if(!el) return;
+    el.addEventListener("click",ev=>{ ev.preventDefault(); ev.stopPropagation(); _target=el; _file.value=""; _file.click(); });
+  }
+  _file.addEventListener("change",e=>{
+    const f=e.target.files[0]; if(!f||!_target) return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      _target.style.backgroundImage="url('"+ev.target.result+"')";
+      _target.style.backgroundSize="cover";
+      _target.style.backgroundPosition="center";
+      _target.style.borderStyle="solid";
+      _target.innerHTML="";
+    };
+    r.readAsDataURL(f);
+  });
+  document.querySelectorAll(".ph-thumb, .logo .mark").forEach(bindUpload);
+
+  /* ===== リンク設定：ボタンの飛び先 =====
+     URLを入れるとボタンがそこへリンクします（空ならそのまま）。
+     例: お問い合わせ → "mailto:メール" / フォームのURL / "tel:電話番号" */
+  const LINKS = {
+    contact:  "",   // お問い合わせ
+    products: "",   // 商品一覧・通販
+    line:     "",   // LINE友だち追加
+  };
+  document.querySelectorAll("[data-link]").forEach(a=>{
+    const u=LINKS[a.dataset.link];
+    if(u){ a.href=u; if(/^https?:/.test(u)){ a.target="_blank"; a.rel="noopener"; } }
+  });
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

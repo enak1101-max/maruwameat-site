@@ -406,6 +406,7 @@
     <button type="button" data-policy="tokusho">特商法表記</button>
   </div>
   <button class="btn btn-main" id="wizDone" type="button" style="width:100%;justify-content:center">✅ これで完成</button>
+  <button type="button" id="exportBtn" style="width:100%;justify-content:center;margin-top:8px;background:var(--soft);border:2px solid var(--main);color:var(--accent);border-radius:8px;padding:11px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">📦 公開用に書き出す（HTMLダウンロード）</button>
   <div id="wizMsg" style="display:none;text-align:center;color:#2e8b57;font-weight:700;margin-top:12px;font-size:13.5px"></div>
 </div></div>
 
@@ -855,6 +856,42 @@
   });
   document.getElementById("modalClose").addEventListener("click",()=>document.getElementById("modalBg").classList.remove("show"));
   document.getElementById("modalBg").addEventListener("click",e=>{ if(e.target.id==="modalBg") e.currentTarget.classList.remove("show"); });
+
+  /* ===== 公開用に書き出す（編集UIを外した完成HTMLをダウンロード）===== */
+  function buildExportHTML(){
+    var clone=document.documentElement.cloneNode(true);
+    function rm(sel){ clone.querySelectorAll(sel).forEach(function(e){e.remove();}); }
+    // ビルダー専用UIを除去
+    rm("#lockScreen"); rm(".demo-bar"); rm(".spec-bar"); rm("#nextBtn"); rm(".fab");
+    rm("#panel"); rm(".mini-tb"); rm("#wizBg"); rm("#modalBg");
+    rm(".add-btn"); rm(".del-btn"); rm(".mode-switch"); rm(".map-note"); rm("script");
+    // 画像/動画：選んでいない方を除去
+    var mi=document.getElementById("mediaImage"), mv=document.getElementById("mediaVideo");
+    if(mi && mi.style.display==="none") rm("#mediaImage");
+    if(mv && mv.style.display==="none") rm("#mediaVideo");
+    rm("#videoInput");
+    // 店舗情報の入力欄 → テキストに置換
+    ["nameInput","addrInput","phoneInput","hoursInput","closedInput"].forEach(function(id){
+      var ci=clone.querySelector("#"+id);
+      if(ci){ var v=(document.getElementById(id)||{}).value||""; var s=document.createElement("span"); s.textContent=v; ci.replaceWith(s); }
+    });
+    // SNS入力ブロックごと除去／問合せ・業種の行を除去（公開には表示しない）
+    var sns=clone.querySelector("#snsIg"); if(sns && sns.parentElement) sns.parentElement.remove();
+    ["contactInput","bizInput"].forEach(function(id){ var e=clone.querySelector("#"+id); if(e){ var dd=e.closest("dd"); if(dd){ var dt=dd.previousElementSibling; if(dt&&dt.tagName==="DT") dt.remove(); dd.remove(); } } });
+    // 編集モードを解除
+    clone.querySelectorAll("[contenteditable]").forEach(function(e){e.removeAttribute("contenteditable");});
+    return "<!DOCTYPE html>\n"+clone.outerHTML;
+  }
+  function exportHTML(){
+    var html=buildExportHTML();
+    var blob=new Blob([html],{type:"text/html;charset=utf-8"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="mysite.html";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},3000);
+    var m=document.getElementById("wizMsg");
+    if(m){ m.style.color="#2e8b57"; m.textContent="📦 書き出しました！ダウンロードした mysite.html を無料ホスティング（Netlify Drop等）に置けば公開できます。"; m.style.display="block"; }
+  }
+  var _exp=document.getElementById("exportBtn"); if(_exp) _exp.addEventListener("click",exportHTML);
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

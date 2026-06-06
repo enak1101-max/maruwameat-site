@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ホームページビルダー（デモ）｜色・フォントを変えられるテンプレート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --main:#E8722A; --accent:#B34E14; --gold:#CBA15B;
+    --ink:#2C2A28; --gray:#8C857C; --soft:#F6F2EC; --line:#ECE5DC; --bg:#FFFFFF;
+    --head-font:"Noto Serif JP",serif; --body-font:"Noto Sans JP",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body-font);color:var(--ink);background:var(--bg);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .serif{font-family:var(--head-font)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:7px;font-weight:700;font-size:14px;cursor:pointer;border:2px solid transparent;transition:.2s}
+  .btn-main{background:var(--main);color:#fff}
+  .btn-main:hover{background:var(--accent)}
+  .btn-ghost{background:transparent;color:#fff;border-color:#fff}
+  .ph-thumb{aspect-ratio:1/1;background:var(--soft);display:grid;place-items:center;color:var(--main);font-size:30px;border-radius:8px}
+  .ph-thumb small{display:block;font-size:11px;color:var(--gray);margin-top:4px;font-weight:700}
+  .sec{padding:66px 0}
+  .sec-head{text-align:center;margin-bottom:38px}
+  .sec-head .en{color:var(--gold);letter-spacing:3px;font-size:12px;font-weight:700}
+  .sec-head h2{font-size:28px;font-weight:700;font-family:var(--head-font);margin-top:6px;position:relative;display:inline-block;padding-bottom:12px}
+  .sec-head h2:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:42px;height:3px;background:var(--main)}
+  .ph-text{color:#b06a1f;font-weight:700} /* プレースホルダ */
+
+  /* Header */
+  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:900;font-size:19px;color:var(--accent)}
+  .logo .mark{width:32px;height:32px;border-radius:50%;background:var(--main);color:#fff;display:grid;place-items:center;font-weight:900}
+  .gnav{display:flex;gap:20px;font-size:14px;font-weight:500}
+  .gnav a:hover{color:var(--main)}
+
+  /* Hero */
+  .hero{position:relative;min-height:440px;display:flex;align-items:center;background:linear-gradient(135deg,var(--main),var(--accent));color:#fff;overflow:hidden}
+  .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 50%)}
+  .hero-in{position:relative;z-index:2;padding:40px 0}
+  .hero .eyebrow{letter-spacing:3px;font-size:12px;font-weight:700;opacity:.9;margin-bottom:14px}
+  .hero h1{font-family:var(--head-font);font-size:clamp(28px,4.5vw,46px);line-height:1.5;text-shadow:0 2px 16px rgba(0,0,0,.2)}
+  .hero p{margin-top:16px;font-size:15px;opacity:.95;max-width:520px}
+  .hero-btns{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+
+  /* News */
+  .news{background:var(--soft)}
+  .news .row{display:flex;align-items:center;gap:14px;padding:12px 0;font-size:14px}
+  .news .tag{background:var(--main);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:4px;white-space:nowrap}
+
+  /* Features */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .feat .f{text-align:center;background:var(--soft);border-radius:12px;padding:26px 16px}
+  .feat .f .ic{font-size:30px}
+  .feat .f h3{font-size:16px;margin:8px 0 4px;font-family:var(--head-font)}
+  .feat .f p{font-size:12.5px;color:var(--gray)}
+
+  /* About */
+  .about .cols{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+  .about .ph-thumb{aspect-ratio:4/3}
+  .about h3{font-size:22px;font-family:var(--head-font);margin-bottom:14px;line-height:1.6}
+  .about p{font-size:14px}
+
+  /* Products */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgba(0,0,0,.3)}
+  .card .ph-thumb{border-radius:0}
+  .card .body{padding:14px}
+  .card h4{font-size:15px;margin-bottom:4px}
+  .card .price{color:var(--accent);font-weight:700;font-size:15px}
+  .center{text-align:center;margin-top:34px}
+
+  /* Reviews */
+  .reviews{background:var(--ink);color:#fff}
+  .reviews .sec-head h2{color:#fff}
+  .reviews .sec-head h2:after{background:var(--main)}
+  .reviews .sec-head .en{color:var(--gold)}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .rev{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:22px}
+  .rev .stars{color:var(--gold)}
+  .rev p{font-size:14px;margin:10px 0}
+  .rev .who{font-size:12px;color:var(--gold)}
+
+  /* Access */
+  .access .box{background:var(--soft);border-radius:14px;padding:26px 28px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
+  .access dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+  .access dt{color:var(--gray);font-weight:700}
+  .access .ph-thumb{aspect-ratio:16/10}
+
+  /* CTA */
+  .cta{background:linear-gradient(135deg,var(--accent),var(--main));color:#fff;text-align:center}
+  .cta h2{font-family:var(--head-font);font-size:26px;margin-bottom:10px}
+  .cta p{opacity:.92;font-size:14px;margin-bottom:22px}
+
+  /* Footer */
+  footer{background:#23211f;color:#cfc8c0;padding:40px 0 22px;font-size:13px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;padding-bottom:24px;border-bottom:1px solid #3a3633}
+  .foot-grid h5{color:#fff;margin-bottom:10px;font-size:15px}
+  .foot-grid a{display:block;color:#cfc8c0;padding:3px 0}
+  .foot-grid a:hover{color:#fff}
+  .copy{text-align:center;padding-top:18px;color:#8c857c;font-size:12px}
+
+  /* ===== デザイン設定パネル ===== */
+  .demo-bar{background:var(--main);color:#fff;text-align:center;font-size:13px;font-weight:700;padding:9px 12px}
+  .fab{position:fixed;right:18px;bottom:18px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--main);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 8px 24px -8px rgba(0,0,0,.5)}
+  .panel{position:fixed;right:18px;bottom:88px;z-index:60;width:300px;max-width:calc(100vw - 36px);background:#fff;border-radius:14px;box-shadow:0 20px 50px -16px rgba(0,0,0,.5);padding:18px;display:none;max-height:78vh;overflow:auto}
+  .panel.open{display:block}
+  .panel h3{font-size:15px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .panel .sub{font-size:11px;color:#8c857c;margin-bottom:14px}
+  .panel .grp{margin-bottom:16px}
+  .panel .grp>label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#444}
+  .presets{display:flex;flex-wrap:wrap;gap:7px}
+  .preset{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #ddd;cursor:pointer}
+  .colorrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12.5px}
+  .colorrow input[type=color]{width:38px;height:30px;border:1px solid #ddd;border-radius:6px;background:none;cursor:pointer;padding:0}
+  .panel select{width:100%;padding:8px;border:1px solid #ddd;border-radius:7px;font-size:13px;font-family:inherit}
+  .toggles label{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0;cursor:pointer}
+  .reset{width:100%;margin-top:4px;background:#f1efea;border:none;border-radius:7px;padding:9px;font-size:12.5px;font-weight:700;cursor:pointer}
+
+  @media(max-width:860px){ .cards{grid-template-columns:repeat(2,1fr)} .feat{grid-template-columns:1fr} .about .cols,.access .box{grid-template-columns:1fr} .rev-grid{grid-template-columns:1fr} .foot-grid{grid-template-columns:1fr} }
+  @media(max-width:560px){ .gnav{display:none} .cards{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">🎨 ホームページビルダー（デモ）— 右下の <b>🎨ボタン</b> で 色・フォント・表示セクションを切り替えられます</div>
+
+<!-- Header -->
+<header><div class="wrap nav">
+  <a href="#" class="logo"><span class="mark">◯</span><span class="ph-text">〈お店の名前〉</span></a>
+  <nav class="gnav"><a href="#about">紹介</a><a href="#products">商品</a><a href="#reviews">お客様の声</a><a href="#access">アクセス</a></nav>
+  <a href="#" class="btn btn-main">お問い合わせ</a>
+</div></header>
+
+<!-- Hero -->
+<section class="hero"><div class="wrap hero-in">
+  <div class="eyebrow"><span class="ph-text" style="color:#ffe">〈エリア・業種〉</span></div>
+  <h1 class="serif">〈キャッチコピーを<br>ここに入れます〉</h1>
+  <p>〈お店やサービスの紹介文をここに入れます。お客様に伝えたい魅力を一言で。〉</p>
+  <div class="hero-btns"><a href="#products" class="btn btn-main" style="background:#fff;color:var(--accent)">商品を見る</a><a href="#access" class="btn btn-ghost">アクセス</a></div>
+</div></section>
+
+<!-- News -->
+<section class="news" data-sec="news"><div class="wrap row"><span class="tag">お知らせ</span><span>🔸 〈ここに最新のお知らせを表示します（営業時間・キャンペーン等）〉</span></div></section>
+
+<!-- Features -->
+<section class="sec" data-sec="features"><div class="wrap">
+  <div class="sec-head"><span class="en">FEATURES</span><h2 class="serif">〈3つの強み〉</h2></div>
+  <div class="feat">
+    <div class="f"><div class="ic">✨</div><h3>〈強み1〉</h3><p>説明文がここに入ります</p></div>
+    <div class="f"><div class="ic">🤝</div><h3>〈強み2〉</h3><p>説明文がここに入ります</p></div>
+    <div class="f"><div class="ic">🏆</div><h3>〈強み3〉</h3><p>説明文がここに入ります</p></div>
+  </div>
+</div></section>
+
+<!-- About -->
+<section class="sec about" id="about" data-sec="about" style="background:var(--soft)"><div class="wrap cols">
+  <div class="ph-thumb">🖼️<small>写真をここに</small></div>
+  <div>
+    <span class="en" style="color:var(--gold);font-weight:700;letter-spacing:3px;font-size:12px">ABOUT</span>
+    <h3 class="serif">〈お店・サービスの紹介見出し〉</h3>
+    <p>〈ここに紹介文を入れます。歴史・こだわり・想いなど、お客様に伝えたいストーリーを書きます。専門知識がなくても、文章と写真を差し替えるだけで完成します。〉</p>
+  </div>
+</div></section>
+
+<!-- Products -->
+<section class="sec" id="products" data-sec="products"><div class="wrap">
+  <div class="sec-head"><span class="en">PRODUCTS</span><h2 class="serif">〈商品・メニュー〉</h2></div>
+  <div class="cards">
+    <div class="card"><div class="ph-thumb">🖼️<small>写真</small></div><div class="body"><h4>〈商品名 1〉</h4><div class="price">¥〈価格〉</div></div></div>
+    <div class="card"><div class="ph-thumb">🖼️<small>写真</small></div><div class="body"><h4>〈商品名 2〉</h4><div class="price">¥〈価格〉</div></div></div>
+    <div class="card"><div class="ph-thumb">🖼️<small>写真</small></div><div class="body"><h4>〈商品名 3〉</h4><div class="price">¥〈価格〉</div></div></div>
+    <div class="card"><div class="ph-thumb">🖼️<small>写真</small></div><div class="body"><h4>〈商品名 4〉</h4><div class="price">¥〈価格〉</div></div></div>
+  </div>
+  <div class="center"><a href="#" class="btn btn-main">商品一覧・通販を見る</a></div>
+</div></section>
+
+<!-- Reviews -->
+<section class="sec reviews" id="reviews" data-sec="reviews"><div class="wrap">
+  <div class="sec-head"><span class="en">REVIEWS</span><h2 class="serif">お客様の声</h2></div>
+  <div class="rev-grid">
+    <div class="rev"><div class="stars">★★★★★</div><p>「〈お客様の声をここに入れます〉」</p><div class="who">— 〈お客様〉</div></div>
+    <div class="rev"><div class="stars">★★★★★</div><p>「〈お客様の声をここに入れます〉」</p><div class="who">— 〈お客様〉</div></div>
+    <div class="rev"><div class="stars">★★★★★</div><p>「〈お客様の声をここに入れます〉」</p><div class="who">— 〈お客様〉</div></div>
+  </div>
+</div></section>
+
+<!-- Access -->
+<section class="sec access" id="access" data-sec="access"><div class="wrap">
+  <div class="sec-head"><span class="en">ACCESS</span><h2 class="serif">店舗案内</h2></div>
+  <div class="box">
+    <dl>
+      <dt>店名</dt><dd><span class="ph-text">〈店名〉</span></dd>
+      <dt>住所</dt><dd>〈住所〉</dd>
+      <dt>電話</dt><dd>〈電話番号〉</dd>
+      <dt>営業</dt><dd>〈営業時間〉</dd>
+      <dt>定休</dt><dd>〈定休日〉</dd>
+    </dl>
+    <div class="ph-thumb">🗺️<small>地図をここに</small></div>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section class="sec cta" data-sec="cta"><div class="wrap">
+  <h2 class="serif">〈来店・お問い合わせを促す一言〉</h2>
+  <p>〈LINEやお問い合わせへの誘導文を入れます〉</p>
+  <a href="#" class="btn btn-main" style="background:#fff;color:var(--accent)">📱 LINEで友だち追加</a>
+</div></section>
+
+<!-- Footer -->
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div><h5 class="ph-text">〈店名〉</h5><p style="color:#a89f97">〈キャッチコピー〉</p><p style="margin-top:10px">〈住所〉<br>〈電話番号〉</p></div>
+    <div><h5>メニュー</h5><a href="#about">紹介</a><a href="#products">商品</a><a href="#reviews">お客様の声</a><a href="#access">アクセス</a></div>
+    <div><h5>SNS・お問い合わせ</h5><a href="#">Instagram</a><a href="#">LINE</a><a href="#">お問い合わせ</a></div>
+  </div>
+  <div class="copy">© 〈店名〉</div>
+</div></footer>
+
+<!-- 設定パネル -->
+<button class="fab" id="fab" title="デザイン設定">🎨</button>
+<div class="panel" id="panel">
+  <h3>🎨 デザイン設定</h3>
+  <div class="sub">変更はこのページにすぐ反映されます（デモ）</div>
+
+  <div class="grp">
+    <label>テーマ（プリセット）</label>
+    <div class="presets" id="presets"></div>
+  </div>
+
+  <div class="grp">
+    <label>色を自分で選ぶ</label>
+    <div class="colorrow"><input type="color" id="cMain" value="#E8722A"><span>メインカラー</span></div>
+    <div class="colorrow"><input type="color" id="cAccent" value="#B34E14"><span>アクセント（濃い色）</span></div>
+  </div>
+
+  <div class="grp">
+    <label>見出しフォント</label>
+    <select id="headFont">
+      <option value="'Noto Serif JP',serif">明朝（上品・高級感）</option>
+      <option value="'Noto Sans JP',sans-serif">ゴシック（読みやすい）</option>
+      <option value="'M PLUS Rounded 1c',sans-serif">丸ゴシック（やわらか・親しみ）</option>
+    </select>
+  </div>
+  <div class="grp">
+    <label>本文フォント</label>
+    <select id="bodyFont">
+      <option value="'Noto Sans JP',sans-serif">ゴシック（標準・おすすめ）</option>
+      <option value="'M PLUS Rounded 1c',sans-serif">丸ゴシック（やわらか）</option>
+      <option value="'Noto Serif JP',serif">明朝</option>
+    </select>
+  </div>
+
+  <div class="grp toggles">
+    <label>表示するセクション</label>
+    <label><input type="checkbox" data-t="news" checked> お知らせ</label>
+    <label><input type="checkbox" data-t="features" checked> 3つの強み</label>
+    <label><input type="checkbox" data-t="about" checked> お店紹介</label>
+    <label><input type="checkbox" data-t="products" checked> 商品・メニュー</label>
+    <label><input type="checkbox" data-t="reviews" checked> お客様の声</label>
+    <label><input type="checkbox" data-t="access" checked> 店舗案内</label>
+    <label><input type="checkbox" data-t="cta" checked> LINE誘導</label>
+  </div>
+
+  <button class="reset" id="reset">↺ 初期設定に戻す</button>
+</div>
+
+<script>
+  const root=document.documentElement;
+  const PRESETS=[
+    {name:"オレンジ", main:"#E8722A", accent:"#B34E14"},
+    {name:"ネイビー", main:"#34506B", accent:"#243A4F"},
+    {name:"グリーン", main:"#4E8A5B", accent:"#356245"},
+    {name:"ワイン",   main:"#8E3B4E", accent:"#6B2A39"},
+    {name:"ピンク",   main:"#D96A8A", accent:"#B14668"},
+    {name:"ブラウン", main:"#7A5A3A", accent:"#574027"},
+    {name:"ブラック", main:"#3A3A3A", accent:"#111111"},
+    {name:"ブルー",   main:"#2F7CC0", accent:"#1F5A8F"},
+  ];
+  const DEFAULT={main:"#E8722A",accent:"#B34E14",head:"'Noto Serif JP',serif",body:"'Noto Sans JP',sans-serif"};
+
+  // プリセットの丸ボタンを生成
+  const pc=document.getElementById("presets");
+  PRESETS.forEach(p=>{
+    const b=document.createElement("button");
+    b.className="preset"; b.title=p.name;
+    b.style.background="linear-gradient(135deg,"+p.main+","+p.accent+")";
+    b.onclick=()=>{ setColor(p.main,p.accent); };
+    pc.appendChild(b);
+  });
+
+  function setColor(main,accent){
+    root.style.setProperty("--main",main);
+    root.style.setProperty("--accent",accent);
+    document.getElementById("cMain").value=main;
+    document.getElementById("cAccent").value=accent;
+  }
+  document.getElementById("cMain").addEventListener("input",e=>root.style.setProperty("--main",e.target.value));
+  document.getElementById("cAccent").addEventListener("input",e=>root.style.setProperty("--accent",e.target.value));
+  document.getElementById("headFont").addEventListener("change",e=>root.style.setProperty("--head-font",e.target.value));
+  document.getElementById("bodyFont").addEventListener("change",e=>root.style.setProperty("--body-font",e.target.value));
+
+  // セクション表示ON/OFF
+  document.querySelectorAll(".toggles input[data-t]").forEach(c=>{
+    c.addEventListener("change",()=>{
+      const sec=document.querySelector('[data-sec="'+c.dataset.t+'"]');
+      if(sec) sec.style.display=c.checked?"":"none";
+    });
+  });
+
+  // リセット
+  document.getElementById("reset").onclick=()=>{
+    setColor(DEFAULT.main,DEFAULT.accent);
+    root.style.setProperty("--head-font",DEFAULT.head);
+    root.style.setProperty("--body-font",DEFAULT.body);
+    document.getElementById("headFont").value=DEFAULT.head;
+    document.getElementById("bodyFont").value=DEFAULT.body;
+    document.querySelectorAll(".toggles input[data-t]").forEach(c=>{c.checked=true;const s=document.querySelector('[data-sec="'+c.dataset.t+'"]');if(s)s.style.display="";});
+  };
+
+  // パネル開閉
+  document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");
+</script>
+</body>
+</html>

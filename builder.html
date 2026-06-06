@@ -117,6 +117,9 @@
   .video-ph small{display:block;font-size:12px;color:var(--gray);margin-top:6px;font-weight:700;line-height:1.55}
   .video-ph small b{color:var(--accent)}
   .video-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--radius);display:block}
+  .mode-switch{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+  .mode-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 18px;border-radius:30px;border:1.5px solid var(--line);background:#fff;color:var(--gray);cursor:pointer}
+  .mode-btn.active{background:var(--main);color:#fff;border-color:var(--main)}
 
   /* CTA（薄いトーン） */
   .cta{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) calc(var(--tone)*0.72%),#fff),color-mix(in srgb,var(--main) calc(var(--tone)*0.5%),#fff));color:var(--ink);text-align:center}
@@ -218,11 +221,22 @@
 
 <!-- Video -->
 <section class="sec" id="video" data-sec="video" style="background:var(--soft)"><div class="wrap">
-  <div class="sec-head"><span class="en">VIDEO</span><h2 class="serif">〈動画で紹介〉</h2></div>
+  <div class="sec-head"><span class="en">MEDIA</span><h2 class="serif">〈画像・動画で紹介〉</h2></div>
   <div style="max-width:720px;margin:0 auto">
-    <div style="margin-bottom:12px"><input id="videoInput" class="addr-in" placeholder="YouTubeのリンクを貼る（例：https://youtu.be/xxxxxxxxxxx）"></div>
-    <div id="videoWrap"><div class="video-ph">🎬<small>YouTubeのリンクを貼ると<br><b>ここに動画が表示されます</b></small></div></div>
-    <div class="map-note" style="text-align:center">👆 上の欄にYouTubeのリンクを貼るだけ（埋め込みコード不要）。再生すると音も出ます。</div>
+    <div class="mode-switch">
+      <button type="button" class="mode-btn active" data-mode="image">🖼️ 画像（推奨）</button>
+      <button type="button" class="mode-btn" data-mode="video">🎬 動画（YouTube）</button>
+    </div>
+    <!-- 画像モード -->
+    <div id="mediaImage">
+      <div class="ph-thumb" style="aspect-ratio:16/9">🖼️<small>画像を挿入（クリックで選択）<br><b>JPG / 横長16:9 / 1200×675px</b></small></div>
+    </div>
+    <!-- 動画モード -->
+    <div id="mediaVideo" style="display:none">
+      <div style="margin-bottom:12px"><input id="videoInput" class="addr-in" placeholder="YouTubeのリンクを貼る（例：https://youtu.be/xxxxxxxxxxx）"></div>
+      <div id="videoWrap"><div class="video-ph">🎬<small>YouTubeのリンクを貼ると<br><b>ここに動画が表示されます</b></small></div></div>
+      <div class="map-note" style="text-align:center">👆 YouTubeのリンクを貼るだけ（埋め込みコード不要）。再生すると音も出ます。</div>
+    </div>
   </div>
 </div></section>
 
@@ -336,7 +350,7 @@
     <label><input type="checkbox" data-t="features" checked> 3つの強み</label>
     <label><input type="checkbox" data-t="about" checked> お店紹介</label>
     <label><input type="checkbox" data-t="products" checked> 商品・メニュー</label>
-    <label><input type="checkbox" data-t="video" checked> 動画</label>
+    <label><input type="checkbox" data-t="video" checked> 画像/動画</label>
     <label><input type="checkbox" data-t="reviews" checked> お客様の声</label>
     <label><input type="checkbox" data-t="access" checked> 店舗案内</label>
     <label><input type="checkbox" data-t="cta" checked> LINE誘導</label>
@@ -497,6 +511,18 @@
       _t=setTimeout(()=>{ if(a) _map.src="https://maps.google.com/maps?q="+encodeURIComponent(a)+"&z=16&output=embed"; },500);
     });
   }
+
+  /* ===== 画像 / 動画 の選択（選んだ方だけ表示。音の案内は動画のときだけ） ===== */
+  document.querySelectorAll(".mode-btn").forEach(b=>{
+    b.addEventListener("click",()=>{
+      document.querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      const mode=b.dataset.mode;
+      const mi=document.getElementById("mediaImage"), mv=document.getElementById("mediaVideo");
+      if(mi) mi.style.display = mode==="image" ? "" : "none";
+      if(mv) mv.style.display = mode==="video" ? "" : "none";
+    });
+  });
 
   /* ===== YouTubeのリンクを貼ると動画が表示される ===== */
   const _vIn=document.getElementById("videoInput");

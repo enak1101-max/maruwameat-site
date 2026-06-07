@@ -36,7 +36,8 @@
   .sec-head .en{color:var(--gold);letter-spacing:3px;font-size:12px;font-weight:700}
   .sec-head h2{font-size:calc(28px * var(--fs));font-weight:700;font-family:var(--head-font);margin-top:6px;position:relative;display:inline-block;padding-bottom:12px}
   .sec-head h2:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:42px;height:3px;background:var(--main)}
-  .ph-text{color:#b06a1f;font-weight:700} /* プレースホルダ */
+  .ph-text{color:#b06a1f;font-weight:700} /* プレースホルダ（未入力時） */
+  .ph-text.filled{color:inherit} /* 入力後はテーマ色に連動 */
 
   /* Header */
   header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
@@ -458,6 +459,7 @@
 <!-- 設定パネル -->
 <button class="fab" id="fab" title="デザイン設定">🎨</button>
 <div class="panel" id="panel">
+  <button type="button" id="panelClose" title="閉じる" style="position:absolute;top:8px;right:10px;width:30px;height:30px;border:none;background:#f1efea;border-radius:50%;font-size:16px;line-height:1;cursor:pointer;color:#666">✕</button>
   <h3>🎨 デザイン設定</h3>
   <div class="sub">変更はこのページにすぐ反映されます（デモ）</div>
 
@@ -722,7 +724,8 @@
   /* ===== お店の基本情報：一度入力すると複数箇所に自動反映 ===== */
   document.querySelectorAll('[data-field]').forEach(el=>{ el.dataset.ph=el.textContent; });
   function applyField(key,v){
-    document.querySelectorAll('[data-field="'+key+'"]').forEach(el=>{ el.textContent=(v&&v.trim())?v:el.dataset.ph; });
+    const has=!!(v&&v.trim());
+    document.querySelectorAll('[data-field="'+key+'"]').forEach(el=>{ el.textContent=has?v:el.dataset.ph; el.classList.toggle("filled",has); });
   }
   function setFavicon(text){
     const c=document.createElement("canvas"); c.width=64; c.height=64; const x=c.getContext("2d");
@@ -1030,6 +1033,7 @@
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");
+  var _pc=document.getElementById("panelClose"); if(_pc) _pc.onclick=()=>document.getElementById("panel").classList.remove("open");
 </script>
 </body>
 </html>

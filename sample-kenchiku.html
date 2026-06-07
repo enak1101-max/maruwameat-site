@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サンプル工務店｜新築・リフォーム・外壁塗装｜地域密着の建築会社【ENAK制作サンプル】</title>
+<meta name="description" content="新築・リフォーム・外壁塗装・外構工事。地域密着・自社施工・安心保証の工務店サンプルサイト（ENAK制作見本）。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1F3A5F; --steel:#2C4A6E; --wood:#C2974F; --wood-soft:#EFE7D7;
+    --bg:#F7F6F3; --ink:#262B31; --gray:#7B828B; --line:#E6E2DA; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg);line-height:1.85;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .serif{font-family:"Noto Serif JP",serif}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:6px;font-weight:700;font-size:15px;transition:.25s;cursor:pointer;border:2px solid transparent}
+  .btn-primary{background:var(--wood);color:#fff}
+  .btn-primary:hover{filter:brightness(1.07)}
+  .btn-ghost{background:transparent;color:#fff;border-color:#fff}
+  .btn-ghost:hover{background:#fff;color:var(--navy)}
+  .btn-line{background:#06C755;color:#fff}
+  .sec{padding:80px 0}
+  .sec-head{text-align:center;margin-bottom:48px}
+  .sec-head .en{display:block;color:var(--wood);letter-spacing:3px;font-size:13px;font-weight:700;margin-bottom:10px}
+  .sec-head h2{font-size:31px;font-weight:700;color:var(--navy)}
+  .sec-head h2 small{display:block;font-size:14px;color:var(--gray);font-weight:500;margin-top:12px}
+
+  /* demo ribbon */
+  .demo{background:var(--navy);color:#fff;text-align:center;font-size:12.5px;padding:7px 12px;letter-spacing:.5px}
+  .demo b{color:var(--wood)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;color:var(--navy)}
+  .logo .mark{width:40px;height:40px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900;font-family:"Noto Serif JP",serif}
+  .gnav{display:flex;gap:24px;font-size:14px;font-weight:500}
+  .gnav a:hover{color:var(--wood)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .nav-tel{font-weight:900;color:var(--navy);font-size:19px}
+  .nav-tel small{display:block;font-size:10px;color:var(--gray);font-weight:500;letter-spacing:1px}
+  .burger{display:none;font-size:26px;background:none;border:none;cursor:pointer}
+
+  /* hero */
+  .hero{position:relative;min-height:560px;display:flex;align-items:center;background:linear-gradient(120deg,#16293f,#23456b);overflow:hidden}
+  .hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(135deg,rgba(0,0,0,.25),transparent);opacity:.6}
+  .hero .ph-bg{position:absolute;inset:0;background:repeating-linear-gradient(45deg,#1c3category 0,#1c3a5c 2px,transparent 2px,transparent 14px);opacity:.12}
+  .hero-in{position:relative;z-index:2;color:#fff;padding:70px 0}
+  .hero .eyebrow{letter-spacing:3px;font-size:13px;font-weight:700;color:var(--wood);margin-bottom:18px}
+  .hero h1{font-size:clamp(30px,5vw,50px);font-weight:700;line-height:1.5;text-shadow:0 2px 18px rgba(0,0,0,.3)}
+  .hero p.lead{margin-top:20px;font-size:clamp(15px,2vw,18px);max-width:560px;color:#e7eef6}
+  .hero-btns{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+  .hero-badges{margin-top:34px;display:flex;gap:26px;flex-wrap:wrap}
+  .hero-badge b{font-size:28px;color:var(--wood);font-family:"Noto Serif JP",serif}
+  .hero-badge span{display:block;font-size:12px;color:#cdd8e4}
+
+  /* strengths */
+  .why{background:var(--white)}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .why-card{text-align:center;padding:30px 18px;border:1px solid var(--line);border-radius:12px;background:var(--bg);transition:.25s}
+  .why-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px -20px rgba(31,58,95,.5)}
+  .why-card .ic{width:62px;height:62px;margin:0 auto 14px;border-radius:50%;background:var(--navy);color:var(--wood);display:grid;place-items:center;font-size:28px}
+  .why-card h3{font-size:17px;color:var(--navy);margin-bottom:8px}
+  .why-card p{font-size:13.5px;color:var(--gray)}
+
+  /* services */
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .svc{display:flex;gap:18px;background:var(--white);border-radius:12px;padding:26px;border:1px solid var(--line)}
+  .svc .ph{flex:none;width:96px;height:96px;border-radius:10px;background:linear-gradient(135deg,var(--steel),var(--navy));color:#fff;display:grid;place-items:center;font-size:38px}
+  .svc h3{font-size:19px;color:var(--navy);margin-bottom:6px}
+  .svc p{font-size:14px;color:var(--gray)}
+  .svc .tag{display:inline-block;margin-top:10px;font-size:12px;color:var(--wood);font-weight:700}
+
+  /* works (before/after) */
+  .works{background:var(--white)}
+  .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .work{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+  .work .imgs{display:grid;grid-template-columns:1fr 1fr;gap:2px;position:relative}
+  .work .ba{aspect-ratio:1/1;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700;position:relative}
+  .work .ba.before{background:linear-gradient(135deg,#8a939d,#6c7681)}
+  .work .ba.after{background:linear-gradient(135deg,var(--wood),#a37c34)}
+  .work .ba span{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.45);padding:2px 9px;border-radius:4px;font-size:11px}
+  .work .body{padding:16px 18px}
+  .work h4{font-size:15.5px;color:var(--navy);margin-bottom:4px}
+  .work p{font-size:12.5px;color:var(--gray)}
+  .work .meta{margin-top:8px;font-size:12px;color:var(--wood);font-weight:700}
+
+  /* price */
+  .price{background:var(--wood-soft)}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .price-card{background:#fff;border-radius:12px;padding:30px 24px;text-align:center;border:1px solid var(--line)}
+  .price-card h3{font-size:18px;color:var(--navy)}
+  .price-card .amount{font-size:30px;font-weight:900;color:var(--wood);margin:12px 0;font-family:"Noto Serif JP",serif}
+  .price-card .amount small{font-size:14px;color:var(--gray);font-weight:500}
+  .price-card ul{list-style:none;text-align:left;font-size:13.5px;color:var(--ink)}
+  .price-card li{padding:6px 0;border-bottom:1px dashed var(--line)}
+  .price-card li:before{content:"✓ ";color:var(--wood);font-weight:900}
+
+  /* voice */
+  .voice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .voice{background:var(--white);border-radius:12px;padding:26px;border:1px solid var(--line);position:relative}
+  .voice .stars{color:var(--wood);font-size:15px;margin-bottom:10px}
+  .voice p{font-size:14px}
+  .voice .who{margin-top:14px;font-size:12.5px;color:var(--gray);font-weight:700}
+
+  /* company */
+  .company{background:var(--navy);color:#fff}
+  .company .sec-head h2{color:#fff}
+  .comp-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
+  .comp-table{width:100%;border-collapse:collapse;font-size:14px}
+  .comp-table th,.comp-table td{text-align:left;padding:13px 6px;border-bottom:1px solid rgba(255,255,255,.18);vertical-align:top}
+  .comp-table th{width:130px;color:var(--wood);font-weight:700;white-space:nowrap}
+  .area-box{background:var(--steel);border-radius:12px;padding:24px}
+  .area-box h3{color:var(--wood);font-size:16px;margin-bottom:10px}
+  .area-box p{font-size:14px;color:#dbe5f0}
+
+  /* CTA */
+  .cta{background:linear-gradient(120deg,var(--wood),#a37c34);color:#fff;text-align:center}
+  .cta h2{font-size:30px;margin-bottom:14px}
+  .cta p{font-size:15px;margin-bottom:28px}
+  .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta .btn-primary{background:#fff;color:var(--navy)}
+  .cta .btn-ghost{border-color:#fff}
+  .cta-tel{margin-top:24px;font-size:30px;font-weight:900;font-family:"Noto Serif JP",serif}
+
+  footer{background:#14253a;color:#aebccd;padding:40px 0 30px;font-size:13px}
+  .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:24px}
+  .foot-logo{color:#fff;font-weight:900;font-size:18px}
+  .copy{text-align:center;border-top:1px solid rgba(255,255,255,.1);padding-top:18px;font-size:12px}
+
+  /* mobile */
+  .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:9px 12px;gap:9px}
+  .mobile-cta .btn{flex:1;justify-content:center;padding:13px;font-size:14px}
+  @media(max-width:900px){
+    .why-grid{grid-template-columns:1fr 1fr}
+    .svc-grid,.works-grid,.price-grid,.voice-grid{grid-template-columns:1fr}
+    .comp-grid{grid-template-columns:1fr}
+    .gnav,.nav-tel{display:none}
+    .burger{display:block}
+    .mobile-cta{display:flex}
+    body{padding-bottom:64px}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo">★ これは <b>ENAK 制作サンプル</b> です（建築・リフォーム・外壁塗装 向けの見本）／写真・文言・会社情報はすべて仮</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="mark serif">匠</span>サンプル工務店</a>
+    <nav class="gnav">
+      <a href="#why">選ばれる理由</a>
+      <a href="#service">事業内容</a>
+      <a href="#works">施工事例</a>
+      <a href="#price">料金目安</a>
+      <a href="#company">会社概要</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-tel">000-000-0000<small>受付 9:00〜18:00</small></div>
+      <a href="#contact" class="btn btn-primary">無料見積もり</a>
+    </div>
+    <button class="burger" onclick="document.querySelector('.gnav').style.display='flex'">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ph-bg"></div>
+  <div class="wrap hero-in">
+    <div class="eyebrow">地域密着・自社施工・安心保証</div>
+    <h1>暮らしを、<br>つくる。守る。よみがえらせる。</h1>
+    <p class="lead">新築・リフォーム・外壁塗装・外構工事まで。<br>地域に根ざした職人が、住まいのお悩みに一棟一棟、丁寧にお応えします。</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">📋 無料で見積もり・相談</a>
+      <a href="#works" class="btn btn-ghost">施工事例を見る</a>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge"><b>1,200<small>件+</small></b><span>累計施工実績</span></div>
+      <div class="hero-badge"><b>10<small>年</small></b><span>最長保証</span></div>
+      <div class="hero-badge"><b>創業35<small>年</small></b><span>地域の信頼</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec why" id="why">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">OUR STRENGTH</span><h2>選ばれる理由</h2></div>
+    <div class="why-grid">
+      <div class="why-card"><div class="ic">🔨</div><h3>自社施工</h3><p>下請け任せにせず、自社の職人が責任を持って施工。中間マージンもカット。</p></div>
+      <div class="why-card"><div class="ic">📍</div><h3>地域密着</h3><p>創業以来、地元で信頼を積み重ねてきました。アフターも素早く対応。</p></div>
+      <div class="why-card"><div class="ic">🛡️</div><h3>安心の保証</h3><p>施工後も最長10年保証＋定期点検。万一の不具合もしっかりサポート。</p></div>
+      <div class="why-card"><div class="ic">💴</div><h3>明朗会計</h3><p>見積もりは無料・項目ごとに明確。追加費用の不安がありません。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section class="sec" id="service">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">SERVICE</span><h2>事業内容<small>住まいのことなら、なんでもご相談ください</small></h2></div>
+    <div class="svc-grid">
+      <div class="svc"><div class="ph">🏠</div><div><h3>新築・注文住宅</h3><p>土地探しから設計・施工まで。家族の暮らしに合わせた、世界に一つの住まいを。</p><span class="tag">設計／施工／土地相談</span></div></div>
+      <div class="svc"><div class="ph">🛠️</div><div><h3>リフォーム・改修</h3><p>水まわり・内装・間取り変更・増改築まで。今の住まいを快適に生まれ変わらせます。</p><span class="tag">水まわり／内装／増改築</span></div></div>
+      <div class="svc"><div class="ph">🎨</div><div><h3>外壁・屋根塗装</h3><p>住まいを守る塗り替え。下地から丁寧に、長持ちする施工で美観と耐久性を両立。</p><span class="tag">外壁／屋根／防水</span></div></div>
+      <div class="svc"><div class="ph">🌳</div><div><h3>外構・エクステリア</h3><p>駐車場・門まわり・お庭づくり。住まいの第一印象を整え、暮らしを豊かに。</p><span class="tag">駐車場／門扉／庭</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section class="sec works" id="works">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">WORKS</span><h2>施工事例<small>ビフォーアフターでご紹介します</small></h2></div>
+    <div class="works-grid">
+      <div class="work"><div class="imgs"><div class="ba before"><span>BEFORE</span>施工前写真</div><div class="ba after"><span>AFTER</span>施工後写真</div></div><div class="body"><h4>外壁塗装（築20年・戸建て）</h4><p>色あせた外壁を高耐久塗料で塗り替え。新築のような輝きに。</p><div class="meta">外壁塗装 ／ 約120万円</div></div></div>
+      <div class="work"><div class="imgs"><div class="ba before"><span>BEFORE</span>施工前写真</div><div class="ba after"><span>AFTER</span>施工後写真</div></div><div class="body"><h4>キッチンリフォーム</h4><p>使いにくかった台所を対面式に。家事動線がぐっと快適に。</p><div class="meta">水まわりリフォーム ／ 約95万円</div></div></div>
+      <div class="work"><div class="imgs"><div class="ba before"><span>BEFORE</span>施工前写真</div><div class="ba after"><span>AFTER</span>施工後写真</div></div><div class="body"><h4>屋根葺き替え工事</h4><p>雨漏りしていた屋根を軽量瓦で一新。耐震性もアップ。</p><div class="meta">屋根工事 ／ 約150万円</div></div></div>
+      <div class="work"><div class="imgs"><div class="ba before"><span>BEFORE</span>施工前写真</div><div class="ba after"><span>AFTER</span>施工後写真</div></div><div class="body"><h4>浴室リフォーム</h4><p>寒くて古い浴室を、暖かく掃除しやすいユニットバスへ。</p><div class="meta">水まわりリフォーム ／ 約85万円</div></div></div>
+      <div class="work"><div class="imgs"><div class="ba before"><span>BEFORE</span>施工前写真</div><div class="ba after"><span>AFTER</span>施工後写真</div></div><div class="body"><h4>外構・駐車場工事</h4><p>砂利の駐車場をコンクリート＋カーポートに。使いやすく。</p><div class="meta">外構工事 ／ 約70万円</div></div></div>
+      <div class="work"><div class="imgs"><div class="ba before"><span>BEFORE</span>施工前写真</div><div class="ba after"><span>AFTER</span>施工後写真</div></div><div class="body"><h4>内装フルリフォーム</h4><p>中古住宅を購入後、内装を一新。明るく開放的なLDKに。</p><div class="meta">内装リフォーム ／ 約220万円</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="sec price" id="price">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">PRICE</span><h2>料金の目安<small>※建物の状態により変動します。正確な金額は無料見積もりで</small></h2></div>
+    <div class="price-grid">
+      <div class="price-card"><h3>外壁塗装</h3><div class="amount">80<small>万円〜</small></div><ul><li>足場設置・養生</li><li>高圧洗浄・下地処理</li><li>3度塗り仕上げ</li><li>最長10年保証</li></ul></div>
+      <div class="price-card"><h3>水まわりリフォーム</h3><div class="amount">50<small>万円〜</small></div><ul><li>キッチン／浴室／トイレ</li><li>解体・設備交換</li><li>内装補修</li><li>メーカー保証対応</li></ul></div>
+      <div class="price-card"><h3>新築・注文住宅</h3><div class="amount">応相談</div><ul><li>土地探しから対応</li><li>自由設計</li><li>資金計画サポート</li><li>長期保証・点検</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="sec" id="voice">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">VOICE</span><h2>お客様の声</h2></div>
+    <div class="voice-grid">
+      <div class="voice"><div class="stars">★★★★★</div><p>「外壁塗装をお願いしました。職人さんが丁寧で、近所への配慮も完璧。仕上がりも大満足です。」</p><div class="who">— 50代・戸建て（外壁塗装）</div></div>
+      <div class="voice"><div class="stars">★★★★★</div><p>「キッチンのリフォームで家事がラクになりました。見積もりも分かりやすく、追加費用もなし。」</p><div class="who">— 40代・ご夫婦（水まわり）</div></div>
+      <div class="voice"><div class="stars">★★★★★</div><p>「初めての家づくりで不安でしたが、最後まで親身に相談に乗ってくれました。」</p><div class="who">— 30代・ご家族（新築）</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section class="sec company" id="company">
+  <div class="wrap">
+    <div class="sec-head"><span class="en">COMPANY</span><h2>会社概要</h2></div>
+    <div class="comp-grid">
+      <table class="comp-table">
+        <tr><th>会社名</th><td>サンプル工務店 株式会社</td></tr>
+        <tr><th>代表者</th><td>〇〇 〇〇</td></tr>
+        <tr><th>所在地</th><td>〒000-0000 〇〇県〇〇市〇〇町0-0-0</td></tr>
+        <tr><th>電話</th><td>000-000-0000（受付 9:00〜18:00）</td></tr>
+        <tr><th>建設業許可</th><td>〇〇県知事許可（般-00）第00000号</td></tr>
+        <tr><th>事業内容</th><td>新築・リフォーム・外壁塗装・外構工事</td></tr>
+        <tr><th>定休日</th><td>日曜・祝日</td></tr>
+      </table>
+      <div class="area-box">
+        <h3>対応エリア</h3>
+        <p>〇〇市を中心に、近隣エリアへ出張対応いたします。<br>「うちは対応エリア？」もお気軽にお問い合わせください。</p>
+        <h3 style="margin-top:18px">無料現地調査</h3>
+        <p>お見積もり・現地調査は無料。しつこい営業は一切いたしません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec cta" id="contact">
+  <div class="wrap">
+    <h2 class="serif">まずは無料で、ご相談ください</h2>
+    <p>お見積もり・現地調査は無料です。お電話・LINE・フォームからお気軽にどうぞ。</p>
+    <div class="cta-btns">
+      <a href="tel:0000000000" class="btn btn-primary">📞 電話で相談する</a>
+      <a href="#" class="btn btn-line">💬 LINEで相談する</a>
+      <a href="#" class="btn btn-ghost">📋 フォームで問い合わせ</a>
+    </div>
+    <div class="cta-tel">000-000-0000</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo">匠 サンプル工務店</div>
+        <p style="margin-top:8px">新築・リフォーム・外壁塗装・外構工事<br>〒000-0000 〇〇県〇〇市〇〇町0-0-0</p>
+      </div>
+      <div>
+        <p>📞 000-000-0000（9:00〜18:00 / 日祝休）</p>
+        <p>建設業許可：〇〇県知事許可（般-00）第00000号</p>
+      </div>
+    </div>
+    <div class="copy">© SAMPLE KOMUTEN.（ENAK 制作サンプル）</div>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a href="tel:0000000000" class="btn btn-primary">📞 電話</a>
+  <a href="#" class="btn btn-line">💬 LINE</a>
+  <a href="#contact" class="btn btn-ghost" style="border-color:var(--wood);color:var(--wood)">📋 見積もり</a>
+</div>
+
+</body>
+</html>

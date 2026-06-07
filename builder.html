@@ -240,8 +240,11 @@
   #polEditable:focus{outline:2px solid var(--main);border-radius:4px}
   #policies{padding:50px 0}
   #policies .wrap{max-width:880px}
-  #policies details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:#fff}
-  #policies summary{cursor:pointer;font-weight:700;padding:14px 18px;color:var(--accent)}
+  #policies details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:#fff;overflow:hidden}
+  #policies summary{cursor:pointer;font-weight:700;padding:15px 18px;color:#fff;background:var(--main);list-style:none;display:flex;justify-content:space-between;align-items:center}
+  #policies summary::-webkit-details-marker{display:none}
+  #policies summary::after{content:"＋ タップで開く";font-size:12px;font-weight:700;opacity:.9;white-space:nowrap}
+  #policies details[open] summary::after{content:"− 閉じる"}
   #policies .pol-body{padding:6px 18px 18px;font-size:13.5px;line-height:1.9;white-space:pre-wrap}
   #policies .pol-body table{width:100%;border-collapse:collapse;font-size:13px;white-space:normal}
   #policies .pol-body th,#policies .pol-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
@@ -919,10 +922,11 @@
     body.innerHTML=
       '<div class="pol-edit-hint" contenteditable="false">✏️ この内容は直接クリックして編集・追記できます（調べた内容を足してもOK）。<br>編集すると自動保存され、「書き出し」した本番サイトにも反映されます。※この案内文は本番には表示されません。</div>'
       +'<div id="polEditable" data-ptype="'+type+'" contenteditable="true">'+(saved!=null?saved:policyBodyHTML(type))+'</div>'
-      +'<div style="margin-top:12px"><button type="button" id="polReset" style="font-size:12px;padding:7px 13px;border:1px solid var(--line);border-radius:6px;background:#f6f4f1;cursor:pointer;font-family:inherit">↺ お店情報から作り直す</button></div>';
+      +'<div style="margin-top:12px"><button type="button" id="polReset" style="font-size:12px;padding:9px 14px;border:1px solid var(--line);border-radius:6px;background:#f6f4f1;cursor:pointer;font-family:inherit">↺ 自動作成の文章に戻す</button></div>';
     const ed=document.getElementById("polEditable");
     ed.addEventListener("input",()=>{ POLICY_EDITS[type]=ed.innerHTML; });
-    document.getElementById("polReset").addEventListener("click",()=>{ delete POLICY_EDITS[type]; ed.innerHTML=policyBodyHTML(type); });
+    const _pr=document.getElementById("polReset");
+    _pr.addEventListener("click",()=>{ delete POLICY_EDITS[type]; ed.innerHTML=policyBodyHTML(type); _pr.textContent="✓ 元に戻しました"; _pr.style.background="#e3f1ef"; setTimeout(function(){ _pr.textContent="↺ 自動作成の文章に戻す"; _pr.style.background="#f6f4f1"; },1500); });
     document.getElementById("modalBg").classList.add("show");
   }
   document.querySelectorAll("[data-policy]").forEach(a=>a.addEventListener("click",e=>{ e.preventDefault(); openPolicy(a.dataset.policy); }));

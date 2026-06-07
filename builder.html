@@ -245,6 +245,12 @@
   #policies .pol-body th,#policies .pol-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
   #policies .pol-body th{background:#f6f4f1;white-space:nowrap;width:34%}
   #policies .miss{color:#b06a1f;font-weight:700}
+  /* ===== トップ アイキャッチ画像（任意・画面いっぱい）===== */
+  .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.55;z-index:0;display:none}
+  .hero.has-img .hero-bg{display:block}
+  .hero.has-img{min-height:80vh}
+  .hero.has-img .hero-in h1,.hero.has-img .hero-in p,.hero.has-img .hero-in .eyebrow{text-shadow:0 2px 14px rgba(0,0,0,.35),0 1px 3px rgba(255,255,255,.4)}
+  body.sp .hero.has-img{min-height:62vh}
 </style>
 </head>
 <body>
@@ -454,6 +460,18 @@
 <div class="panel" id="panel">
   <h3>🎨 デザイン設定</h3>
   <div class="sub">変更はこのページにすぐ反映されます（デモ）</div>
+
+  <div class="grp">
+    <label>トップのアイキャッチ画像（任意）</label>
+    <button type="button" id="heroPick" class="reset" style="background:var(--soft);border:2px solid var(--main);color:var(--accent)">🖼️ 画面いっぱいの画像を選ぶ</button>
+    <div id="heroOpWrap" style="display:none;margin-top:8px">
+      <label>画像の濃さ（透明度）</label>
+      <input type="range" id="heroOp" min="0" max="100" value="55" style="width:100%;accent-color:var(--accent)">
+      <div class="sub" style="margin:2px 0 0">左ほど薄く（文字が読みやすい）／右ほど画像くっきり</div>
+      <button type="button" id="heroClear" class="reset" style="margin-top:8px">画像を外す（元のデザインに戻す）</button>
+    </div>
+    <input type="file" id="heroFile" accept="image/*" hidden>
+  </div>
 
   <div class="grp">
     <label>テーマ（プリセット）</label>
@@ -990,6 +1008,24 @@
     if(!pc||!sp) return;
     pc.addEventListener("click",function(){ document.body.classList.remove("sp"); pc.classList.add("on"); sp.classList.remove("on"); });
     sp.addEventListener("click",function(){ document.body.classList.add("sp"); sp.classList.add("on"); pc.classList.remove("on"); });
+  })();
+
+  /* ===== トップ アイキャッチ画像（任意・画面いっぱい）===== */
+  (function(){
+    var pick=document.getElementById("heroPick"), file=document.getElementById("heroFile"),
+        op=document.getElementById("heroOp"), clr=document.getElementById("heroClear"),
+        wrap=document.getElementById("heroOpWrap"), hero=document.querySelector(".hero");
+    if(!pick||!hero) return;
+    var bg=document.createElement("div"); bg.className="hero-bg"; bg.id="heroBg"; hero.insertBefore(bg,hero.firstChild);
+    pick.addEventListener("click",function(){ file.click(); });
+    file.addEventListener("change",function(){
+      var f=this.files&&this.files[0]; if(!f) return;
+      var r=new FileReader();
+      r.onload=function(e){ bg.style.backgroundImage="url("+e.target.result+")"; bg.style.opacity=(op.value/100); hero.classList.add("has-img"); wrap.style.display="block"; };
+      r.readAsDataURL(f);
+    });
+    op.addEventListener("input",function(){ bg.style.opacity=(this.value/100); });
+    clr.addEventListener("click",function(){ bg.style.backgroundImage=""; hero.classList.remove("has-img"); wrap.style.display="none"; file.value=""; });
   })();
 
   // パネル開閉

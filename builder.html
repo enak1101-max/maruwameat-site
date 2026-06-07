@@ -379,7 +379,8 @@
       <dl>
         <dt>店名</dt><dd><input id="nameInput" class="addr-in" placeholder="店名を入力"></dd>
         <dt>責任者</dt><dd><input id="ownerInput" class="addr-in" placeholder="運営責任者（代表者氏名）"></dd>
-        <dt>住所</dt><dd><input id="addrInput" class="addr-in" placeholder="住所を入力（例：福岡県福岡市博多区〇〇1-2-3）"></dd>
+        <dt>郵便番号</dt><dd><input id="zipInput" class="addr-in" placeholder="郵便番号7桁を入力 → 住所が自動で入ります" inputmode="numeric" maxlength="8"></dd>
+        <dt>住所</dt><dd><input id="addrInput" class="addr-in" placeholder="住所（郵便番号で自動入力／番地・建物名を追記）"></dd>
         <dt>電話</dt><dd><input id="phoneInput" class="addr-in" placeholder="電話番号を入力"></dd>
         <dt>営業</dt><dd><input id="hoursInput" class="addr-in" placeholder="営業時間を入力"></dd>
         <dt>定休</dt><dd><input id="closedInput" class="addr-in" placeholder="定休日を入力"></dd>
@@ -752,6 +753,32 @@
   bindField("hoursInput","hours");
   bindField("closedInput","closed");
 
+  /* ===== 郵便番号 → 住所 自動入力（zipcloud / JSONP）===== */
+  (function(){
+    var zi=document.getElementById("zipInput"); if(!zi) return;
+    function fmt(z){ return z.length===7 ? "〒"+z.slice(0,3)+"-"+z.slice(3) : ""; }
+    var seq=0;
+    zi.addEventListener("input",function(){
+      var z=zi.value.replace(/[^0-9]/g,"");
+      if(z.length!==7) return;
+      var cb="__zip"+z+"_"+(++seq);
+      window[cb]=function(data){
+        var sc=document.getElementById(cb);
+        try{
+          if(data&&data.status===200&&data.results&&data.results[0]){
+            var r=data.results[0];
+            var ai=document.getElementById("addrInput");
+            ai.value=fmt(z)+" "+r.address1+r.address2+r.address3;
+            ai.dispatchEvent(new Event("input",{bubbles:true}));
+          }
+        }finally{ delete window[cb]; if(sc&&sc.parentNode) sc.parentNode.removeChild(sc); }
+      };
+      var sc=document.createElement("script");
+      sc.id=cb; sc.src="https://zipcloud.ibsnet.co.jp/api/search?zipcode="+z+"&callback="+cb;
+      document.body.appendChild(sc);
+    });
+  })();
+
   /* お問い合わせ用メール → 「お問い合わせ」ボタンを押すとメール起動 */
   const _contact=document.getElementById("contactInput");
   if(_contact){
@@ -987,7 +1014,7 @@
     });
     // SNS入力ブロックごと除去／問合せ・業種の行を除去（公開には表示しない）
     var sns=clone.querySelector("#snsIg"); if(sns && sns.parentElement) sns.parentElement.remove();
-    ["contactInput","bizInput"].forEach(function(id){ var e=clone.querySelector("#"+id); if(e){ var dd=e.closest("dd"); if(dd){ var dt=dd.previousElementSibling; if(dt&&dt.tagName==="DT") dt.remove(); dd.remove(); } } });
+    ["contactInput","bizInput","zipInput"].forEach(function(id){ var e=clone.querySelector("#"+id); if(e){ var dd=e.closest("dd"); if(dd){ var dt=dd.previousElementSibling; if(dt&&dt.tagName==="DT") dt.remove(); dd.remove(); } } });
     // 規約を <details> で本番に埋め込み（フッターのリンクから開ける）
     try{
       var polDefs=[["privacy","プライバシーポリシー"],["cancel","キャンセル・返品について"],["tokusho","特定商取引法に基づく表記"]];

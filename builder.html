@@ -593,8 +593,11 @@
     return d;
   }
   // ===== 自動保存：まず保存データがあれば復元（最初に実行）=====
-  var __SAVE_KEY="hpb_save_v1", __RESTORE=null, __RESTORED=false;
-  try{ __RESTORE=JSON.parse(localStorage.getItem(__SAVE_KEY)||"null"); }catch(e){}
+  var __SAVE_KEY="hpb_save_v1", __RESTORE=null, __RESTORED=false, __seed=null;
+  // ファイル読み込みは window.name 経由（容量が大きい画像でも確実に受け渡し）
+  try{ if(window.name && window.name.indexOf("HPBLOAD:")===0){ __seed=window.name.slice(8); window.name=""; } }catch(e){}
+  try{ __RESTORE=JSON.parse(__seed || localStorage.getItem(__SAVE_KEY) || "null"); }catch(e){}
+  if(__seed){ try{ localStorage.setItem(__SAVE_KEY, __seed); }catch(e){} } // 可能なら自動保存にも反映
   if(__RESTORE && __RESTORE.html){ var __sr=document.getElementById("siteRoot"); if(__sr){ __sr.innerHTML=__RESTORE.html; __RESTORED=true; } }
   const prodGrid=document.getElementById("prodGrid");
   if(!__RESTORED) (CONTENT.products||[]).forEach(p=>prodGrid.appendChild(makeProduct(p)));
@@ -1119,6 +1122,8 @@
         if(__RESTORE.policy && typeof POLICY_EDITS!=="undefined"){ Object.keys(__RESTORE.policy).forEach(function(k){ POLICY_EDITS[k]=__RESTORE.policy[k]; }); }
         ["nameInput","phoneInput","hoursInput","closedInput","addrInput","contactInput","bizInput","ownerInput","zipInput"].forEach(function(id){ var e=document.getElementById(id); if(e&&e.value){ e.dispatchEvent(new Event("input",{bubbles:true})); } });
       }catch(e){}
+      // 復元できたことを画面で知らせる
+      try{ var bn=document.createElement("div"); bn.textContent="✅ 前回の続きを復元しました"; bn.style.cssText="position:fixed;top:0;left:0;right:0;z-index:300;background:#2e8b57;color:#fff;text-align:center;padding:9px;font-weight:700;font-size:13px;font-family:inherit"; document.body.appendChild(bn); setTimeout(function(){ if(bn.parentNode) bn.parentNode.removeChild(bn); },2600); }catch(e){}
     }
     // 自動保存（同端末）
     var st=document.getElementById("saveStatus"), _t;
@@ -1134,7 +1139,7 @@
     var lf=document.getElementById("loadFile"), lfi=document.getElementById("loadFileInput");
     if(lf&&lfi){
       lf.addEventListener("click",function(){ lfi.click(); });
-      lfi.addEventListener("change",function(){ var f=this.files&&this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(e){ try{ JSON.parse(e.target.result); localStorage.setItem(__SAVE_KEY, e.target.result); alert("読み込みました。続きから表示します。"); location.reload(); }catch(err){ alert("このファイルは読み込めませんでした。"); } }; r.readAsText(f); });
+      lfi.addEventListener("change",function(){ var f=this.files&&this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(e){ try{ JSON.parse(e.target.result); /* 妥当性確認 */ try{ window.name="HPBLOAD:"+e.target.result; }catch(_){} try{ localStorage.setItem(__SAVE_KEY, e.target.result); }catch(_){} location.href=location.pathname+"?_r="+Date.now(); }catch(err){ alert("このファイルは読み込めませんでした。正しい作業ファイル（mysite-project.json）か確認してください。"); } }; r.readAsText(f); });
     }
     // 保存を消して最初から
     var cs=document.getElementById("clearSave");

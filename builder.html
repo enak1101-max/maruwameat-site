@@ -762,7 +762,7 @@
   }
 
   /* ===== 文字をクリックして直接編集（キャッチコピー・一言・お知らせ・見出しなど）===== */
-  ["#newsText",".hero .eyebrow",".hero h1",".hero p",".sec-head h2",
+  ["#newsText",".hero .eyebrow",".hero h1",".hero p",".en",".sec-head h2",
    ".feat .f h3",".feat .f p",".about h3",".about p",".cta h2",".cta p"]
     .forEach(sel=>document.querySelectorAll(sel).forEach(el=>{ el.contentEditable="true"; el.classList.add("ed"); }));
 

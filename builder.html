@@ -483,6 +483,16 @@
   </div>
 
   <div class="grp">
+    <label>💾 作業の保存・引き継ぎ</label>
+    <div class="sub" id="saveStatus" style="margin:0 0 6px;color:#2e8b57">自動保存：この端末では戻っても残ります</div>
+    <button type="button" id="saveFile" class="reset" style="background:var(--soft);border:2px solid var(--main);color:var(--accent)">💾 作業ファイルを書き出す（端末またぎ）</button>
+    <button type="button" id="loadFile" class="reset" style="margin-top:6px">📂 作業ファイルを読み込む</button>
+    <button type="button" id="clearSave" class="reset" style="margin-top:6px;color:#c0392b">🗑️ 保存を消して最初から</button>
+    <input type="file" id="loadFileInput" accept=".json,application/json" hidden>
+    <div class="sub" style="margin-top:6px">スマホで「書き出す」→PCで「読み込む」で続きから編集できます</div>
+  </div>
+
+  <div class="grp">
     <label>テーマ（プリセット）</label>
     <div class="presets" id="presets"></div>
   </div>
@@ -582,10 +592,14 @@
       +'<p contenteditable="true" class="ed">「'+(r.text||'〈お客様の声をここに入れます〉')+'」</p><div class="who" contenteditable="true" class="ed">— '+(r.who||'〈お客様〉')+'</div>';
     return d;
   }
+  // ===== 自動保存：まず保存データがあれば復元（最初に実行）=====
+  var __SAVE_KEY="hpb_save_v1", __RESTORE=null, __RESTORED=false;
+  try{ __RESTORE=JSON.parse(localStorage.getItem(__SAVE_KEY)||"null"); }catch(e){}
+  if(__RESTORE && __RESTORE.html){ var __sr=document.getElementById("siteRoot"); if(__sr){ __sr.innerHTML=__RESTORE.html; __RESTORED=true; } }
   const prodGrid=document.getElementById("prodGrid");
-  (CONTENT.products||[]).forEach(p=>prodGrid.appendChild(makeProduct(p)));
+  if(!__RESTORED) (CONTENT.products||[]).forEach(p=>prodGrid.appendChild(makeProduct(p)));
   const revGrid=document.getElementById("revGrid");
-  (CONTENT.reviews||[]).forEach(r=>revGrid.appendChild(makeReview(r)));
+  if(!__RESTORED) (CONTENT.reviews||[]).forEach(r=>revGrid.appendChild(makeReview(r)));
 
   const PRESETS=[
     {name:"テラコッタ",   main:"#CC8462", accent:"#A8623F"},
@@ -1059,7 +1073,8 @@
         op=document.getElementById("heroOp"), clr=document.getElementById("heroClear"),
         wrap=document.getElementById("heroOpWrap"), hero=document.querySelector(".hero");
     if(!pick||!hero) return;
-    var bg=document.createElement("div"); bg.className="hero-bg"; bg.id="heroBg"; hero.insertBefore(bg,hero.firstChild);
+    var bg=hero.querySelector(".hero-bg"); if(!bg){ bg=document.createElement("div"); bg.className="hero-bg"; bg.id="heroBg"; hero.insertBefore(bg,hero.firstChild); }
+    if(hero.classList.contains("has-img")) wrap.style.display="block";
     pick.addEventListener("click",function(){ file.click(); });
     file.addEventListener("change",function(){
       var f=this.files&&this.files[0]; if(!f) return;
@@ -1074,6 +1089,53 @@
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");
   var _pc=document.getElementById("panelClose"); if(_pc) _pc.onclick=()=>document.getElementById("panel").classList.remove("open");
+
+  /* ===== 自動保存 ＆ 端末またぎの保存ファイル ===== */
+  (function(){
+    function val(id){ var e=document.getElementById(id); return e?e.value:""; }
+    function setVal(id,v){ var e=document.getElementById(id); if(e!=null&&v!=null){ e.value=v; } }
+    var root=document.documentElement;
+    function snapshot(){
+      var inputs={}; document.querySelectorAll("#siteRoot input, #siteRoot textarea").forEach(function(el){ if(el.id) inputs[el.id]=el.value; });
+      var rs=root.style, toggles={}; document.querySelectorAll("[data-t]").forEach(function(c){ toggles[c.dataset.t]=c.checked; });
+      return { v:1, html:document.getElementById("siteRoot").innerHTML, inputs:inputs,
+        vars:{ main:rs.getPropertyValue("--main"),accent:rs.getPropertyValue("--accent"),tone:rs.getPropertyValue("--tone"),radius:rs.getPropertyValue("--radius"),secpad:rs.getPropertyValue("--secpad"),fs:rs.getPropertyValue("--fs"),head:rs.getPropertyValue("--head-font"),body:rs.getPropertyValue("--body-font") },
+        dark:document.body.classList.contains("theme-dark"),
+        panel:{cMain:val("cMain"),cAccent:val("cAccent"),tone:val("tone"),radius:val("radius"),secpad:val("secpad"),fs:val("fs"),headFont:val("headFont"),bodyFont:val("bodyFont")},
+        toggles:toggles, policy:(typeof POLICY_EDITS!=="undefined"?POLICY_EDITS:{}) };
+    }
+    // 復元の仕上げ（HTMLは復元済み。入力値・色・規約を戻す）
+    if(typeof __RESTORED!=="undefined" && __RESTORED && __RESTORE){
+      try{
+        if(__RESTORE.inputs){ Object.keys(__RESTORE.inputs).forEach(function(id){ var e=document.getElementById(id); if(e){ e.value=__RESTORE.inputs[id]; } }); }
+        if(__RESTORE.vars){ var vv=__RESTORE.vars, mm={ "--main":vv.main,"--accent":vv.accent,"--tone":vv.tone,"--radius":vv.radius,"--secpad":vv.secpad,"--fs":vv.fs,"--head-font":vv.head,"--body-font":vv.body }; Object.keys(mm).forEach(function(k){ if(mm[k]) root.style.setProperty(k,mm[k]); }); }
+        if(__RESTORE.dark) document.body.classList.add("theme-dark");
+        if(__RESTORE.panel){ Object.keys(__RESTORE.panel).forEach(function(id){ setVal(id,__RESTORE.panel[id]); }); }
+        if(__RESTORE.toggles){ document.querySelectorAll("[data-t]").forEach(function(c){ if(c.dataset.t in __RESTORE.toggles){ c.checked=__RESTORE.toggles[c.dataset.t]; c.dispatchEvent(new Event("change",{bubbles:true})); } }); }
+        if(__RESTORE.policy && typeof POLICY_EDITS!=="undefined"){ Object.keys(__RESTORE.policy).forEach(function(k){ POLICY_EDITS[k]=__RESTORE.policy[k]; }); }
+        ["nameInput","phoneInput","hoursInput","closedInput","addrInput","contactInput","bizInput","ownerInput","zipInput"].forEach(function(id){ var e=document.getElementById(id); if(e&&e.value){ e.dispatchEvent(new Event("input",{bubbles:true})); } });
+      }catch(e){}
+    }
+    // 自動保存（同端末）
+    var st=document.getElementById("saveStatus"), _t;
+    function doSave(){ try{ localStorage.setItem(__SAVE_KEY, JSON.stringify(snapshot())); if(st){ st.textContent="✓ 自動保存しました（この端末）"; st.style.color="#2e8b57"; } }catch(err){ if(st){ st.textContent="⚠️ 画像が多く自動保存できません。作業ファイルを書き出してください"; st.style.color="#c0392b"; } } }
+    function schedule(){ clearTimeout(_t); _t=setTimeout(doSave,800); }
+    document.addEventListener("input",schedule,true);
+    document.addEventListener("change",schedule,true);
+    document.addEventListener("click",schedule,true);
+    // 作業ファイルの書き出し（端末またぎ）
+    var sf=document.getElementById("saveFile");
+    if(sf) sf.addEventListener("click",function(){ var blob=new Blob([JSON.stringify(snapshot())],{type:"application/json"}); var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="mysite-project.json"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(a.href);},3000); });
+    // 作業ファイルの読み込み
+    var lf=document.getElementById("loadFile"), lfi=document.getElementById("loadFileInput");
+    if(lf&&lfi){
+      lf.addEventListener("click",function(){ lfi.click(); });
+      lfi.addEventListener("change",function(){ var f=this.files&&this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(e){ try{ JSON.parse(e.target.result); localStorage.setItem(__SAVE_KEY, e.target.result); alert("読み込みました。続きから表示します。"); location.reload(); }catch(err){ alert("このファイルは読み込めませんでした。"); } }; r.readAsText(f); });
+    }
+    // 保存を消して最初から
+    var cs=document.getElementById("clearSave");
+    if(cs) cs.addEventListener("click",function(){ if(confirm("保存した作業を消して、最初の状態に戻しますか？")){ try{localStorage.removeItem(__SAVE_KEY);}catch(e){} location.reload(); } });
+  })();
 </script>
 </body>
 </html>

@@ -213,6 +213,38 @@
 
   @media(max-width:860px){ .cards{grid-template-columns:repeat(2,1fr)} .feat{grid-template-columns:1fr} .about .cols,.access .box{grid-template-columns:1fr} .rev-grid{grid-template-columns:1fr} .foot-grid{grid-template-columns:1fr} }
   @media(max-width:560px){ .gnav{display:none} .cards{grid-template-columns:1fr 1fr} }
+
+  /* ===== 改善：星評価を押しやすく ===== */
+  .rev .stars{user-select:none}
+  .rev .stars span{font-size:24px;padding:0 2px;line-height:1;display:inline-block;transition:transform .1s}
+  .rev .stars span:hover{transform:scale(1.3)}
+  /* ===== 改善：お知らせを流れる表示 ===== */
+  .news .ticker{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
+  .news .ticker #newsText{display:inline-block;white-space:nowrap;padding-left:100%;animation:bld-news 18s linear infinite}
+  .news .ticker:hover #newsText,.news .ticker #newsText:focus{animation-play-state:paused}
+  @keyframes bld-news{to{transform:translateX(-100%)}}
+  /* ===== 改善：PC/スマホ プレビュー ===== */
+  .pv-bar{display:flex;gap:6px;justify-content:center;align-items:center;background:#1f2730;padding:7px}
+  .pv-bar button{background:#3a4654;color:#fff;border:none;border-radius:6px;padding:6px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+  .pv-bar button.on{background:var(--main)}
+  #siteRoot{transition:max-width .2s}
+  body.sp{background:#dfe3e8}
+  body.sp #siteRoot{max-width:390px;margin:16px auto 96px;box-shadow:0 0 0 8px #20262e,0 24px 60px -20px rgba(0,0,0,.55);border-radius:26px;overflow:hidden;background:#fff}
+  body.sp .gnav{display:none}
+  body.sp .cards{grid-template-columns:1fr 1fr}
+  body.sp .feat,body.sp .about .cols,body.sp .access .box,body.sp .rev-grid,body.sp .foot-grid{grid-template-columns:1fr}
+  /* ===== 改善：規約 details（書き出し後に表示）===== */
+  .pol-edit-hint{font-size:12px;color:var(--main);font-weight:700;margin-bottom:10px;background:var(--soft);padding:8px 10px;border-radius:6px}
+  #polEditable:focus{outline:2px solid var(--main);border-radius:4px}
+  #policies{padding:50px 0}
+  #policies .wrap{max-width:880px}
+  #policies details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:#fff}
+  #policies summary{cursor:pointer;font-weight:700;padding:14px 18px;color:var(--accent)}
+  #policies .pol-body{padding:6px 18px 18px;font-size:13.5px;line-height:1.9;white-space:pre-wrap}
+  #policies .pol-body table{width:100%;border-collapse:collapse;font-size:13px;white-space:normal}
+  #policies .pol-body th,#policies .pol-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  #policies .pol-body th{background:#f6f4f1;white-space:nowrap;width:34%}
+  #policies .miss{color:#b06a1f;font-weight:700}
 </style>
 </head>
 <body>
@@ -242,6 +274,7 @@
 
 <div class="demo-bar">🎨 ホームページビルダー（デモ）— 右下の <b>🎨ボタン</b>で色・フォント／<b>✏️ 文字はクリックして直接編集</b>／画像枠タップで写真選択</div>
 <div class="spec-bar">📐 画像の目安 ｜ <b>ロゴ</b>：PNG/SVG・正方形・512×512px ｜ <b>商品写真</b>：JPG・正方形・800×800px ｜ <b>紹介写真</b>：JPG・4:3・1200×900px</div>
+<div class="pv-bar"><span style="color:#9aa6b2;font-size:12px;margin-right:6px">プレビュー</span><button id="pvPc" class="on" type="button">💻 PC</button><button id="pvSp" type="button">📱 スマホ</button></div>
 
 <!-- SNSアイコン（再利用） -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -251,6 +284,7 @@
   <symbol id="yt" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></symbol>
 </svg>
 
+<div id="siteRoot">
 <!-- Header -->
 <header><div class="wrap nav">
   <a href="#" class="logo"><span class="mark" title="ロゴ画像：PNG(透過)またはSVG・正方形・推奨512×512px">ロゴ</span><span class="ph-text" data-field="name">〈お店の名前〉</span></a>
@@ -267,7 +301,7 @@
 </div></section>
 
 <!-- News -->
-<section class="news" data-sec="news"><div class="wrap row"><span class="tag">お知らせ</span><span id="newsText">🔸 〈ここに最新のお知らせを表示します（営業時間・キャンペーン等）〉</span></div></section>
+<section class="news" data-sec="news"><div class="wrap row"><span class="tag">お知らせ</span><div class="ticker"><span id="newsText">🔸 〈ここに最新のお知らせを表示します（営業時間・キャンペーン等）〉</span></div></div></section>
 
 <!-- Features -->
 <section class="sec" data-sec="features"><div class="wrap">
@@ -333,6 +367,7 @@
     <div>
       <dl>
         <dt>店名</dt><dd><input id="nameInput" class="addr-in" placeholder="店名を入力"></dd>
+        <dt>責任者</dt><dd><input id="ownerInput" class="addr-in" placeholder="運営責任者（代表者氏名）"></dd>
         <dt>住所</dt><dd><input id="addrInput" class="addr-in" placeholder="住所を入力（例：福岡県福岡市博多区〇〇1-2-3）"></dd>
         <dt>電話</dt><dd><input id="phoneInput" class="addr-in" placeholder="電話番号を入力"></dd>
         <dt>営業</dt><dd><input id="hoursInput" class="addr-in" placeholder="営業時間を入力"></dd>
@@ -375,6 +410,7 @@
   </div>
   <div class="copy">© <span data-field="name">〈店名〉</span></div>
 </div></footer>
+</div><!-- /siteRoot -->
 
 <!-- 「次へ（規約設定へ）」ボタン -->
 <button class="next-btn" id="nextBtn" type="button">編集できたら ▶ 次へ（規約設定）</button>
@@ -515,7 +551,7 @@
   function makeReview(r){ r=r||{};
     const d=document.createElement("div"); d.className="rev";
     d.innerHTML='<button class="del-btn" type="button" title="削除">✕</button>'
-      +'<div class="stars" title="星をクリックで評価変更">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'">★</span>').join('')+'</div>'
+      +'<div class="stars" contenteditable="false" title="★をクリックで評価を変更">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'">★</span>').join('')+'</div>'
       +'<p contenteditable="true" class="ed">「'+(r.text||'〈お客様の声をここに入れます〉')+'」</p><div class="who" contenteditable="true" class="ed">— '+(r.who||'〈お客様〉')+'</div>';
     return d;
   }
@@ -791,40 +827,80 @@
   /* ===== 規約・ポリシー自動作成（店名・住所・連絡先・業種から生成）===== */
   function _v(id){ const e=document.getElementById(id); return e?e.value.trim():""; }
   function _ph(v,label){ return v || ("〈"+label+"〉"); }
+  // 業種を判定（自由入力 or ウィザードの選択から）
+  function bizCategory(b){
+    b=(b||"");
+    if(/飲食|カフェ|喫茶|レストラン|居酒屋|食堂|バル|ラーメン|焼肉店/.test(b)) return "restaurant";
+    if(/美容|サロン|ネイル|エステ|理容|まつ|ヘア|床屋|脱毛/.test(b)) return "beauty";
+    if(/整体|治療|接骨|整骨|鍼|灸|マッサージ|リラク|セラピ|カイロ/.test(b)) return "therapy";
+    if(/クリニック|医療|歯科|病院|診療|薬局/.test(b)) return "clinic";
+    if(/建築|工務店|リフォーム|塗装|外構|内装|大工|施工|建設|解体/.test(b)) return "construction";
+    if(/食品|精肉|鮮魚|惣菜|菓子|パン|青果|スイーツ|ベーカリー|肉|魚/.test(b)) return "food";
+    if(/教室|スクール|塾|レッスン|教育|習い事|講座|アカデミー/.test(b)) return "school";
+    if(/宿泊|観光|旅館|ホテル|民宿|ゲストハウス|ペンション/.test(b)) return "lodging";
+    if(/小売|物販|ショップ|販売|雑貨|アパレル|通販|ストア|お店/.test(b)) return "retail";
+    return "service";
+  }
+  const BIZ_PROFILES={
+    food:{items:"お名前・ご住所・電話番号・メールアドレス・ご注文内容・お届け先情報 等。",purpose:"商品の発送・代金決済・ご連絡・お問い合わせ対応・品質向上のため。",cancelBody:"<h4>ご注文のキャンセル</h4>発送準備前であればキャンセルを承ります。お早めにご連絡ください。\n<h4>返品・交換</h4>生鮮・冷凍食品という商品の性質上、お客様のご都合による返品・交換はお受けできません。\n商品の不良・破損・配送中の事故等があった場合は、商品到着後3日以内にご連絡ください。状況を確認のうえ、交換または返金にて対応いたします。\n<h4>保存・お届け</h4>クール便（冷凍／冷蔵）にてお届けします。お受け取り後は表示の方法で保存してください。",deliver:"ご注文・ご入金確認後、◯営業日以内に発送（クール便）。",ret:"食品の性質上、お客様都合の返品・交換は不可。不良品は到着後3日以内のご連絡で対応。"},
+    restaurant:{items:"お名前・電話番号・メールアドレス・ご予約内容 等。",purpose:"ご予約の確認・ご連絡・サービス向上のため。",cancelBody:"<h4>ご予約の変更・キャンセル</h4>ご予約の変更・キャンセルはお早めにご連絡ください。\nコース料理・宴会・多人数のご予約は、前日・当日のキャンセルにキャンセル料を申し受ける場合がございます。\n<h4>提供後について</h4>飲食サービスの性質上、ご提供後の返金はお受けできません。",deliver:"ご予約日時にご提供いたします。",ret:"飲食提供の性質上、提供後の返金は不可。予約キャンセルは規定に従います。"},
+    beauty:{items:"お名前・ご連絡先・ご予約内容・施術内容や履歴 等。",purpose:"ご予約管理・施術・アフターケア・ご連絡・サービス向上のため。",cancelBody:"<h4>ご予約の変更・キャンセル</h4>ご予約の変更・キャンセルは、予約日時の◯時間前までにご連絡ください。\n直前のキャンセル・無断キャンセルの場合は、キャンセル料を申し受けることがございます。\n<h4>回数券・前売チケット</h4>有効期限内にご利用ください。原則として返金はいたしかねます。\n<h4>施術後について</h4>役務（施術）の性質上、提供後の返金はお受けできません。仕上がりにご不安があればお早めにご相談ください。",deliver:"ご予約日時に施術（役務）を提供いたします。",ret:"施術（役務）提供の性質上、提供後の返金は不可。予約キャンセルは規定に従います。"},
+    therapy:{items:"お名前・ご連絡先・ご予約内容・お身体の状態に関する情報（健康情報）等。",purpose:"ご予約管理・施術・お身体の状態の把握・ご連絡のため。",privNote:"お身体に関する情報（要配慮個人情報）は、ご本人の同意のもとで取得し、特に厳重に管理します。",cancelBody:"<h4>ご予約の変更・キャンセル</h4>ご予約の変更・キャンセルは、予約日時の◯時間前までにご連絡ください。\n直前・無断キャンセルの場合は、キャンセル料を申し受けることがございます。\n<h4>回数券について</h4>有効期限内にご利用ください。原則として返金はいたしかねます。\n<h4>施術後について</h4>役務（施術）の性質上、提供後の返金はお受けできません。",deliver:"ご予約日時に施術（役務）を提供いたします。",ret:"施術（役務）提供の性質上、提供後の返金は不可。予約キャンセルは規定に従います。"},
+    clinic:{items:"お名前・ご連絡先・診療予約内容・健康状態に関する情報 等。",purpose:"診療・予約管理・ご連絡のため。医療法・個人情報保護法等の関係法令に基づき取り扱います。",privNote:"診療情報・健康情報（要配慮個人情報）は、関係法令に従い特に厳重に管理します。",cancelBody:"<h4>ご予約の変更・キャンセル</h4>ご予約の変更・キャンセルは、お早めにお電話にてご連絡ください。\n<h4>自由診療について</h4>自由診療のご予約・施術には、別途定めるキャンセル規定が適用される場合がございます。",deliver:"ご予約日時に診療を提供いたします。",ret:"診療（役務）の性質上、提供後の返金は規定によります。"},
+    retail:{items:"お名前・ご住所・電話番号・メールアドレス・ご注文内容 等。",purpose:"商品の発送・代金決済・ご連絡・お問い合わせ対応のため。",cancelBody:"<h4>ご注文のキャンセル</h4>発送準備前であればキャンセルを承ります。\n<h4>返品・交換</h4>未使用・未開封の商品に限り、商品到着後8日以内であれば返品を承ります（お客様都合の場合、返送料はお客様負担）。\n商品の不良・破損・誤配送の場合は、当店負担にて交換または返金いたします。\n<h4>返品できない場合</h4>使用済み・開封済みの商品、お客様により汚損・破損した商品 等。",deliver:"ご注文・ご入金確認後、◯営業日以内に発送いたします。",ret:"未使用・未開封に限り到着後8日以内返品可（客都合は返送料客負担）。不良品は当店負担で対応。"},
+    school:{items:"お名前・ご連絡先・受講内容 等（未成年の場合は保護者の情報を含む）。",purpose:"受講管理・指導・ご連絡・教材等のご提供のため。",cancelBody:"<h4>お申し込みのキャンセル</h4>受講開始前のキャンセルは規定に従い対応いたします。\n<h4>受講料について</h4>原則として、受講開始後の受講料の返金はいたしかねます。やむを得ない事情がある場合は別途ご相談ください。\n<h4>欠席・振替</h4>欠席時の振替の可否は当教室の規定によります。",deliver:"お申し込みのレッスン・講座の日程に提供いたします。",ret:"役務（受講）提供のため、受講開始後の返金は規定によります。"},
+    lodging:{items:"お名前・ご連絡先・ご宿泊予約内容・人数 等。",purpose:"ご予約管理・宿泊サービスの提供・ご連絡のため。",cancelBody:"<h4>ご予約のキャンセル</h4>ご予約のキャンセル・変更には、宿泊約款に基づくキャンセル料を申し受ける場合がございます（例：◯日前から発生）。\n<h4>不泊（ノーショー）</h4>ご連絡のない不泊は、宿泊料金の全額を申し受ける場合がございます。",deliver:"ご予約日に宿泊・サービスを提供いたします。",ret:"宿泊約款・キャンセル規定に従います。"},
+    construction:{items:"お名前・ご住所・電話番号・メールアドレス・工事内容・現地情報 等。",purpose:"お見積もり・工事の実施・アフター対応・ご連絡のため。",cancelBody:"<h4>ご契約後のキャンセル</h4>ご契約後の解約は、それまでの出来高（発注済み材料・着手分等）に応じて精算させていただく場合がございます。\n<h4>クーリングオフ</h4>訪問販売等に該当する契約の場合、法定書面のお受け取りから8日間はクーリングオフが可能です。\n<h4>追加・変更工事</h4>追加・変更が生じる場合は、着工前に別途お見積もりをご提示します。",deliver:"ご契約に定める工期に従って施工いたします。",ret:"請負工事のため進捗に応じた精算。クーリングオフ該当時は法定に従います。"},
+    service:{items:"お名前・ご住所・電話番号・メールアドレス・ご依頼内容 等。",purpose:"サービスのご提供・ご連絡・お問い合わせ対応・サービス向上のため。",cancelBody:"<h4>キャンセルについて</h4>キャンセル・変更はお早めにご連絡ください。内容により、キャンセル料を申し受ける場合がございます。\n<h4>返金について</h4>サービスの性質上、提供後の返金はお受けできない場合がございます。不備があった場合はお早めにご相談ください。",deliver:"ご依頼内容に応じて提供いたします。",ret:"提供内容により異なります。詳細はお問い合わせください。"}
+  };
   function genPolicy(type){
     const name=_ph(_v("nameInput"),"店名"), addr=_ph(_v("addrInput"),"住所"),
-          tel=_ph(_v("phoneInput"),"電話番号"), mail=_ph(_v("contactInput"),"メール"), biz=_ph(_v("bizInput"),"業種");
+          tel=_ph(_v("phoneInput"),"電話番号"), mail=_ph(_v("contactInput"),"メール"), biz=_ph(_v("bizInput"),"業種"),
+          owner=_ph(_v("ownerInput"),"代表者氏名");
+    const wb=document.getElementById("wizBiz");
+    const cat=bizCategory(_v("bizInput")||(wb?wb.value:"")||"");
+    const P=BIZ_PROFILES[cat]||BIZ_PROFILES.service;
     if(type==="privacy") return {title:"プライバシーポリシー", html:
 `${name}（以下「当店」といいます）は、お客様の個人情報を以下のとおり適切に取り扱います。
 
-<h4>1. 取得する情報</h4>お名前・ご住所・電話番号・メールアドレス・ご注文内容 等。
-<h4>2. 利用目的</h4>商品の発送・ご連絡・お問い合わせ対応・サービス向上のため。
+<h4>1. 取得する情報</h4>${P.items}
+<h4>2. 利用目的</h4>${P.purpose}
 <h4>3. 第三者への提供</h4>法令に基づく場合を除き、ご本人の同意なく第三者に提供しません。
-<h4>4. 開示・訂正・削除</h4>ご本人からのお申し出により、適切に対応いたします。
-<h4>5. お問い合わせ窓口</h4>${name}　メール：${mail}／電話：${tel}`};
+<h4>4. 安全管理</h4>個人情報の漏えい・滅失・毀損の防止に努め、適切に管理します。${P.privNote?("\n"+P.privNote):""}
+<h4>5. 開示・訂正・削除</h4>ご本人からのお申し出により、適切に対応いたします。
+<h4>6. お問い合わせ窓口</h4>${name}　メール：${mail}／電話：${tel}`};
     if(type==="cancel") return {title:"キャンセル・返品について", html:
-`<h4>ご注文のキャンセル</h4>発送準備前であればキャンセルを承ります。${name}（${tel}）までご連絡ください。
-<h4>返品・交換</h4>商品に不良・破損・誤配送があった場合は、商品到着後すみやかにご連絡ください。送料は当店負担にて、交換または返金いたします。
-お客様のご都合による返品は、商品の性質上お受けできない場合がございます。
-<h4>お問い合わせ</h4>メール：${mail}／電話：${tel}`};
+`${P.cancelBody}
+<h4>お問い合わせ</h4>${name}　メール：${mail}／電話：${tel}`};
     return {title:"特定商取引法に基づく表記", table:[
-      ["販売事業者",name],["運営責任者","〈代表者氏名〉"],["所在地",addr],["電話番号",tel],
-      ["メールアドレス",mail],["業種・取扱商品",biz],["販売価格","各商品ページに記載（税込）"],
+      ["販売事業者",name],["運営責任者",owner],["所在地",addr],["電話番号",tel],
+      ["メールアドレス",mail],["業種・取扱内容",biz],["販売価格・料金","各ページに記載（税込）"],
       ["商品代金以外の費用","送料・決済手数料 等"],["お支払い方法","クレジットカード／その他"],
-      ["引渡し時期","ご注文後、順次発送いたします"],["返品・キャンセル","「キャンセル・返品について」に準じます"]
+      ["引渡し・提供時期",P.deliver],["返品・キャンセル",P.ret]
     ]};
+  }
+  // 編集された規約を保持（type → HTML）。編集すると書き出しにも反映される
+  const POLICY_EDITS={};
+  // 規約の本文HTML（表 or 文章）を生成。※注意文は含めない（本番に出さないため）
+  function policyBodyHTML(type){
+    const p=genPolicy(type);
+    if(p.table){
+      return '<table>'+p.table.map(r=>'<tr><th>'+r[0]+'</th><td>'+(/〈[^〉]*〉/.test(r[1])?'<span class="miss">'+r[1]+'</span>':r[1])+'</td></tr>').join('')+'</table>';
+    }
+    return p.html.replace(/〈[^〉]*〉/g,m=>'<span class="miss">'+m+'</span>');
   }
   function openPolicy(type){
     const p=genPolicy(type);
     document.getElementById("modalTitle").textContent=p.title;
     const body=document.getElementById("modalBody");
-    if(p.table){
-      body.innerHTML='<table>'+p.table.map(r=>'<tr><th>'+r[0]+'</th><td>'+(/〈[^〉]*〉/.test(r[1])?'<span class="miss">'+r[1]+'</span>':r[1])+'</td></tr>').join('')
-        +'</table><p style="font-size:12px;color:#999;margin-top:10px">※オレンジの〈　〉は、お店情報を入力すると自動で埋まります。</p>';
-    } else {
-      body.innerHTML=p.html.replace(/〈[^〉]*〉/g,m=>'<span class="miss">'+m+'</span>')
-        +'<p style="font-size:12px;color:#999;margin-top:12px">※オレンジの〈　〉は、お店情報を入力すると自動で埋まります。</p>';
-    }
+    const saved=POLICY_EDITS[type];
+    body.innerHTML=
+      '<div class="pol-edit-hint" contenteditable="false">✏️ この内容は直接クリックして編集・追記できます（調べた内容を足してもOK）。<br>編集すると自動保存され、「書き出し」した本番サイトにも反映されます。※この案内文は本番には表示されません。</div>'
+      +'<div id="polEditable" data-ptype="'+type+'" contenteditable="true">'+(saved!=null?saved:policyBodyHTML(type))+'</div>'
+      +'<div style="margin-top:12px"><button type="button" id="polReset" style="font-size:12px;padding:7px 13px;border:1px solid var(--line);border-radius:6px;background:#f6f4f1;cursor:pointer;font-family:inherit">↺ お店情報から作り直す</button></div>';
+    const ed=document.getElementById("polEditable");
+    ed.addEventListener("input",()=>{ POLICY_EDITS[type]=ed.innerHTML; });
+    document.getElementById("polReset").addEventListener("click",()=>{ delete POLICY_EDITS[type]; ed.innerHTML=policyBodyHTML(type); });
     document.getElementById("modalBg").classList.add("show");
   }
   document.querySelectorAll("[data-policy]").forEach(a=>a.addEventListener("click",e=>{ e.preventDefault(); openPolicy(a.dataset.policy); }));
@@ -878,6 +954,21 @@
     // SNS入力ブロックごと除去／問合せ・業種の行を除去（公開には表示しない）
     var sns=clone.querySelector("#snsIg"); if(sns && sns.parentElement) sns.parentElement.remove();
     ["contactInput","bizInput"].forEach(function(id){ var e=clone.querySelector("#"+id); if(e){ var dd=e.closest("dd"); if(dd){ var dt=dd.previousElementSibling; if(dt&&dt.tagName==="DT") dt.remove(); dd.remove(); } } });
+    // 規約を <details> で本番に埋め込み（フッターのリンクから開ける）
+    try{
+      var polDefs=[["privacy","プライバシーポリシー"],["cancel","キャンセル・返品について"],["tokusho","特定商取引法に基づく表記"]];
+      var polSec=document.createElement("section"); polSec.className="sec"; polSec.id="policies";
+      var inner='<div class="wrap"><div class="sec-head"><h2 class="serif" style="font-size:22px">ご利用案内・規約</h2></div>';
+      polDefs.forEach(function(pd){
+        var html=(POLICY_EDITS[pd[0]]!=null)?POLICY_EDITS[pd[0]]:policyBodyHTML(pd[0]);
+        inner+='<details id="policy-'+pd[0]+'"><summary>'+pd[1]+'</summary><div class="pol-body">'+html+'</div></details>';
+      });
+      inner+='</div>';
+      polSec.innerHTML=inner;
+      var f=clone.querySelector("footer");
+      if(f&&f.parentNode){ f.parentNode.insertBefore(polSec,f); }
+      clone.querySelectorAll("[data-policy]").forEach(function(a){ a.setAttribute("href","#policy-"+a.getAttribute("data-policy")); });
+    }catch(e){}
     // 編集モードを解除
     clone.querySelectorAll("[contenteditable]").forEach(function(e){e.removeAttribute("contenteditable");});
     return "<!DOCTYPE html>\n"+clone.outerHTML;
@@ -892,6 +983,14 @@
     if(m){ m.style.color="#2e8b57"; m.textContent="📦 書き出しました！ダウンロードした mysite.html を無料ホスティング（Netlify Drop等）に置けば公開できます。"; m.style.display="block"; }
   }
   var _exp=document.getElementById("exportBtn"); if(_exp) _exp.addEventListener("click",exportHTML);
+
+  /* ===== PC / スマホ プレビュー切替 ===== */
+  (function(){
+    var pc=document.getElementById("pvPc"), sp=document.getElementById("pvSp");
+    if(!pc||!sp) return;
+    pc.addEventListener("click",function(){ document.body.classList.remove("sp"); pc.classList.add("on"); sp.classList.remove("on"); });
+    sp.addEventListener("click",function(){ document.body.classList.add("sp"); sp.classList.add("on"); pc.classList.remove("on"); });
+  })();
 
   // パネル開閉
   document.getElementById("fab").onclick=()=>document.getElementById("panel").classList.toggle("open");

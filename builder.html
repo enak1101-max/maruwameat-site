@@ -678,17 +678,34 @@
     if(!el) return;
     el.addEventListener("click",ev=>{ ev.preventDefault(); ev.stopPropagation(); _target=el; _file.value=""; _file.click(); });
   }
+  // 画像を自動縮小（保存・公開を軽くする）。asPng=trueで透過維持（ロゴ用）
+  function compressImg(file, maxDim, asPng, cb){
+    var r=new FileReader();
+    r.onload=function(ev){
+      var img=new Image();
+      img.onload=function(){
+        var w=img.width||maxDim, h=img.height||maxDim, scale=Math.min(1, maxDim/Math.max(w,h));
+        var cw=Math.max(1,Math.round(w*scale)), ch=Math.max(1,Math.round(h*scale));
+        var c=document.createElement("canvas"); c.width=cw; c.height=ch;
+        c.getContext("2d").drawImage(img,0,0,cw,ch);
+        var out; try{ out=asPng?c.toDataURL("image/png"):c.toDataURL("image/jpeg",0.82); }catch(e){ out=ev.target.result; }
+        cb(out);
+      };
+      img.onerror=function(){ cb(ev.target.result); };
+      img.src=ev.target.result;
+    };
+    r.readAsDataURL(file);
+  }
   _file.addEventListener("change",e=>{
     const f=e.target.files[0]; if(!f||!_target) return;
-    const r=new FileReader();
-    r.onload=ev=>{
-      _target.style.backgroundImage="url('"+ev.target.result+"')";
+    var isLogo = !!(_target.closest && _target.closest(".logo"));
+    compressImg(f, isLogo?512:1200, isLogo, function(url){
+      _target.style.backgroundImage="url('"+url+"')";
       _target.style.backgroundSize="cover";
       _target.style.backgroundPosition="center";
       _target.style.borderStyle="solid";
       _target.innerHTML="";
-    };
-    r.readAsDataURL(f);
+    });
   });
   document.querySelectorAll(".ph-thumb, .logo .mark").forEach(bindUpload);
 
@@ -1085,9 +1102,7 @@
     pick.addEventListener("click",function(){ file.click(); });
     file.addEventListener("change",function(){
       var f=this.files&&this.files[0]; if(!f) return;
-      var r=new FileReader();
-      r.onload=function(e){ bg.style.backgroundImage="url("+e.target.result+")"; bg.style.opacity=(op.value/100); hero.classList.add("has-img"); wrap.style.display="block"; };
-      r.readAsDataURL(f);
+      compressImg(f, 1800, false, function(url){ bg.style.backgroundImage="url("+url+")"; bg.style.opacity=(op.value/100); hero.classList.add("has-img"); wrap.style.display="block"; });
     });
     op.addEventListener("input",function(){ bg.style.opacity=(this.value/100); });
     clr.addEventListener("click",function(){ bg.style.backgroundImage=""; hero.classList.remove("has-img"); wrap.style.display="none"; file.value=""; });

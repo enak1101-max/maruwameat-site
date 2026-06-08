@@ -214,7 +214,17 @@
   .reset{width:100%;margin-top:4px;background:#f1efea;border:none;border-radius:7px;padding:9px;font-size:12.5px;font-weight:700;cursor:pointer}
 
   @media(max-width:860px){ .cards{grid-template-columns:repeat(2,1fr)} .feat{grid-template-columns:1fr} .about .cols,.access .box{grid-template-columns:1fr} .rev-grid{grid-template-columns:1fr} .foot-grid{grid-template-columns:1fr} }
-  @media(max-width:560px){ .gnav{display:none} .cards{grid-template-columns:1fr 1fr} }
+  @media(max-width:560px){ .gnav{display:none} .cards{grid-template-columns:1fr 1fr}
+    .nav{height:auto;min-height:56px;gap:8px;padding:6px 0}
+    .logo{font-size:14px;line-height:1.25;min-width:0}
+    .logo .mark{width:30px;height:30px;flex:none}
+    header .nav .btn,header .nav .btn-main{padding:8px 12px;font-size:12px;white-space:nowrap;flex:none}
+  }
+  /* スマホプレビューでも同様に窮屈さを解消 */
+  body.sp .nav{height:auto;min-height:56px;gap:8px;padding:6px 0}
+  body.sp .logo{font-size:14px;line-height:1.25;min-width:0}
+  body.sp .logo .mark{width:30px;height:30px;flex:none}
+  body.sp header .nav .btn,body.sp header .nav .btn-main{padding:8px 12px;font-size:12px;white-space:nowrap;flex:none}
 
   /* ===== 改善：星評価を押しやすく ===== */
   .rev .stars{user-select:none}

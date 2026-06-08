@@ -743,6 +743,9 @@
     _addr.addEventListener("input",()=>{
       const a=_addr.value.trim();
       applyField("address",a);
+      // 「大きな地図で見る」リンクも住所に連動（別タブでGoogleマップ）
+      var _mlink=document.querySelector('[data-link="map"]');
+      if(_mlink){ if(a){ _mlink.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(a); _mlink.target="_blank"; _mlink.rel="noopener"; } else { _mlink.removeAttribute("href"); } }
       clearTimeout(_t);
       _t=setTimeout(()=>{ if(a) _map.src="https://maps.google.com/maps?q="+encodeURIComponent(a)+"&z=16&output=embed"; },500);
     });

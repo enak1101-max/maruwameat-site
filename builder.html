@@ -78,8 +78,8 @@
   /* About */
   .about .cols{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
   .about .ph-thumb{aspect-ratio:4/3}
-  .about h3{font-size:22px;font-family:var(--head-font);margin-bottom:14px;line-height:1.6}
-  .about p{font-size:14px}
+  .about h3{font-size:calc(22px * var(--fs));font-family:var(--head-font);margin-bottom:14px;line-height:1.6}
+  .about p{font-size:calc(14px * var(--fs))}
 
   /* Products */
   .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
@@ -705,6 +705,7 @@
       _target.style.backgroundPosition="center";
       _target.style.borderStyle="solid";
       _target.innerHTML="";
+      if(isLogo){ try{ setFavicon(((document.getElementById("nameInput")||{}).value)||""); }catch(e){} }
     });
   });
   document.querySelectorAll(".ph-thumb, .logo .mark").forEach(bindUpload);
@@ -768,15 +769,25 @@
     const has=!!(v&&v.trim());
     document.querySelectorAll('[data-field="'+key+'"]').forEach(el=>{ el.textContent=has?v:el.dataset.ph; el.classList.toggle("filled",has); });
   }
-  function setFavicon(text){
+  function _iconLink(){ var l=document.querySelector("link[rel='icon']"); if(!l){ l=document.createElement("link"); l.rel="icon"; document.head.appendChild(l); } return l; }
+  function _logoUrl(){ var m=document.querySelector(".logo .mark"); if(!m) return ""; var bg=m.style.backgroundImage||""; var mm=bg.match(/url\(["']?(.*?)["']?\)/); return mm?mm[1]:""; }
+  function _textFavicon(text){
     const c=document.createElement("canvas"); c.width=64; c.height=64; const x=c.getContext("2d");
     const main=getComputedStyle(document.documentElement).getPropertyValue("--main").trim()||"#888";
     x.fillStyle=main; x.beginPath(); x.arc(32,32,32,0,Math.PI*2); x.fill();
     const ch=(text||"").trim().charAt(0)||"●";
     x.fillStyle="#fff"; x.font="bold 38px 'Hiragino Sans',sans-serif"; x.textAlign="center"; x.textBaseline="middle";
     x.fillText(ch,32,35);
-    let l=document.querySelector("link[rel='icon']"); if(!l){ l=document.createElement("link"); l.rel="icon"; document.head.appendChild(l); }
-    l.href=c.toDataURL("image/png");
+    try{ _iconLink().href=c.toDataURL("image/png"); }catch(e){}
+  }
+  function setFavicon(text){
+    const logo=_logoUrl();
+    if(logo){ // アップしたロゴ／アイコンをファビコンに
+      const img=new Image();
+      img.onload=function(){ try{ const c=document.createElement("canvas"); c.width=64;c.height=64; const x=c.getContext("2d"); x.drawImage(img,0,0,64,64); _iconLink().href=c.toDataURL("image/png"); }catch(e){ _textFavicon(text); } };
+      img.onerror=function(){ _textFavicon(text); };
+      img.src=logo;
+    } else { _textFavicon(text); }
   }
   function bindField(id,key,extra){
     const i=document.getElementById(id); if(!i) return;
@@ -1136,6 +1147,7 @@
         if(__RESTORE.toggles){ document.querySelectorAll("[data-t]").forEach(function(c){ if(c.dataset.t in __RESTORE.toggles){ c.checked=__RESTORE.toggles[c.dataset.t]; c.dispatchEvent(new Event("change",{bubbles:true})); } }); }
         if(__RESTORE.policy && typeof POLICY_EDITS!=="undefined"){ Object.keys(__RESTORE.policy).forEach(function(k){ POLICY_EDITS[k]=__RESTORE.policy[k]; }); }
         ["nameInput","phoneInput","hoursInput","closedInput","addrInput","contactInput","bizInput","ownerInput","zipInput"].forEach(function(id){ var e=document.getElementById(id); if(e&&e.value){ e.dispatchEvent(new Event("input",{bubbles:true})); } });
+        try{ setFavicon(((document.getElementById("nameInput")||{}).value)||""); }catch(e){}
       }catch(e){}
       // 復元できたことを画面で知らせる
       try{ var bn=document.createElement("div"); bn.textContent="✅ 前回の続きを復元しました"; bn.style.cssText="position:fixed;top:0;left:0;right:0;z-index:300;background:#2e8b57;color:#fff;text-align:center;padding:9px;font-weight:700;font-size:13px;font-family:inherit"; document.body.appendChild(bn); setTimeout(function(){ if(bn.parentNode) bn.parentNode.removeChild(bn); },2600); }catch(e){}

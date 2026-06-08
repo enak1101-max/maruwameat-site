@@ -1076,6 +1076,10 @@
     // SNS入力ブロックごと除去／問合せ・業種の行を除去（公開には表示しない）
     var sns=clone.querySelector("#snsIg"); if(sns && sns.parentElement) sns.parentElement.remove();
     ["contactInput","bizInput","zipInput"].forEach(function(id){ var e=clone.querySelector("#"+id); if(e){ var dd=e.closest("dd"); if(dd){ var dt=dd.previousElementSibling; if(dt&&dt.tagName==="DT") dt.remove(); dd.remove(); } } });
+    // 未入力（〈　〉）の項目は本番に出さない（入れたものだけ表示）
+    clone.querySelectorAll('[data-field],[data-sync]').forEach(function(el){ if(/〈[^〉]*〉/.test(el.textContent||"")){ el.textContent=""; } });
+    // 空になった行（社名下のキャッチコピー・連絡先・エリア表記など）は枠ごと非表示
+    clone.querySelectorAll('[data-sync="catch"], .hero .eyebrow, footer p, .about p, .hero p').forEach(function(el){ if((el.textContent||"").replace(/\s/g,"")==="" && !el.querySelector("img,a,iframe,input,svg")){ el.style.display="none"; } });
     // 規約を <details> で本番に埋め込み（フッターのリンクから開ける）
     try{
       var polDefs=[["privacy","プライバシーポリシー"],["cancel","キャンセル・返品について"],["tokusho","特定商取引法に基づく表記"]];

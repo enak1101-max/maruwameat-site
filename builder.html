@@ -1050,6 +1050,8 @@
     rm("#panel"); rm(".mini-tb"); rm("#wizBg"); rm("#modalBg");
     // スマホプレビューの黒縁を本番に残さない（プレビュー状態を解除）
     var _b=clone.querySelector("body"); if(_b) _b.classList.remove("sp");
+    // ページのタイトル（タブ名）を店名に
+    var _t=clone.querySelector("title"); if(_t){ var _nm=(((document.getElementById("nameInput")||{}).value)||"").trim(); _t.textContent=_nm||"ホームページ"; }
     rm(".add-btn"); rm(".del-btn"); rm(".mode-switch"); rm(".map-note"); rm("script");
     // 画像/動画：選んでいない方を除去
     var mi=document.getElementById("mediaImage"), mv=document.getElementById("mediaVideo");

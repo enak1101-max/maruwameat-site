@@ -164,6 +164,12 @@
   .store dd a{color:var(--orange-deep);font-weight:700;text-decoration:underline}
   .store-map{width:100%;height:210px;border:0;display:block;margin-top:18px;border-radius:10px}
 
+  /* Shop gallery（お店のようす） */
+  .shopgal{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .shopgal figure{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(0,0,0,.3)}
+  .shopgal .ph{aspect-ratio:3/4;overflow:hidden}
+  .shopgal figcaption{padding:12px 10px;text-align:center;font-size:14px;font-weight:700;color:var(--orange-deep)}
+
   /* Media（ボタン→番組ページへリンク） */
   .media{background:#fff}
   .media-banner{max-width:640px;margin:0 auto;text-align:center;background:var(--orange-soft);border-radius:16px;padding:38px 30px;box-shadow:0 12px 30px -20px rgba(0,0,0,.3)}
@@ -218,6 +224,7 @@
     .cards,.gift-grid,.rev-grid{grid-template-columns:repeat(2,1fr)}
     .store-grid{grid-template-columns:1fr}
     .ig-grid{grid-template-columns:repeat(3,1fr)}
+    .shopgal{grid-template-columns:repeat(2,1fr)}
   }
   @media(max-width:680px){
     .gnav,.nav-cta .btn{display:none}
@@ -358,13 +365,15 @@
     </div>
     <button class="toggle-btn" data-target="cards-products" data-closed="🥩 看板商品を見る ▼" data-open="🥩 看板商品をとじる ▲">🥩 看板商品を見る ▼</button>
     <div class="cards collapsible" id="cards-products">
-      <div class="card"><div class="ph"><img data-img="prod_a5" alt="特選和牛 多目的用 切り落とし"></div><div class="body"><h4>特選和牛 切り落とし</h4><div class="desc">炒め物・すき焼き・牛丼に。万能の特選和牛500g。</div><div class="price">¥5,000 <small>/ 500g</small></div></div></div>
-      <div class="card"><div class="ph"><img data-img="prod_yakiniku" alt="宮崎牛・佐賀牛 特選焼肉用"></div><div class="body"><h4>宮崎牛・佐賀牛 特選焼肉用</h4><div class="desc">きめ細かなサシと旨み。おうち焼肉がごちそうに。</div><div class="price">¥7,500 <small>/ 500g</small></div></div></div>
-      <div class="card"><div class="ph"><img data-img="prod_sukiyaki" alt="宮崎牛・佐賀牛 特選ロース"></div><div class="body"><h4>宮崎牛・佐賀牛 特選ロース</h4><div class="desc">すき焼き・しゃぶしゃぶに。とろける極上のサシ。</div><div class="price">¥10,000 <small>/ 500g</small></div></div></div>
-      <div class="card"><div class="ph"><img data-img="prod_shabu" alt="博多もつ鍋セット"></div><div class="body"><h4>博多もつ鍋セット</h4><div class="desc">本場博多の味。モツ・スープ・ちゃんぽん麺入り。</div><div class="price">¥5,000 <small>/ 2〜3人前</small></div></div></div>
-      <div class="card"><div class="ph"><img data-img="prod_pork_shabu" alt="福岡県産 糸島豚 ロース＆バラ鍋用セット"></div><div class="body"><h4>糸島豚 ロース＆バラ 鍋用セット</h4><div class="desc">福岡のブランド豚。ロース500g＋バラ500gの1kg。</div><div class="price">¥6,000 <small>/ 1kg</small></div></div></div>
-      <div class="card"><div class="ph"><img data-img="prod_sirloin" alt="宮崎牛サーロインステーキ"></div><div class="body"><h4>宮崎牛 サーロインステーキ</h4><div class="desc">日本一の宮崎牛A5特選。柔らかさ・甘み・旨みすべて最高級。</div><div class="price">¥12,000 <small>/ 250g×2枚</small></div></div></div>
-      <div class="card"><div class="ph"><img data-img="prod_momo" alt="宮崎牛・佐賀牛 赤身モモ・ウデ すき焼き・しゃぶしゃぶ用"></div><div class="body"><h4>宮崎牛・佐賀牛 赤身モモ・ウデ</h4><div class="desc">すき焼き・しゃぶしゃぶに。旨み凝縮の上質赤身。</div><div class="price">¥5,800 <small>/ 500g</small></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_sirloin" alt="宮崎牛サーロインステーキ"></div><div class="body"><h4>宮崎牛 サーロインステーキ</h4><div class="desc">日本一の宮崎牛A5特選。柔らかさ・甘み・旨みすべて最高級。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_tabekurabe" alt="宮崎牛・佐賀牛・博多和牛 食べ比べ"></div><div class="body"><h4>宮崎牛・佐賀牛・博多和牛 食べ比べ</h4><div class="desc">九州三大ブランド和牛を、すき焼き・しゃぶしゃぶで食べ比べ。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_sukiyaki" alt="宮崎牛・佐賀牛 特選ロース"></div><div class="body"><h4>宮崎牛・佐賀牛 特選ロース</h4><div class="desc">すき焼き・しゃぶしゃぶに。とろける極上のサシ。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_yakiniku" alt="宮崎牛・佐賀牛 特選焼肉用"></div><div class="body"><h4>宮崎牛・佐賀牛 特選焼肉用</h4><div class="desc">きめ細かなサシと旨み。おうち焼肉がごちそうに。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_momo" alt="宮崎牛・佐賀牛 赤身モモ・ウデ すき焼き・しゃぶしゃぶ用"></div><div class="body"><h4>宮崎牛・佐賀牛 赤身モモ・ウデ</h4><div class="desc">すき焼き・しゃぶしゃぶに。旨み凝縮の上質赤身。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_a5" alt="特選和牛 多目的用 切り落とし"></div><div class="body"><h4>特選和牛 切り落とし</h4><div class="desc">炒め物・すき焼き・牛丼に。万能の特選和牛500g。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_hamburg" alt="博多和牛100%ハンバーグ"></div><div class="body"><h4>博多和牛100%ハンバーグ</h4><div class="desc">肉の旨みあふれる手ごね。焼くだけ簡単、お子様にも大人気。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_pork_shabu" alt="福岡県産 糸島豚 ロース＆バラ鍋用セット"></div><div class="body"><h4>糸島豚 ロース＆バラ 鍋用セット</h4><div class="desc">福岡のブランド豚。ロース500g＋バラ500gの1kg。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
+      <div class="card"><div class="ph"><img data-img="prod_shabu" alt="博多もつ鍋セット"></div><div class="body"><h4>博多もつ鍋セット</h4><div class="desc">本場博多の味。モツ・スープ・ちゃんぽん麺入り。</div><div class="price"><span style="color:#999;font-weight:400;font-size:13px">価格はお気軽にご相談ください</span></div></div></div>
     </div>
     <div class="center-cta">
       <a href="https://maruwameat.base.shop" target="_blank" rel="noopener" class="btn btn-primary">🛒 通販で全部見る</a>
@@ -384,9 +393,9 @@
     </div>
     <button class="toggle-btn" data-target="gift-grid" data-closed="🎁 ギフトを見る ▼" data-open="🎁 ギフトをとじる ▲">🎁 ギフトを見る ▼</button>
     <div class="gift-grid collapsible" id="gift-grid">
-      <div class="gift-card"><span class="rank">🌸 松</span><div class="ph"><img data-img="gift_matsu" alt="極みステーキギフト"></div><div class="body"><h4 class="serif">特選和牛 極みギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">A5ステーキ詰合せ・化粧箱入り</div><div class="price">¥15,000〜20,000</div></div></div>
-      <div class="gift-card"><span class="rank">🎋 竹</span><div class="ph"><img data-img="gift_take" alt="和牛ステーキセット"></div><div class="body"><h4 class="serif">和牛 ステーキセット</h4><div class="desc" style="font-size:13px;color:var(--gray)">人気の定番。贈って喜ばれる一箱</div><div class="price">¥8,000〜12,000</div></div></div>
-      <div class="gift-card"><span class="rank">🌿 梅</span><div class="ph"><img data-img="gift_ume" alt="和牛すき焼きギフト"></div><div class="body"><h4 class="serif">和牛 すき焼きギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">内祝い・カジュアルギフトに</div><div class="price">¥4,000〜6,000</div></div></div>
+      <div class="gift-card"><span class="rank">🌸 松</span><div class="ph"><img data-img="gift_matsu" alt="極みステーキギフト"></div><div class="body"><h4 class="serif">特選和牛 極みギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">A5ステーキ詰合せ・化粧箱入り</div><div class="price">¥15,000〜 <small>（ご相談ください）</small></div></div></div>
+      <div class="gift-card"><span class="rank">🎋 竹</span><div class="ph"><img data-img="gift_take" alt="和牛ステーキセット"></div><div class="body"><h4 class="serif">和牛 ステーキセット</h4><div class="desc" style="font-size:13px;color:var(--gray)">人気の定番。贈って喜ばれる一箱</div><div class="price">¥8,000〜 <small>（ご相談ください）</small></div></div></div>
+      <div class="gift-card"><span class="rank">🌿 梅</span><div class="ph"><img data-img="gift_ume" alt="和牛すき焼きギフト"></div><div class="body"><h4 class="serif">和牛 すき焼きギフト</h4><div class="desc" style="font-size:13px;color:var(--gray)">内祝い・カジュアルギフトに</div><div class="price">¥4,000〜 <small>（ご相談ください）</small></div></div></div>
     </div>
     <div class="center-cta"><a href="https://maruwameat.base.shop" target="_blank" rel="noopener" class="btn btn-primary">🎁 ギフトを見る</a></div>
   </div>
@@ -423,6 +432,8 @@
             <dt>営業</dt><dd>9:30〜19:00</dd>
             <dt>定休</dt><dd>1月1日〜1月4日</dd>
             <dt>駐車</dt><dd>無／近隣<a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BA%E9%8A%80%E5%A4%A9%E7%94%BA%E7%AC%AC1%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1%E4%B8%81%E7%9B%AE" target="_blank" rel="noopener">タイムズ銀天町1丁目</a></dd>
+            <dt>最寄</dt><dd>西鉄天神大牟田線「雑餉隈駅」</dd>
+            <dt>支払</dt><dd>現金・クレジット（3,000円以上）</dd>
           </dl>
           <div class="store-btns"><a href="tel:0925024129" class="btn btn-primary">📞 電話する</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%83%9E%E3%83%AB%E5%92%8C%E3%83%9F%E3%83%BC%E3%83%88%20%E9%9B%91%E9%A4%89%E9%9A%88%E6%9C%AC%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1-2-11" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color:var(--orange);color:var(--orange-deep)">🗺 大きな地図</a></div>
           <iframe class="store-map" src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1-2-11&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="雑餉隈本店 地図"></iframe>
@@ -438,11 +449,29 @@
             <dt>営業</dt><dd>10:00〜19:00</dd>
             <dt>定休</dt><dd>日曜日・1月1日〜1月4日</dd>
             <dt>駐車</dt><dd>あり</dd>
+            <dt>支払</dt><dd>現金のみ</dd>
           </dl>
           <div class="store-btns"><a href="tel:0925042944" class="btn btn-primary">📞 電話する</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%83%9E%E3%83%AB%E5%92%8C%E3%83%9F%E3%83%BC%E3%83%88%20%E6%9C%88%E9%9A%88%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E6%9D%B1%E6%9C%88%E9%9A%883-18-4" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color:var(--orange);color:var(--orange-deep)">🗺 大きな地図</a></div>
           <iframe class="store-map" src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E6%9D%B1%E6%9C%88%E9%9A%883-18-4&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="月隈店 地図"></iframe>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop gallery（お店のようす） -->
+<section class="sec" id="shop-gallery" style="background:var(--white)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en">OUR SHOP</span>
+      <h2 class="serif">お店のようす</h2>
+      <p>雑餉隈本店の店先・店内、最寄り駅をご紹介します</p>
+    </div>
+    <div class="shopgal">
+      <figure><div class="ph"><img data-img="gal_entrance" alt="マル和ミート 雑餉隈本店の入口"></div><figcaption>店先・入口</figcaption></figure>
+      <figure><div class="ph"><img data-img="gal_interior" alt="マル和ミート 雑餉隈本店の店内"></div><figcaption>店内の様子</figcaption></figure>
+      <figure><div class="ph"><img data-img="gal_scene" alt="マル和ミート 雑餉隈本店でのお買い物"></div><figcaption>ご来店のようす</figcaption></figure>
+      <figure><div class="ph"><img data-img="gal_station" alt="最寄り駅 西鉄雑餉隈駅"></div><figcaption>最寄り：西鉄雑餉隈駅</figcaption></figure>
     </div>
   </div>
 </section>
@@ -560,13 +589,20 @@
     prod_pork_shabu:"assets/images/products/itoshima-pork-set.jpg",      // 糸島豚 ロース＆バラセット
     prod_sirloin:   "assets/images/products/miyazaki-sirloin.jpg",       // 宮崎牛サーロインステーキ
     prod_momo:      "assets/images/products/miyazaki-saga-momo-ude.jpg", // 宮崎牛・佐賀牛 赤身モモ・ウデ
+    prod_tabekurabe:"assets/images/products/wagyu-sukiyaki-slice-tray-2.jpg", // 宮崎牛・佐賀牛・博多和牛 食べ比べ
+    prod_hamburg:   "assets/images/products/hakata-wagyu-hamburg.jpg",   // 博多和牛100%ハンバーグ
     // ギフト 松竹梅
     gift_matsu:     "assets/images/gifts/gift-miyazaki-steak-box.jpg", // 宮崎牛ステーキ箱（横向き）
     gift_take:      "assets/images/gifts/gift-steak-box-4p.jpg",
-    gift_ume:       "assets/images/products/gift-wagyu-slice-box.jpg",
+    gift_ume:       "assets/images/products/wagyu-sukiyaki-slice-tray-1.jpg",
     // 店舗写真
-    store_honten:   "assets/images/store/storefront-sign.jpg",
+    store_honten:   "assets/images/store/honten-exterior.jpg",       // 雑餉隈本店 外観（建物全景）
     store_tsukikuma:"assets/images/store/tsukikuma-placeholder.png", // ←月隈店の写真が入手できたらここを差し替え
+    // 本店ギャラリー（お店のようす）
+    gal_entrance:   "assets/images/store/honten-entrance.jpg",  // 店先・入口
+    gal_interior:   "assets/images/store/honten-interior.jpg",  // 店内（モザイク済）
+    gal_scene:      "assets/images/store/honten-scene.jpg",     // ご来店のようす（モザイク済）
+    gal_station:    "assets/images/store/honten-station.jpg",   // 最寄り 西鉄雑餉隈駅
     // Instagram QR
     ig_qr:          "assets/images/sns/instagram-qr.jpg",
     // LINE 友だち追加QR

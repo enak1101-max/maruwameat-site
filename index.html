@@ -152,7 +152,9 @@
 
   /* Stores */
   .store-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-  .store{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(0,0,0,.3)}
+  .store{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(0,0,0,.3);border:3px solid transparent}
+  .store.honten{border-color:var(--orange)}
+  .store.tsukikuma{border-color:var(--gold)}
   .store .ph{aspect-ratio:16/10;overflow:hidden}
   .store .body{padding:22px 24px}
   .store h4{font-size:20px;color:var(--orange-deep);margin-bottom:12px}
@@ -164,11 +166,16 @@
   .store dd a{color:var(--orange-deep);font-weight:700;text-decoration:underline}
   .store-map{width:100%;height:210px;border:0;display:block;margin-top:18px;border-radius:10px}
 
-  /* Shop gallery（お店のようす） */
-  .shopgal{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .shopgal figure{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(0,0,0,.3)}
-  .shopgal .ph{aspect-ratio:3/4;overflow:hidden}
-  .shopgal figcaption{padding:12px 10px;text-align:center;font-size:14px;font-weight:700;color:var(--orange-deep)}
+  /* Shop gallery（お店のようす）2店舗パネル・枠色分け */
+  .gal-stores{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .gal-panel{border:3px solid var(--orange);border-radius:16px;padding:16px;background:var(--base)}
+  .gal-panel.tsukikuma{border-color:var(--gold)}
+  .gal-panel h3{text-align:center;font-size:23px;font-weight:700;margin-bottom:16px;color:var(--orange-deep)}
+  .gal-panel.tsukikuma h3{color:var(--gold)}
+  .gal-panel .gp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gal-panel figure{border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 8px 20px -14px rgba(0,0,0,.35)}
+  .gal-panel .ph{aspect-ratio:4/3;overflow:hidden}
+  .gal-panel figcaption{padding:9px 6px;text-align:center;font-size:12.5px;font-weight:700;color:var(--ink)}
 
   /* Media（ボタン→番組ページへリンク） */
   .media{background:#fff}
@@ -224,7 +231,9 @@
     .cards,.gift-grid,.rev-grid{grid-template-columns:repeat(2,1fr)}
     .store-grid{grid-template-columns:1fr}
     .ig-grid{grid-template-columns:repeat(3,1fr)}
-    .shopgal{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:760px){
+    .gal-stores{grid-template-columns:1fr}
   }
   @media(max-width:680px){
     .gnav,.nav-cta .btn{display:none}
@@ -422,7 +431,7 @@
   <div class="wrap">
     <div class="sec-head"><span class="en">STORES</span><h2 class="serif">店舗案内</h2></div>
     <div class="store-grid">
-      <div class="store">
+      <div class="store honten">
         <div class="ph"><img data-img="store_honten" alt="マル和ミート 雑餉隈本店"></div>
         <div class="body">
           <h4>雑餉隈本店</h4>
@@ -439,7 +448,7 @@
           <iframe class="store-map" src="https://maps.google.com/maps?q=%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E9%8A%80%E5%A4%A9%E7%94%BA1-2-11&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="雑餉隈本店 地図"></iframe>
         </div>
       </div>
-      <div class="store">
+      <div class="store tsukikuma">
         <div class="ph"><img data-img="store_tsukikuma" alt="マル和ミート 月隈店"></div>
         <div class="body">
           <h4>月隈店</h4>
@@ -448,7 +457,7 @@
             <dt>電話</dt><dd>092-504-2944</dd>
             <dt>営業</dt><dd>10:00〜19:00</dd>
             <dt>定休</dt><dd>日曜日・1月1日〜1月4日</dd>
-            <dt>駐車</dt><dd>あり</dd>
+            <dt>駐車</dt><dd>あり（提携駐車場）</dd>
             <dt>支払</dt><dd>現金のみ</dd>
           </dl>
           <div class="store-btns"><a href="tel:0925042944" class="btn btn-primary">📞 電話する</a><a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%83%9E%E3%83%AB%E5%92%8C%E3%83%9F%E3%83%BC%E3%83%88%20%E6%9C%88%E9%9A%88%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E7%9C%8C%E7%A6%8F%E5%B2%A1%E5%B8%82%E5%8D%9A%E5%A4%9A%E5%8C%BA%E6%9D%B1%E6%9C%88%E9%9A%883-18-4" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color:var(--orange);color:var(--orange-deep)">🗺 大きな地図</a></div>
@@ -465,13 +474,29 @@
     <div class="sec-head">
       <span class="en">OUR SHOP</span>
       <h2 class="serif">お店のようす</h2>
-      <p>雑餉隈本店の店先・店内、最寄り駅をご紹介します</p>
+      <p>2つの店舗の店先・店内のようすをご紹介します（枠の色で店舗を分けています）</p>
     </div>
-    <div class="shopgal">
-      <figure><div class="ph"><img data-img="gal_entrance" alt="マル和ミート 雑餉隈本店の入口"></div><figcaption>店先・入口</figcaption></figure>
-      <figure><div class="ph"><img data-img="gal_interior" alt="マル和ミート 雑餉隈本店の店内"></div><figcaption>店内の様子</figcaption></figure>
-      <figure><div class="ph"><img data-img="gal_scene" alt="マル和ミート 雑餉隈本店でのお買い物"></div><figcaption>ご来店のようす</figcaption></figure>
-      <figure><div class="ph"><img data-img="gal_station" alt="最寄り駅 西鉄雑餉隈駅"></div><figcaption>最寄り：西鉄雑餉隈駅</figcaption></figure>
+    <div class="gal-stores">
+      <!-- 雑餉隈本店（オレンジ枠） -->
+      <div class="gal-panel honten">
+        <h3 class="serif">🏠 雑餉隈本店</h3>
+        <div class="gp-grid">
+          <figure><div class="ph"><img data-img="gal_entrance" alt="雑餉隈本店 店先"></div><figcaption>店先・入口</figcaption></figure>
+          <figure><div class="ph"><img data-img="gal_interior" alt="雑餉隈本店 店内"></div><figcaption>店内の様子</figcaption></figure>
+          <figure><div class="ph"><img data-img="gal_scene" alt="雑餉隈本店 ご来店の様子"></div><figcaption>ご来店のようす</figcaption></figure>
+          <figure><div class="ph"><img data-img="gal_station" alt="最寄り 西鉄雑餉隈駅"></div><figcaption>最寄り：西鉄雑餉隈駅</figcaption></figure>
+        </div>
+      </div>
+      <!-- 月隈店（ゴールド枠） -->
+      <div class="gal-panel tsukikuma">
+        <h3 class="serif">🏠 月隈店</h3>
+        <div class="gp-grid">
+          <figure><div class="ph"><img data-img="gal_t_storefront" alt="月隈店 店先・看板"></div><figcaption>店先・看板</figcaption></figure>
+          <figure><div class="ph"><img data-img="gal_t_interior" alt="月隈店 店内・対面ショーケース"></div><figcaption>店内（対面）</figcaption></figure>
+          <figure><div class="ph"><img data-img="gal_t_interior2" alt="月隈店 店内の様子"></div><figcaption>店内の様子</figcaption></figure>
+          <figure><div class="ph"><img data-img="gal_t_signage" alt="月隈店 駐車場のご案内"></div><figcaption>駐車場のご案内</figcaption></figure>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -597,12 +622,17 @@
     gift_ume:       "assets/images/products/wagyu-sukiyaki-slice-tray-1.jpg",
     // 店舗写真
     store_honten:   "assets/images/store/honten-exterior.jpg",       // 雑餉隈本店 外観（建物全景）
-    store_tsukikuma:"assets/images/store/tsukikuma-placeholder.png", // ←月隈店の写真が入手できたらここを差し替え
+    store_tsukikuma:"assets/images/store/tsukikuma-exterior.jpg",     // 月隈店 外観（店先・看板）
     // 本店ギャラリー（お店のようす）
     gal_entrance:   "assets/images/store/honten-entrance.jpg",  // 店先・入口
     gal_interior:   "assets/images/store/honten-interior.jpg",  // 店内（モザイク済）
     gal_scene:      "assets/images/store/honten-scene.jpg",     // ご来店のようす（モザイク済）
     gal_station:    "assets/images/store/honten-station.jpg",   // 最寄り 西鉄雑餉隈駅
+    // 月隈店ギャラリー
+    gal_t_storefront:"assets/images/store/tsukikuma-exterior.jpg", // 店先・看板
+    gal_t_interior: "assets/images/store/tsukikuma-interior.jpg",  // 店内 対面（店員さん）
+    gal_t_interior2:"assets/images/store/tsukikuma-interior2.jpg", // 店内の様子（モザイク済）
+    gal_t_signage:  "assets/images/store/tsukikuma-signage.jpg",   // 駐車場のご案内（スマートパーク・ナンバーぼかし済）
     // Instagram QR
     ig_qr:          "assets/images/sns/instagram-qr.jpg",
     // LINE 友だち追加QR
